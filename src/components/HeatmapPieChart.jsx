@@ -215,8 +215,96 @@ function getYearColor(index, totalYears, catFilter) {
   return allPalette[step]
 }
 
-function CustomBarSeriesTooltip({ active, payload, label, viewType, periodLabel, isRange, categoryFilter }) {
+function CustomBarSeriesTooltip({ active, payload, label, viewType, periodLabel, isRange, categoryFilter, yearsInRange }) {
   if (!active || !payload || !payload.length) return null
+
+  const itemData = payload[0]?.payload || {}
+
+  // If in Range mode and showing All categories (stacked per year):
+  if (isRange && categoryFilter === 'ALL' && yearsInRange && yearsInRange.length > 0) {
+    const totalAllYears = yearsInRange.reduce((sum, yr) => sum + (Number(itemData[yr]) || 0), 0)
+
+    return (
+      <div className="bg-white/95 backdrop-blur-md p-3.5 rounded-xl shadow-2xl border border-slate-200 text-xs min-w-[290px] space-y-2.5 z-[9999]">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+          <div>
+            <span className="font-bold text-slate-900 text-sm block">{label}</span>
+            <span className="text-[10px] text-slate-400 font-medium">{periodLabel} (4 Skala Usaha)</span>
+          </div>
+          <div className="text-right">
+            <span className="text-[10px] font-semibold text-slate-400 block uppercase">
+              Total {viewType === 'nominal' ? 'Nominal' : 'Volume'}
+            </span>
+            <span className="font-bold text-slate-900 text-xs text-blue-700">
+              {viewType === 'nominal' ? formatRupiahShort(totalAllYears) : formatVolumeShort(totalAllYears)}
+            </span>
+          </div>
+        </div>
+
+        <div className="space-y-2 pt-0.5">
+          {yearsInRange.map((yr) => {
+            const yrTotal = Number(itemData[yr]) || 0
+            const umiVal = Number(itemData[`${yr}_UMI`]) || 0
+            const ukeVal = Number(itemData[`${yr}_UKE`]) || 0
+            const umeVal = Number(itemData[`${yr}_UME`]) || 0
+            const ubeVal = Number(itemData[`${yr}_UBE`]) || 0
+
+            return (
+              <div key={yr} className="bg-slate-50/90 p-2 rounded-lg border border-slate-100/90 space-y-1">
+                <div className="flex items-center justify-between font-bold text-slate-800 text-[11px]">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-slate-700" />
+                    Tahun {yr}
+                  </span>
+                  <span className="text-slate-900 font-bold">
+                    {viewType === 'nominal' ? formatRupiahShort(yrTotal) : formatVolumeShort(yrTotal)}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 text-[10px] text-slate-600 pl-1">
+                  <div className="flex items-center justify-between">
+                    <span className="flex items-center gap-1 text-slate-500">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
+                      UMI:
+                    </span>
+                    <span className="font-semibold text-slate-800">
+                      {viewType === 'nominal' ? formatRupiahShort(umiVal) : formatVolumeShort(umiVal)}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="flex items-center gap-1 text-slate-500">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
+                      UKE:
+                    </span>
+                    <span className="font-semibold text-slate-800">
+                      {viewType === 'nominal' ? formatRupiahShort(ukeVal) : formatVolumeShort(ukeVal)}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="flex items-center gap-1 text-slate-500">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-600 shrink-0" />
+                      UME:
+                    </span>
+                    <span className="font-semibold text-slate-800">
+                      {viewType === 'nominal' ? formatRupiahShort(umeVal) : formatVolumeShort(umeVal)}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="flex items-center gap-1 text-slate-500">
+                      <span className="w-1.5 h-1.5 rounded-full bg-purple-600 shrink-0" />
+                      UBE:
+                    </span>
+                    <span className="font-semibold text-slate-800">
+                      {viewType === 'nominal' ? formatRupiahShort(ubeVal) : formatVolumeShort(ubeVal)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
 
   const total = payload.reduce((sum, p) => sum + (Number(p.value) || 0), 0)
 
@@ -524,25 +612,34 @@ export default function HeatmapPieChart({
         }
         let totalKab = 0
         yearsInRange.forEach((yr) => {
+          const umi = getCatData(kab, yr, 'ALL', 'UMI')
+          const uke = getCatData(kab, yr, 'ALL', 'UKE')
+          const ume = getCatData(kab, yr, 'ALL', 'UME')
+          const ube = getCatData(kab, yr, 'ALL', 'UBE')
+
+          const umiVal = viewType === 'nominal' ? umi.nominal : umi.volume
+          const ukeVal = viewType === 'nominal' ? uke.nominal : uke.volume
+          const umeVal = viewType === 'nominal' ? ume.nominal : ume.volume
+          const ubeVal = viewType === 'nominal' ? ube.nominal : ube.volume
+          const yrTotal = umiVal + ukeVal + umeVal + ubeVal
+
+          row[`${yr}_UMI`] = umiVal
+          row[`${yr}_UKE`] = ukeVal
+          row[`${yr}_UME`] = umeVal
+          row[`${yr}_UBE`] = ubeVal
+
           if (categoryFilter === 'ALL') {
-            const umi = getCatData(kab, yr, 'ALL', 'UMI')
-            const uke = getCatData(kab, yr, 'ALL', 'UKE')
-            const ume = getCatData(kab, yr, 'ALL', 'UME')
-            const ube = getCatData(kab, yr, 'ALL', 'UBE')
-            const yrNom = umi.nominal + uke.nominal + ume.nominal + ube.nominal
-            const yrVol = umi.volume + uke.volume + ume.volume + ube.volume
-            const yrVal = viewType === 'nominal' ? yrNom : yrVol
-            row[yr] = yrVal
-            row[`nominal_${yr}`] = yrNom
-            row[`volume_${yr}`] = yrVol
-            totalKab += yrVal
+            row[yr] = yrTotal
+            row[`nominal_${yr}`] = umi.nominal + uke.nominal + ume.nominal + ube.nominal
+            row[`volume_${yr}`] = umi.volume + uke.volume + ume.volume + ube.volume
+            totalKab += yrTotal
           } else {
-            const catData = getCatData(kab, yr, 'ALL', categoryFilter)
-            const yrVal = viewType === 'nominal' ? catData.nominal : catData.volume
-            row[yr] = yrVal
-            row[`nominal_${yr}`] = catData.nominal
-            row[`volume_${yr}`] = catData.volume
-            totalKab += yrVal
+            const catVal = row[`${yr}_${categoryFilter}`] || 0
+            row[yr] = catVal
+            const catRaw = categoryFilter === 'UMI' ? umi : categoryFilter === 'UKE' ? uke : categoryFilter === 'UME' ? ume : ube
+            row[`nominal_${yr}`] = catRaw.nominal
+            row[`volume_${yr}`] = catRaw.volume
+            totalKab += catVal
           }
         })
         row.total = totalKab
@@ -1040,7 +1137,7 @@ export default function HeatmapPieChart({
               <h3 className="text-sm sm:text-base font-bold text-ink-900 tracking-tight">
                 {isRange
                   ? categoryFilter === 'ALL'
-                    ? `Diagram Batang: Tren Tahunan Komparasi Wilayah (${startYear} - ${endYear})`
+                    ? `Diagram Batang: Komposisi 4 Skala per Tahun (${startYear} - ${endYear})`
                     : `Diagram Batang: Khusus ${CATEGORY_META[categoryFilter]?.label} (${categoryFilter}) per Tahun (${startYear} - ${endYear})`
                   : categoryFilter === 'ALL'
                     ? 'Diagram Batang Series: Perbandingan Antar Wilayah'
@@ -1050,7 +1147,9 @@ export default function HeatmapPieChart({
             <p className="text-xs text-ink-500 mt-0.5">
               {isRange
                 ? categoryFilter === 'ALL'
-                  ? `Perkembangan ${viewType === 'nominal' ? 'nominal transaksi (Rp)' : 'volume transaksi (trx)'} tiap tahun (${startYear} s.d. ${endYear}) di 4 kabupaten se-Banyumas Raya`
+                  ? barChartMode === 'stacked'
+                    ? `Komparasi komposisi 4 skala usaha (UMI, UKE, UME, UBE) di tiap tahun (${startYear} s.d. ${endYear}) per kabupaten se-Banyumas Raya`
+                    : `Perkembangan total ${viewType === 'nominal' ? 'nominal transaksi (Rp)' : 'volume transaksi (trx)'} tiap tahun (${startYear} s.d. ${endYear}) di 4 kabupaten se-Banyumas Raya`
                   : `Perkembangan ${viewType === 'nominal' ? 'nominal transaksi (Rp)' : 'volume transaksi (trx)'} khusus kategori ${CATEGORY_META[categoryFilter]?.label} per tahun (${startYear} s.d. ${endYear}) di 4 kabupaten`
                 : categoryFilter === 'ALL'
                   ? `Komparasi langsung nilai ${viewType === 'nominal' ? 'nominal transaksi (Rp)' : 'volume transaksi (trx)'} skala UMI, UKE, UME, dan UBE di 4 kabupaten · ${periodLabel}`
@@ -1113,20 +1212,9 @@ export default function HeatmapPieChart({
               </div>
             )}
 
-            {/* Bar Chart Mode Switcher: Grouped vs Stacked (visible if single year & Semua Skala) */}
-            {!isRange && categoryFilter === 'ALL' && (
+            {/* Bar Chart Mode Switcher */}
+            {categoryFilter === 'ALL' && (
               <div className="inline-flex p-1 bg-surface-muted rounded-xl border border-surface-border shadow-xs">
-                <button
-                  type="button"
-                  onClick={() => setBarChartMode('grouped')}
-                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                    barChartMode === 'grouped'
-                      ? 'bg-ink-900 text-white shadow-sm'
-                      : 'text-ink-600 hover:text-ink-900'
-                  }`}
-                >
-                  Berdampingan
-                </button>
                 <button
                   type="button"
                   onClick={() => setBarChartMode('stacked')}
@@ -1136,7 +1224,18 @@ export default function HeatmapPieChart({
                       : 'text-ink-600 hover:text-ink-900'
                   }`}
                 >
-                  Bertumpuk
+                  {isRange ? 'Komposisi 4 Skala' : 'Bertumpuk'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBarChartMode('grouped')}
+                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                    barChartMode === 'grouped'
+                      ? 'bg-ink-900 text-white shadow-sm'
+                      : 'text-ink-600 hover:text-ink-900'
+                  }`}
+                >
+                  {isRange ? 'Total Tahunan' : 'Berdampingan'}
                 </button>
               </div>
             )}
@@ -1200,14 +1299,17 @@ export default function HeatmapPieChart({
                   width={85}
                   dx={-4}
                 />
-                <Tooltip content={<CustomBarSeriesTooltip viewType={viewType} periodLabel={periodLabel} isRange={isRange} categoryFilter={categoryFilter} />} />
+                <Tooltip content={<CustomBarSeriesTooltip viewType={viewType} periodLabel={periodLabel} isRange={isRange} categoryFilter={categoryFilter} yearsInRange={yearsInRange} />} />
                 <Legend
                   verticalAlign="top"
                   align="right"
                   iconType="circle"
                   wrapperStyle={{ paddingBottom: '14px', fontSize: '11px', fontWeight: 600 }}
                   formatter={(value) => {
-                    if (isRange) {
+                    if (isRange && categoryFilter !== 'ALL') {
+                      return <span className="text-slate-700 font-semibold">{value.startsWith('Tahun') ? value : `Tahun ${value}`}</span>
+                    }
+                    if (isRange && categoryFilter === 'ALL' && barChartMode === 'grouped') {
                       return <span className="text-slate-700 font-semibold">{value.startsWith('Tahun') ? value : `Tahun ${value}`}</span>
                     }
                     const meta = CATEGORY_META[value]
@@ -1216,17 +1318,72 @@ export default function HeatmapPieChart({
                 />
 
                 {isRange ? (
-                  // RANGE MODE: Render separate bar per year in yearsInRange
-                  yearsInRange.map((yr, idx) => (
-                    <Bar
-                      key={yr}
-                      dataKey={yr}
-                      name={`Tahun ${yr}`}
-                      fill={getYearColor(idx, yearsInRange.length, categoryFilter)}
-                      radius={[4, 4, 0, 0]}
-                      maxBarSize={Math.max(12, Math.min(36, Math.floor(160 / yearsInRange.length)))}
-                    />
-                  ))
+                  categoryFilter === 'ALL' ? (
+                    barChartMode === 'grouped' ? (
+                      // Solid Bar Total per Year in Range
+                      yearsInRange.map((yr, idx) => (
+                        <Bar
+                          key={yr}
+                          dataKey={yr}
+                          name={`Tahun ${yr}`}
+                          fill={getYearColor(idx, yearsInRange.length, 'ALL')}
+                          radius={[4, 4, 0, 0]}
+                          maxBarSize={Math.max(12, Math.min(36, Math.floor(160 / yearsInRange.length)))}
+                        />
+                      ))
+                    ) : (
+                      // Stacked 4 Scales per Year (UMI, UKE, UME, UBE)
+                      yearsInRange.map((yr, yrIdx) => (
+                        <React.Fragment key={yr}>
+                          <Bar
+                            dataKey={`${yr}_UMI`}
+                            name="Usaha Mikro (UMI)"
+                            stackId={yr}
+                            fill={CATEGORY_META.UMI.color}
+                            legendType={yrIdx === 0 ? 'circle' : 'none'}
+                            maxBarSize={Math.max(14, Math.min(40, Math.floor(160 / yearsInRange.length)))}
+                          />
+                          <Bar
+                            dataKey={`${yr}_UKE`}
+                            name="Usaha Kecil (UKE)"
+                            stackId={yr}
+                            fill={CATEGORY_META.UKE.color}
+                            legendType={yrIdx === 0 ? 'circle' : 'none'}
+                            maxBarSize={Math.max(14, Math.min(40, Math.floor(160 / yearsInRange.length)))}
+                          />
+                          <Bar
+                            dataKey={`${yr}_UME`}
+                            name="Usaha Menengah (UME)"
+                            stackId={yr}
+                            fill={CATEGORY_META.UME.color}
+                            legendType={yrIdx === 0 ? 'circle' : 'none'}
+                            maxBarSize={Math.max(14, Math.min(40, Math.floor(160 / yearsInRange.length)))}
+                          />
+                          <Bar
+                            dataKey={`${yr}_UBE`}
+                            name="Usaha Besar (UBE)"
+                            stackId={yr}
+                            fill={CATEGORY_META.UBE.color}
+                            legendType={yrIdx === 0 ? 'circle' : 'none'}
+                            radius={[4, 4, 0, 0]}
+                            maxBarSize={Math.max(14, Math.min(40, Math.floor(160 / yearsInRange.length)))}
+                          />
+                        </React.Fragment>
+                      ))
+                    )
+                  ) : (
+                    // Single Category Focus per Year
+                    yearsInRange.map((yr, idx) => (
+                      <Bar
+                        key={yr}
+                        dataKey={yr}
+                        name={`Tahun ${yr}`}
+                        fill={getYearColor(idx, yearsInRange.length, categoryFilter)}
+                        radius={[4, 4, 0, 0]}
+                        maxBarSize={Math.max(12, Math.min(36, Math.floor(160 / yearsInRange.length)))}
+                      />
+                    ))
+                  )
                 ) : categoryFilter === 'ALL' ? (
                   // SINGLE YEAR - ALL CATEGORIES
                   <>
