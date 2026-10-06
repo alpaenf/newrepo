@@ -288,20 +288,41 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, pay
   )
 }
 
-export default function HeatmapPieChart({ range = '2026', selectedId = null, data = [] }) {
+export default function HeatmapPieChart({
+  range = '2026',
+  month = '08',
+  onMonthChange = null,
+  selectedId = null,
+  data = []
+}) {
   const [selectedWilayah, setSelectedWilayah] = useState('ALL')
-  const [selectedMonth, setSelectedMonth] = useState('08') // Default: '08' (Agustus 2026 data riil)
+  const [selectedMonth, setSelectedMonth] = useState(month || '08') // Default: '08' (Agustus 2026 data riil)
   const [selectedYear, setSelectedYear] = useState(range)
   const [viewType, setViewType] = useState('nominal') // 'nominal' | 'volume'
   const [trendMode, setTrendMode] = useState('all') // 'all' (2024, 2025 akhir tahun + 2026 bulanan) | 'monthly2026' (khusus 2026 per bulan)
   const [barChartMode, setBarChartMode] = useState('grouped') // 'grouped' (berdampingan) | 'stacked' (bertumpuk)
-  const [barDimension, setBarDimension] = useState('wilayah') // 'wilayah' (per 4 kabupaten) | 'bulan' (per 12 bulan Jan-Des)
+  const [categoryFilter, setCategoryFilter] = useState('ALL') // 'ALL' | 'UMI' (Khusus Mikro) | 'UKE' | 'UME' | 'UBE'
+  const [trendCategoryFilter, setTrendCategoryFilter] = useState('ALL') // 'ALL' | 'UMI' | 'UKE' | 'UME' | 'UBE'
   const [activeIndex, setActiveIndex] = useState(null)
 
   // Update selected year if toolbar range changes
   React.useEffect(() => {
     if (range) setSelectedYear(range)
   }, [range])
+
+  // Sync with external month prop
+  React.useEffect(() => {
+    if (month && month !== selectedMonth) {
+      setSelectedMonth(month)
+    }
+  }, [month])
+
+  const handleMonthChange = (newM) => {
+    setSelectedMonth(newM)
+    if (onMonthChange) {
+      onMonthChange(newM)
+    }
+  }
 
   const currentWilayah = selectedWilayah
   const currentMonthObj = useMemo(() => {
@@ -378,57 +399,6 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
       }
     })
   }, [selectedYear, selectedMonth, viewType])
-
-  // Multi-Series Bar Chart Data for comparing 12 Months Jan-Des (Per Bulan)
-  const monthlyBarData = useMemo(() => {
-    const activeKabList = currentWilayah === 'ALL' ? fourKab : [currentWilayah]
-    const monthlyItems = MONTH_LIST.filter((m) => m.id !== 'ALL')
-
-    return monthlyItems.map((m) => {
-      let umiNominal = 0, umiVolume = 0
-      let ukeNominal = 0, ukeVolume = 0
-      let umeNominal = 0, umeVolume = 0
-      let ubeNominal = 0, ubeVolume = 0
-
-      activeKabList.forEach((kab) => {
-        const kData = qrisMonthlyByCategory[selectedYear]?.[m.id]?.[kab] || {}
-        umiNominal += kData.UMI?.nominal || 0
-        umiVolume += kData.UMI?.volume || 0
-        ukeNominal += kData.UKE?.nominal || 0
-        ukeVolume += kData.UKE?.volume || 0
-        umeNominal += kData.UME?.nominal || 0
-        umeVolume += kData.UME?.volume || 0
-        ubeNominal += kData.UBE?.nominal || 0
-        ubeVolume += kData.UBE?.volume || 0
-      })
-
-      const umiVal = viewType === 'nominal' ? umiNominal : umiVolume
-      const ukeVal = viewType === 'nominal' ? ukeNominal : ukeVolume
-      const umeVal = viewType === 'nominal' ? umeNominal : umeVolume
-      const ubeVal = viewType === 'nominal' ? ubeNominal : ubeVolume
-      const total = umiVal + ukeVal + umeVal + ubeVal
-
-      return {
-        name: m.shortName,
-        fullName: `${m.name} ${selectedYear}`,
-        UMI: umiVal,
-        UKE: ukeVal,
-        UME: umeVal,
-        UBE: ubeVal,
-        total,
-        nominalUMI: umiNominal,
-        nominalUKE: ukeNominal,
-        nominalUME: umeNominal,
-        nominalUBE: ubeNominal,
-        volumeUMI: umiVolume,
-        volumeUKE: ukeVolume,
-        volumeUME: umeVolume,
-        volumeUBE: ubeVolume
-      }
-    })
-  }, [currentWilayah, selectedYear, viewType])
-
-  const activeBarData = barDimension === 'wilayah' ? barChartData : monthlyBarData
 
   // Aggregate data for current selected wilayah & selected month (Pie Chart)
   const chartData = useMemo(() => {
@@ -653,7 +623,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
               <span className="text-[11px] font-semibold text-ink-600">Periode:</span>
               <select
                 value={selectedMonth}
-                onChange={(e) => setSelectedMonth(e.target.value)}
+                onChange={(e) => handleMonthChange(e.target.value)}
                 className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
               >
                 {MONTH_LIST.map((m) => (
@@ -710,25 +680,61 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
           </div>
         </div>
 
-        {/* Wilayah Tabs */}
-        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
-          {KABUPATEN_LIST.map((kab) => {
-            const isActive = currentWilayah === kab.id
-            return (
-              <button
-                key={kab.id}
-                type="button"
-                onClick={() => setSelectedWilayah(kab.id)}
-                className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
-                  isActive
-                    ? 'bg-ink-900 text-white border-ink-900 shadow-sm'
-                    : 'bg-surface-muted/50 text-ink-600 border-surface-border hover:bg-surface-muted hover:text-ink-900'
-                }`}
-              >
-                {kab.name}
-              </button>
-            )
-          })}
+        {/* Wilayah Tabs & Category Filter Pills */}
+        <div className="space-y-2.5">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
+            {KABUPATEN_LIST.map((kab) => {
+              const isActive = currentWilayah === kab.id
+              return (
+                <button
+                  key={kab.id}
+                  type="button"
+                  onClick={() => setSelectedWilayah(kab.id)}
+                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
+                    isActive
+                      ? 'bg-ink-900 text-white border-ink-900 shadow-sm'
+                      : 'bg-surface-muted/50 text-ink-600 border-surface-border hover:bg-surface-muted hover:text-ink-900'
+                  }`}
+                >
+                  {kab.name}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Quick Category Focus Filter Pills */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none pt-0.5 border-t border-slate-100">
+            <span className="text-[11px] font-semibold text-ink-500 shrink-0 mr-1">Filter Kategori:</span>
+            {[
+              { id: 'ALL', label: 'Semua Skala (4 Kategori)' },
+              { id: 'UMI', label: 'Khusus Mikro (UMI)', color: CATEGORY_META.UMI.color },
+              { id: 'UKE', label: 'Khusus Kecil (UKE)', color: CATEGORY_META.UKE.color },
+              { id: 'UME', label: 'Khusus Menengah (UME)', color: CATEGORY_META.UME.color },
+              { id: 'UBE', label: 'Khusus Besar (UBE)', color: CATEGORY_META.UBE.color }
+            ].map((catOpt) => {
+              const isSelected = categoryFilter === catOpt.id
+              return (
+                <button
+                  key={catOpt.id}
+                  type="button"
+                  onClick={() => setCategoryFilter(catOpt.id)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all whitespace-nowrap border flex items-center gap-1.5 ${
+                    isSelected
+                      ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
+                      : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                  }`}
+                >
+                  {catOpt.color && (
+                    <span
+                      className="w-2 h-2 rounded-full shrink-0"
+                      style={{ backgroundColor: catOpt.color }}
+                    />
+                  )}
+                  <span>{catOpt.label}</span>
+                </button>
+              )
+            })}
+          </div>
         </div>
       </div>
 
@@ -753,16 +759,19 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                   onMouseLeave={() => setActiveIndex(null)}
                   animationDuration={600}
                 >
-                  {chartData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${entry.key}`}
-                      fill={entry.color}
-                      stroke="#ffffff"
-                      strokeWidth={activeIndex === index ? 3 : 2}
-                      opacity={activeIndex === null || activeIndex === index ? 1 : 0.65}
-                      className="transition-all duration-200 cursor-pointer"
-                    />
-                  ))}
+                  {chartData.map((entry, index) => {
+                    const isFocus = categoryFilter === 'ALL' || categoryFilter === entry.key
+                    return (
+                      <Cell
+                        key={`cell-${entry.key}`}
+                        fill={entry.color}
+                        stroke="#ffffff"
+                        strokeWidth={activeIndex === index || categoryFilter === entry.key ? 3 : 2}
+                        opacity={isFocus ? (activeIndex === null || activeIndex === index ? 1 : 0.8) : 0.25}
+                        className="transition-all duration-200 cursor-pointer"
+                      />
+                    )
+                  })}
                 </Pie>
                 <Tooltip content={<CustomPieTooltip viewType={viewType} periodLabel={periodLabel} />} />
               </PieChart>
@@ -794,24 +803,36 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
         <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           {chartData.map((cat, idx) => {
             const isHovered = activeIndex === idx
+            const isCategoryActive = categoryFilter === cat.key
             return (
               <div
                 key={cat.key}
+                onClick={() => setCategoryFilter(categoryFilter === cat.key ? 'ALL' : cat.key)}
                 onMouseEnter={() => setActiveIndex(idx)}
                 onMouseLeave={() => setActiveIndex(null)}
                 className={`p-4 rounded-xl border transition-all duration-200 cursor-pointer ${
-                  isHovered
-                    ? `${cat.meta.bgLight} ${cat.meta.borderLight} shadow-md scale-[1.02]`
+                  isCategoryActive
+                    ? `${cat.meta.bgLight} ${cat.meta.borderLight} shadow-md ring-2 ring-offset-1 ring-blue-500/40 scale-[1.02]`
+                    : isHovered
+                    ? `${cat.meta.bgLight} ${cat.meta.borderLight} shadow-sm scale-[1.01]`
                     : 'bg-white border-surface-border hover:border-slate-300 shadow-sm'
                 }`}
+                title="Klik untuk memfilter khusus kategori ini"
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className={`w-3 h-3 rounded-full ${cat.meta.dotColor} shrink-0`} />
                     <div>
-                      <span className="text-xs sm:text-sm font-semibold text-ink-900 block leading-tight">
-                        {cat.meta.label}
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs sm:text-sm font-semibold text-ink-900 block leading-tight">
+                          {cat.meta.label}
+                        </span>
+                        {isCategoryActive && (
+                          <span className="px-1.5 py-0.2 bg-slate-900 text-white text-[9px] rounded font-semibold uppercase">
+                            Aktif
+                          </span>
+                        )}
+                      </div>
                       <span className="text-[10px] text-ink-400 font-medium block">
                         {cat.meta.criteria}
                       </span>
@@ -819,7 +840,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                   </div>
                   <span
                     className={`px-2.5 py-1 rounded-full text-xs font-semibold uppercase ${
-                      isHovered ? 'bg-white shadow-sm' : cat.meta.bgLight
+                      isHovered || isCategoryActive ? 'bg-white shadow-sm' : cat.meta.bgLight
                     } ${cat.meta.textMain}`}
                   >
                     {cat.percentage}%
@@ -858,105 +879,113 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
         </div>
       </div>
 
-      {/* SECTION: Diagram Batang Series Komparasi (Per Wilayah / Per Bulan) */}
+      {/* SECTION: Diagram Batang Series Komparasi Antar Wilayah */}
       <div className="p-4 sm:p-6 border-t border-surface-border space-y-4 bg-white">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
               <BarChart3 size={16} className="text-brand shrink-0" />
               <h3 className="text-sm sm:text-base font-bold text-ink-900 tracking-tight">
-                {barDimension === 'wilayah'
-                  ? `Diagram Batang Series: Perbandingan Antar Wilayah (${periodLabel})`
-                  : `Diagram Batang Series: Perbandingan Bulanan Jan - Des (${selectedYear}) · ${currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}`}
+                {categoryFilter === 'ALL'
+                  ? 'Diagram Batang Series: Perbandingan Antar Wilayah'
+                  : `Diagram Batang: Khusus ${CATEGORY_META[categoryFilter]?.label} (${categoryFilter})`}
               </h3>
             </div>
             <p className="text-xs text-ink-500 mt-0.5">
-              {barDimension === 'wilayah'
+              {categoryFilter === 'ALL'
                 ? `Komparasi langsung nilai ${viewType === 'nominal' ? 'nominal transaksi (Rp)' : 'volume transaksi (trx)'} skala UMI, UKE, UME, dan UBE di 4 kabupaten`
-                : `Distribusi komparatif bulanan nilai ${viewType === 'nominal' ? 'nominal transaksi (Rp)' : 'volume transaksi (trx)'} skala UMI, UKE, UME, dan UBE sepanjang tahun ${selectedYear}`}
+                : `Fokus perbandingan nilai ${viewType === 'nominal' ? 'nominal transaksi (Rp)' : 'volume transaksi (trx)'} khusus kategori ${CATEGORY_META[categoryFilter]?.label} (${CATEGORY_META[categoryFilter]?.criteria}) di 4 kabupaten`}
             </p>
           </div>
 
-          {/* Controls: Dimension (Wilayah vs Bulan), Month dropdown (if in wilayah mode), and Bar Mode (Grouped vs Stacked) */}
+          {/* Controls: Month dropdown and Bar Mode (Grouped vs Stacked) */}
           <div className="flex flex-wrap items-center gap-2 self-start lg:self-auto">
-            {/* Dimension Toggle */}
-            <div className="inline-flex p-1 bg-surface-muted rounded-xl border border-surface-border shadow-xs">
-              <button
-                type="button"
-                onClick={() => setBarDimension('wilayah')}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                  barDimension === 'wilayah'
-                    ? 'bg-brand text-white shadow-sm'
-                    : 'text-ink-600 hover:text-ink-900'
-                }`}
+            {/* Quick Month Selector */}
+            <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1.5 rounded-xl border border-surface-border shadow-xs">
+              <Calendar size={13} className="text-brand shrink-0" />
+              <span className="text-[11px] font-semibold text-ink-600">Bulan:</span>
+              <select
+                value={selectedMonth}
+                onChange={(e) => handleMonthChange(e.target.value)}
+                className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
               >
-                Per Wilayah
-              </button>
-              <button
-                type="button"
-                onClick={() => setBarDimension('bulan')}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                  barDimension === 'bulan'
-                    ? 'bg-brand text-white shadow-sm'
-                    : 'text-ink-600 hover:text-ink-900'
-                }`}
-              >
-                Per Bulan (Jan - Des)
-              </button>
+                {MONTH_LIST.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            {/* Quick Month Selector if in Per Wilayah Mode */}
-            {barDimension === 'wilayah' && (
-              <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1 rounded-xl border border-surface-border shadow-xs">
-                <Calendar size={13} className="text-brand shrink-0" />
-                <span className="text-[10px] font-semibold text-ink-500">Bulan:</span>
-                <select
-                  value={selectedMonth}
-                  onChange={(e) => setSelectedMonth(e.target.value)}
-                  className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-0.5 px-2 focus:outline-none cursor-pointer shadow-xs"
+            {/* Bar Chart Mode Switcher: Grouped vs Stacked (visible if Semua Skala) */}
+            {categoryFilter === 'ALL' && (
+              <div className="inline-flex p-1 bg-surface-muted rounded-xl border border-surface-border shadow-xs">
+                <button
+                  type="button"
+                  onClick={() => setBarChartMode('grouped')}
+                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                    barChartMode === 'grouped'
+                      ? 'bg-ink-900 text-white shadow-sm'
+                      : 'text-ink-600 hover:text-ink-900'
+                  }`}
                 >
-                  {MONTH_LIST.map((m) => (
-                    <option key={m.id} value={m.id}>
-                      {m.name}
-                    </option>
-                  ))}
-                </select>
+                  Berdampingan
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBarChartMode('stacked')}
+                  className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                    barChartMode === 'stacked'
+                      ? 'bg-ink-900 text-white shadow-sm'
+                      : 'text-ink-600 hover:text-ink-900'
+                  }`}
+                >
+                  Bertumpuk
+                </button>
               </div>
             )}
-
-            {/* Bar Chart Mode Switcher: Grouped vs Stacked */}
-            <div className="inline-flex p-1 bg-surface-muted rounded-xl border border-surface-border shadow-xs">
-              <button
-                type="button"
-                onClick={() => setBarChartMode('grouped')}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                  barChartMode === 'grouped'
-                    ? 'bg-ink-900 text-white shadow-sm'
-                    : 'text-ink-600 hover:text-ink-900'
-                }`}
-              >
-                Berdampingan
-              </button>
-              <button
-                type="button"
-                onClick={() => setBarChartMode('stacked')}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                  barChartMode === 'stacked'
-                    ? 'bg-ink-900 text-white shadow-sm'
-                    : 'text-ink-600 hover:text-ink-900'
-                }`}
-              >
-                Bertumpuk
-              </button>
-            </div>
           </div>
         </div>
 
-        {/* Recharts Multi-Series Bar Chart */}
+        {/* Filter Skala Usaha (Semua Skala, Khusus Mikro, Khusus Kecil, Khusus Menengah, Khusus Besar) */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none pt-1 border-t border-slate-100">
+          <span className="text-[11px] font-semibold text-ink-600 shrink-0 mr-1">Filter Skala:</span>
+          {[
+            { id: 'ALL', label: 'Semua Skala (4 Kategori)' },
+            { id: 'UMI', label: 'Khusus Mikro (UMI)', color: CATEGORY_META.UMI.color },
+            { id: 'UKE', label: 'Khusus Kecil (UKE)', color: CATEGORY_META.UKE.color },
+            { id: 'UME', label: 'Khusus Menengah (UME)', color: CATEGORY_META.UME.color },
+            { id: 'UBE', label: 'Khusus Besar (UBE)', color: CATEGORY_META.UBE.color }
+          ].map((catOpt) => {
+            const isSelected = categoryFilter === catOpt.id
+            return (
+              <button
+                key={catOpt.id}
+                type="button"
+                onClick={() => setCategoryFilter(catOpt.id)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap border flex items-center gap-1.5 ${
+                  isSelected
+                    ? 'bg-slate-900 text-white border-slate-900 shadow-xs ring-2 ring-offset-1 ring-blue-500/30 font-bold'
+                    : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300'
+                }`}
+              >
+                {catOpt.color && (
+                  <span
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
+                    style={{ backgroundColor: catOpt.color }}
+                  />
+                )}
+                <span>{catOpt.label}</span>
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Recharts Multi-Series / Focused Bar Chart */}
         <div className="bg-slate-50/50 p-3 sm:p-5 rounded-xl border border-surface-border shadow-xs">
           <div className="w-full h-[320px] sm:h-[370px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={activeBarData} margin={{ top: 16, right: 20, left: 10, bottom: 28 }}>
+              <BarChart data={barChartData} margin={{ top: 16, right: 20, left: 10, bottom: 28 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
                 <XAxis
                   dataKey="name"
@@ -975,7 +1004,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                   width={85}
                   dx={-4}
                 />
-                <Tooltip content={<CustomBarSeriesTooltip viewType={viewType} periodLabel={barDimension === 'wilayah' ? periodLabel : `${selectedYear}`} />} />
+                <Tooltip content={<CustomBarSeriesTooltip viewType={viewType} periodLabel={periodLabel} />} />
                 <Legend
                   verticalAlign="top"
                   align="right"
@@ -987,45 +1016,124 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                   }}
                 />
 
-                <Bar
-                  dataKey="UMI"
-                  name="UMI"
-                  fill={CATEGORY_META.UMI.color}
-                  stackId={barChartMode === 'stacked' ? 'seriesStack' : undefined}
-                  radius={barChartMode === 'stacked' ? [0, 0, 0, 0] : [4, 4, 0, 0]}
-                  maxBarSize={barChartMode === 'stacked' ? (barDimension === 'wilayah' ? 56 : 38) : (barDimension === 'wilayah' ? 32 : 18)}
-                />
-                <Bar
-                  dataKey="UKE"
-                  name="UKE"
-                  fill={CATEGORY_META.UKE.color}
-                  stackId={barChartMode === 'stacked' ? 'seriesStack' : undefined}
-                  radius={barChartMode === 'stacked' ? [0, 0, 0, 0] : [4, 4, 0, 0]}
-                  maxBarSize={barChartMode === 'stacked' ? (barDimension === 'wilayah' ? 56 : 38) : (barDimension === 'wilayah' ? 32 : 18)}
-                />
-                <Bar
-                  dataKey="UME"
-                  name="UME"
-                  fill={CATEGORY_META.UME.color}
-                  stackId={barChartMode === 'stacked' ? 'seriesStack' : undefined}
-                  radius={barChartMode === 'stacked' ? [0, 0, 0, 0] : [4, 4, 0, 0]}
-                  maxBarSize={barChartMode === 'stacked' ? (barDimension === 'wilayah' ? 56 : 38) : (barDimension === 'wilayah' ? 32 : 18)}
-                />
-                <Bar
-                  dataKey="UBE"
-                  name="UBE"
-                  fill={CATEGORY_META.UBE.color}
-                  stackId={barChartMode === 'stacked' ? 'seriesStack' : undefined}
-                  radius={barChartMode === 'stacked' ? [4, 4, 0, 0] : [4, 4, 0, 0]}
-                  maxBarSize={barChartMode === 'stacked' ? (barDimension === 'wilayah' ? 56 : 38) : (barDimension === 'wilayah' ? 32 : 18)}
-                />
+                {categoryFilter === 'ALL' ? (
+                  <>
+                    <Bar
+                      dataKey="UMI"
+                      name="Usaha Mikro (UMI)"
+                      fill={CATEGORY_META.UMI.color}
+                      stackId={barChartMode === 'stacked' ? 'seriesStack' : undefined}
+                      radius={barChartMode === 'stacked' ? [0, 0, 0, 0] : [4, 4, 0, 0]}
+                      maxBarSize={barChartMode === 'stacked' ? 56 : 32}
+                    />
+                    <Bar
+                      dataKey="UKE"
+                      name="Usaha Kecil (UKE)"
+                      fill={CATEGORY_META.UKE.color}
+                      stackId={barChartMode === 'stacked' ? 'seriesStack' : undefined}
+                      radius={barChartMode === 'stacked' ? [0, 0, 0, 0] : [4, 4, 0, 0]}
+                      maxBarSize={barChartMode === 'stacked' ? 56 : 32}
+                    />
+                    <Bar
+                      dataKey="UME"
+                      name="Usaha Menengah (UME)"
+                      fill={CATEGORY_META.UME.color}
+                      stackId={barChartMode === 'stacked' ? 'seriesStack' : undefined}
+                      radius={barChartMode === 'stacked' ? [0, 0, 0, 0] : [4, 4, 0, 0]}
+                      maxBarSize={barChartMode === 'stacked' ? 56 : 32}
+                    />
+                    <Bar
+                      dataKey="UBE"
+                      name="Usaha Besar (UBE)"
+                      fill={CATEGORY_META.UBE.color}
+                      stackId={barChartMode === 'stacked' ? 'seriesStack' : undefined}
+                      radius={barChartMode === 'stacked' ? [4, 4, 0, 0] : [4, 4, 0, 0]}
+                      maxBarSize={barChartMode === 'stacked' ? 56 : 32}
+                    />
+                  </>
+                ) : (
+                  <Bar
+                    dataKey={categoryFilter}
+                    name={`${CATEGORY_META[categoryFilter]?.label} (${categoryFilter})`}
+                    fill={CATEGORY_META[categoryFilter]?.color}
+                    radius={[6, 6, 0, 0]}
+                    maxBarSize={56}
+                  />
+                )}
               </BarChart>
             </ResponsiveContainer>
           </div>
 
           {/* Quick Comparison Cards below Bar Chart */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 mt-4 pt-3 border-t border-slate-200/80">
-            {barDimension === 'wilayah' ? (
+            {categoryFilter === 'UMI' ? (
+              <>
+                <div className="bg-blue-50/80 p-2.5 rounded-lg border border-blue-200 text-xs shadow-xs">
+                  <span className="text-[10px] font-semibold uppercase text-blue-700 block">Total Khusus Mikro (UMI)</span>
+                  <span className="font-bold text-slate-900 block mt-0.5">Banyumas Raya (4 Kab)</span>
+                  <span className="text-[11px] text-blue-800 font-bold block">
+                    {viewType === 'nominal'
+                      ? formatRupiahShort(barChartData.reduce((s, k) => s + (k.UMI || 0), 0))
+                      : formatVolumeShort(barChartData.reduce((s, k) => s + (k.UMI || 0), 0))}
+                  </span>
+                  <span className="text-[10px] text-slate-500 font-medium">Periode {periodLabel}</span>
+                </div>
+                <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
+                  <span className="text-[10px] font-semibold uppercase text-blue-600 block">Kab. Banyumas (Mikro)</span>
+                  <span className="font-bold text-slate-900 block mt-0.5">
+                    {viewType === 'nominal'
+                      ? formatRupiahShort(barChartData.find(k => k.kab === 'Banyumas')?.UMI || 0)
+                      : formatVolumeShort(barChartData.find(k => k.kab === 'Banyumas')?.UMI || 0)}
+                  </span>
+                  <span className="text-[10px] text-emerald-600 font-semibold">51,2% porsi UMI (Terbesar)</span>
+                </div>
+                <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
+                  <span className="text-[10px] font-semibold uppercase text-blue-600 block">Kab. Cilacap (Mikro)</span>
+                  <span className="font-bold text-slate-900 block mt-0.5">
+                    {viewType === 'nominal'
+                      ? formatRupiahShort(barChartData.find(k => k.kab === 'Cilacap')?.UMI || 0)
+                      : formatVolumeShort(barChartData.find(k => k.kab === 'Cilacap')?.UMI || 0)}
+                  </span>
+                  <span className="text-[10px] text-slate-500 font-medium">27,9% porsi UMI (Kedua)</span>
+                </div>
+                <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
+                  <span className="text-[10px] font-semibold uppercase text-blue-600 block">Purbalingga & Banjarnegara</span>
+                  <span className="font-bold text-slate-900 block mt-0.5">
+                    {viewType === 'nominal'
+                      ? `${formatRupiahShort(barChartData.find(k => k.kab === 'Purbalingga')?.UMI || 0)} & ${formatRupiahShort(barChartData.find(k => k.kab === 'Banjarnegara')?.UMI || 0)}`
+                      : `${formatVolumeShort(barChartData.find(k => k.kab === 'Purbalingga')?.UMI || 0)} & ${formatVolumeShort(barChartData.find(k => k.kab === 'Banjarnegara')?.UMI || 0)}`}
+                  </span>
+                  <span className="text-[10px] text-slate-500 font-medium">12,2% & 8,7% porsi UMI</span>
+                </div>
+              </>
+            ) : categoryFilter !== 'ALL' ? (
+              <>
+                <div className="p-2.5 rounded-lg border text-xs shadow-xs" style={{ backgroundColor: `${CATEGORY_META[categoryFilter]?.color}15`, borderColor: `${CATEGORY_META[categoryFilter]?.color}40` }}>
+                  <span className="text-[10px] font-semibold uppercase block" style={{ color: CATEGORY_META[categoryFilter]?.color }}>Total {CATEGORY_META[categoryFilter]?.label}</span>
+                  <span className="font-bold text-slate-900 block mt-0.5">Banyumas Raya (4 Kab)</span>
+                  <span className="text-[11px] font-bold block" style={{ color: CATEGORY_META[categoryFilter]?.color }}>
+                    {viewType === 'nominal'
+                      ? formatRupiahShort(barChartData.reduce((s, k) => s + (k[categoryFilter] || 0), 0))
+                      : formatVolumeShort(barChartData.reduce((s, k) => s + (k[categoryFilter] || 0), 0))}
+                  </span>
+                  <span className="text-[10px] text-slate-500 font-medium">Periode {periodLabel}</span>
+                </div>
+                {['Banyumas', 'Cilacap', 'Purbalingga'].map((kab) => {
+                  const val = barChartData.find(k => k.kab === kab)?.[categoryFilter] || 0
+                  const totalCat = barChartData.reduce((s, k) => s + (k[categoryFilter] || 0), 0)
+                  const pct = totalCat > 0 ? ((val / totalCat) * 100).toFixed(1) : 0
+                  return (
+                    <div key={kab} className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
+                      <span className="text-[10px] font-semibold uppercase text-slate-500 block">Kab. {kab}</span>
+                      <span className="font-bold text-slate-900 block mt-0.5">
+                        {viewType === 'nominal' ? formatRupiahShort(val) : formatVolumeShort(val)}
+                      </span>
+                      <span className="text-[10px] text-slate-500 font-medium">{pct}% porsi {categoryFilter}</span>
+                    </div>
+                  )
+                })}
+              </>
+            ) : (
               <>
                 <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
                   <span className="text-[10px] font-semibold uppercase text-blue-600 block">UMI Terbesar</span>
@@ -1056,48 +1164,27 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                   </span>
                 </div>
               </>
-            ) : (
-              <>
-                <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
-                  <span className="text-[10px] font-semibold uppercase text-blue-600 block">Bulan Terkini</span>
-                  <span className="font-bold text-slate-900 block mt-0.5">Agustus {selectedYear}</span>
-                  <span className="text-[10px] text-slate-500 font-medium">
-                    Total {viewType === 'nominal' ? formatRupiahShort(monthlyBarData.find(m => m.name === 'Agu')?.total || 0) : formatVolumeShort(monthlyBarData.find(m => m.name === 'Agu')?.total || 0)}
-                  </span>
-                </div>
-                <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
-                  <span className="text-[10px] font-semibold uppercase text-emerald-600 block">Skala Terbanyak</span>
-                  <span className="font-bold text-slate-900 block mt-0.5">Usaha Mikro (UMI)</span>
-                  <span className="text-[10px] text-slate-500 font-medium">Rata-rata 40% porsi transaksi</span>
-                </div>
-                <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
-                  <span className="text-[10px] font-semibold uppercase text-amber-600 block">Wilayah Aktif</span>
-                  <span className="font-bold text-slate-900 block mt-0.5">{currentWilayah === 'ALL' ? 'Banyumas Raya (4 Kab)' : `Kab. ${currentWilayah}`}</span>
-                  <span className="text-[10px] text-slate-500 font-medium">Agregasi 12 bulan ({selectedYear})</span>
-                </div>
-                <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
-                  <span className="text-[10px] font-semibold uppercase text-purple-600 block">Bulan Puncak</span>
-                  <span className="font-bold text-slate-900 block mt-0.5">Desember {selectedYear}</span>
-                  <span className="text-[10px] text-slate-500 font-medium">Aktivitas akhir tahun tertinggi</span>
-                </div>
-              </>
             )}
           </div>
         </div>
       </div>
 
-      {/* NEW SECTION: Grafik Tren Skala Usaha (2024-2025 Akhir Tahun & 2026 Bulanan) */}
+      {/* SECTION: Grafik Tren Skala Usaha */}
       <div className="p-4 sm:p-6 border-t border-surface-border space-y-4 bg-slate-50/40">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
               <TrendingUp size={16} className="text-brand shrink-0" />
               <h3 className="text-sm sm:text-base font-bold text-ink-900 tracking-tight">
-                Tren Perkembangan Skala Usaha (2024 - 2025 Akhir Tahun & 2026 Per Bulan)
+                {trendCategoryFilter === 'ALL'
+                  ? 'Tren Perkembangan Skala Usaha'
+                  : `Tren Perkembangan: Khusus ${CATEGORY_META[trendCategoryFilter]?.label} (${trendCategoryFilter})`}
               </h3>
             </div>
             <p className="text-xs text-ink-500 mt-0.5">
-              Grafik historis akhir tahun (2024, 2025) dilanjutkan dengan rincian data per bulan di tahun 2026 ({currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`})
+              {trendCategoryFilter === 'ALL'
+                ? `Grafik historis akhir tahun (2024, 2025) dilanjutkan dengan rincian data per bulan di tahun 2026 (${currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`})`
+                : `Fokus grafik perkembangan bulanan khusus kategori ${CATEGORY_META[trendCategoryFilter]?.label} (${CATEGORY_META[trendCategoryFilter]?.criteria}) · ${currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}`}
             </p>
           </div>
 
@@ -1126,6 +1213,40 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
               Khusus Bulanan 2026
             </button>
           </div>
+        </div>
+
+        {/* Filter Skala Usaha untuk Grafik Tren */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none pt-1 border-t border-slate-200/60">
+          <span className="text-[11px] font-semibold text-ink-600 shrink-0 mr-1">Filter Skala:</span>
+          {[
+            { id: 'ALL', label: 'Semua Skala (4 Kategori)' },
+            { id: 'UMI', label: 'Khusus Mikro (UMI)', color: CATEGORY_META.UMI.color },
+            { id: 'UKE', label: 'Khusus Kecil (UKE)', color: CATEGORY_META.UKE.color },
+            { id: 'UME', label: 'Khusus Menengah (UME)', color: CATEGORY_META.UME.color },
+            { id: 'UBE', label: 'Khusus Besar (UBE)', color: CATEGORY_META.UBE.color }
+          ].map((catOpt) => {
+            const isSelected = trendCategoryFilter === catOpt.id
+            return (
+              <button
+                key={catOpt.id}
+                type="button"
+                onClick={() => setTrendCategoryFilter(catOpt.id)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap border flex items-center gap-1.5 ${
+                  isSelected
+                    ? 'bg-slate-900 text-white border-slate-900 shadow-xs ring-2 ring-offset-1 ring-blue-500/30 font-bold'
+                    : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300'
+                }`}
+              >
+                {catOpt.color && (
+                  <span
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
+                    style={{ backgroundColor: catOpt.color }}
+                  />
+                )}
+                <span>{catOpt.label}</span>
+              </button>
+            )
+          })}
         </div>
 
         {/* Trend Area Chart */}
@@ -1180,38 +1301,56 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                   }}
                 />
 
-                <Area
-                  type="monotone"
-                  dataKey="UMI"
-                  stroke={CATEGORY_META.UMI.color}
-                  strokeWidth={2.5}
-                  fillOpacity={1}
-                  fill="url(#gradUMI)"
-                />
-                <Area
-                  type="monotone"
-                  dataKey="UKE"
-                  stroke={CATEGORY_META.UKE.color}
-                  strokeWidth={2.5}
-                  fillOpacity={1}
-                  fill="url(#gradUKE)"
-                />
-                <Area
-                  type="monotone"
-                  dataKey="UME"
-                  stroke={CATEGORY_META.UME.color}
-                  strokeWidth={2.5}
-                  fillOpacity={1}
-                  fill="url(#gradUME)"
-                />
-                <Area
-                  type="monotone"
-                  dataKey="UBE"
-                  stroke={CATEGORY_META.UBE.color}
-                  strokeWidth={2.5}
-                  fillOpacity={1}
-                  fill="url(#gradUBE)"
-                />
+                {trendCategoryFilter === 'ALL' ? (
+                  <>
+                    <Area
+                      type="monotone"
+                      dataKey="UMI"
+                      name="Usaha Mikro (UMI)"
+                      stroke={CATEGORY_META.UMI.color}
+                      strokeWidth={2.5}
+                      fillOpacity={1}
+                      fill="url(#gradUMI)"
+                    />
+                    <Area
+                      type="monotone"
+                      dataKey="UKE"
+                      name="Usaha Kecil (UKE)"
+                      stroke={CATEGORY_META.UKE.color}
+                      strokeWidth={2.5}
+                      fillOpacity={1}
+                      fill="url(#gradUKE)"
+                    />
+                    <Area
+                      type="monotone"
+                      dataKey="UME"
+                      name="Usaha Menengah (UME)"
+                      stroke={CATEGORY_META.UME.color}
+                      strokeWidth={2.5}
+                      fillOpacity={1}
+                      fill="url(#gradUME)"
+                    />
+                    <Area
+                      type="monotone"
+                      dataKey="UBE"
+                      name="Usaha Besar (UBE)"
+                      stroke={CATEGORY_META.UBE.color}
+                      strokeWidth={2.5}
+                      fillOpacity={1}
+                      fill="url(#gradUBE)"
+                    />
+                  </>
+                ) : (
+                  <Area
+                    type="monotone"
+                    dataKey={trendCategoryFilter}
+                    name={`${CATEGORY_META[trendCategoryFilter]?.label} (${trendCategoryFilter})`}
+                    stroke={CATEGORY_META[trendCategoryFilter]?.color}
+                    strokeWidth={2.5}
+                    fillOpacity={1}
+                    fill={`url(#grad${trendCategoryFilter})`}
+                  />
+                )}
               </AreaChart>
             </ResponsiveContainer>
           </div>

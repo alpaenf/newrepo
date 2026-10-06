@@ -44,6 +44,7 @@ function parseGmapsUrl(url) {
 export default function Heatmap({ isAdmin = true }) {
   const [metric, setMetric] = useState('merchantDensity')
   const [range, setRange] = useState('2026')
+  const [month, setMonth] = useState('08')
   const [category, setCategory] = useState('TOTAL')
   const [selectedId, setSelectedId] = useState(null)
   const [exporting, setExporting] = useState(false)
@@ -445,6 +446,8 @@ export default function Heatmap({ isAdmin = true }) {
           onMetricChange={setMetric}
           range={range}
           onRangeChange={setRange}
+          month={month}
+          onMonthChange={setMonth}
           category={category}
           onCategoryChange={setCategory}
           onExport={handleExport}
@@ -475,8 +478,14 @@ export default function Heatmap({ isAdmin = true }) {
         </div>
       </div>
 
-      {/* Pie Chart: Distribusi 4 Kategori (UMI, UKE, UME, UBE) */}
-      <HeatmapPieChart range={range} selectedId={selectedId} data={data} />
+      {/* Pie Chart: Distribusi 4 Kategori (UMI, UKE, UME, UBE) & Diagram Batang Series */}
+      <HeatmapPieChart
+        range={range}
+        month={month}
+        onMonthChange={setMonth}
+        selectedId={selectedId}
+        data={data}
+      />
 
       <div className="flex items-start gap-2.5 text-xs text-ink-300 bg-white border border-surface-border rounded-xl p-3 sm:p-3.5">
         <ShieldCheck size={15} className="text-ink-300 shrink-0 mt-0.5" />
