@@ -4,8 +4,15 @@ import {
   PieChart,
   Pie,
   Cell,
-  Tooltip
+  Tooltip,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Legend
 } from 'recharts'
+import { Calendar, TrendingUp, BarChart2 } from './icons.jsx'
 import { qrisRealData } from '../data/qrisData.js'
 
 const KABUPATEN_LIST = [
@@ -82,13 +89,13 @@ const CATEGORY_META = {
 function formatRupiahShort(value) {
   if (!value || isNaN(value)) return 'Rp 0'
   if (value >= 1_000_000_000_000) {
-    return `Rp ${(value / 1_000_000_000_000).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Triliun`
+    return `Rp ${(value / 1_000_000_000_000).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} T`
   }
   if (value >= 1_000_000_000) {
-    return `Rp ${(value / 1_000_000_000).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Miliar`
+    return `Rp ${(value / 1_000_000_000).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} M`
   }
   if (value >= 1_000_000) {
-    return `Rp ${(value / 1_000_000).toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Juta`
+    return `Rp ${(value / 1_000_000).toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Jt`
   }
   return `Rp ${Math.round(value).toLocaleString('id-ID')}`
 }
@@ -108,7 +115,7 @@ function formatVolumeShort(value) {
   return `${Math.round(value).toLocaleString('id-ID')} trx`
 }
 
-function CustomTooltip({ active, payload, viewType, periodLabel }) {
+function CustomPieTooltip({ active, payload, viewType, periodLabel }) {
   if (!active || !payload || !payload.length) return null
   const item = payload[0].payload
   const meta = CATEGORY_META[item.key] || {}
@@ -155,6 +162,46 @@ function CustomTooltip({ active, payload, viewType, periodLabel }) {
   )
 }
 
+function CustomTrendTooltip({ active, payload, label, viewType }) {
+  if (!active || !payload || !payload.length) return null
+
+  const total = payload.reduce((sum, p) => sum + (p.value || 0), 0)
+
+  return (
+    <div className="bg-white/95 backdrop-blur-md p-3.5 rounded-xl shadow-2xl border border-slate-200 text-xs min-w-[260px] space-y-2 z-[9999]">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-1.5">
+        <span className="font-black text-slate-900 text-sm">{label}</span>
+        <span className="text-[11px] font-extrabold text-ink-500">
+          Total: {viewType === 'nominal' ? formatRupiahShort(total) : formatVolumeShort(total)}
+        </span>
+      </div>
+
+      <div className="space-y-1.5 pt-0.5">
+        {payload.map((entry) => {
+          const meta = CATEGORY_META[entry.dataKey] || {}
+          const val = entry.value || 0
+          const pct = total > 0 ? ((val / total) * 100).toFixed(1) : '0.0'
+
+          return (
+            <div key={entry.dataKey} className="flex items-center justify-between text-[11px]">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: entry.color }} />
+                <span className="font-semibold text-slate-700">{meta.label || entry.name} ({entry.dataKey}):</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-black text-slate-900">
+                  {viewType === 'nominal' ? formatRupiahShort(val) : formatVolumeShort(val)}
+                </span>
+                <span className="text-[10px] font-bold text-slate-400">({pct}%)</span>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 const RADIAN = Math.PI / 180
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, payload }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5
@@ -193,6 +240,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
   const [selectedMonth, setSelectedMonth] = useState('ALL') // 'ALL' | '01'..'12'
   const [selectedYear, setSelectedYear] = useState(range)
   const [viewType, setViewType] = useState('nominal') // 'nominal' | 'volume'
+  const [trendMode, setTrendMode] = useState('all') // 'all' (2024, 2025 akhir tahun + 2026 bulanan) | 'monthly2026' (khusus 2026 per bulan)
   const [activeIndex, setActiveIndex] = useState(null)
 
   // Update selected year if toolbar range changes
@@ -216,7 +264,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
   const categories = ['UMI', 'UKE', 'UME', 'UBE']
   const fourKab = ['Banyumas', 'Cilacap', 'Purbalingga', 'Banjarnegara']
 
-  // Aggregate data for current selected wilayah & selected month
+  // Aggregate data for current selected wilayah & selected month (Pie Chart)
   const chartData = useMemo(() => {
     const totals = {
       UMI: { nominal: 0, volume: 0 },
@@ -273,6 +321,64 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
     }
   }, [chartData])
 
+  // Trend Data Generation (2024 Akhir Tahun, 2025 Akhir Tahun, dan 2026 per Bulan)
+  const trendData = useMemo(() => {
+    const activeKabList = currentWilayah === 'ALL' ? fourKab : [currentWilayah]
+
+    const getKabTotals = (year, factor = 1.0) => {
+      const t = { UMI: 0, UKE: 0, UME: 0, UBE: 0 }
+      activeKabList.forEach((kab) => {
+        const kabData = qrisRealData[kab]?.[year] || {}
+        categories.forEach((cat) => {
+          if (kabData[cat]) {
+            const raw = viewType === 'nominal' ? (kabData[cat].nominal || 0) : (kabData[cat].volume || 0)
+            t[cat] += Math.round(raw * factor)
+          }
+        })
+      })
+      return t
+    }
+
+    const points = []
+
+    if (trendMode === 'all') {
+      // 2024 Akhir Tahun
+      const y2024 = getKabTotals('2024', 1.0)
+      points.push({
+        period: '2024 (Akhir Thn)',
+        shortPeriod: "'24 Akhir",
+        isAnnual: true,
+        ...y2024,
+        total: y2024.UMI + y2024.UKE + y2024.UME + y2024.UBE
+      })
+
+      // 2025 Akhir Tahun
+      const y2025 = getKabTotals('2025', 1.0)
+      points.push({
+        period: '2025 (Akhir Thn)',
+        shortPeriod: "'25 Akhir",
+        isAnnual: true,
+        ...y2025,
+        total: y2025.UMI + y2025.UKE + y2025.UME + y2025.UBE
+      })
+    }
+
+    // 2026 Bulanan (Januari s.d. Desember)
+    const monthlyItems = MONTH_LIST.filter((m) => m.id !== 'ALL')
+    monthlyItems.forEach((m) => {
+      const mTotals = getKabTotals('2026', m.factor)
+      points.push({
+        period: `${m.name} 2026`,
+        shortPeriod: `${m.shortName} '26`,
+        isAnnual: false,
+        ...mTotals,
+        total: mTotals.UMI + mTotals.UKE + mTotals.UME + mTotals.UBE
+      })
+    })
+
+    return points
+  }, [currentWilayah, viewType, trendMode])
+
   // Comparison data for all 4 kabupaten (adjusted for month)
   const kabComparison = useMemo(() => {
     const monthFactor = currentMonthObj.factor || 1.0
@@ -314,7 +420,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
   }, [selectedYear, currentMonthObj, viewType])
 
   return (
-    <div className="bg-white rounded-2xl border border-surface-border shadow-card overflow-hidden">
+    <div className="bg-white rounded-2xl border border-surface-border shadow-card overflow-hidden space-y-0">
       {/* Top Header */}
       <div className="p-4 sm:p-6 border-b border-surface-border space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -330,15 +436,16 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
             </p>
           </div>
 
-          {/* Controls: Month, Year, Metric Switcher */}
+          {/* Controls: Month with SVG icon, Year, Metric Switcher */}
           <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-auto">
-            {/* Month Filter Selector */}
-            <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1.5 rounded-xl border border-surface-border">
-              <span className="text-[11px] font-bold text-ink-500">📅 Periode:</span>
+            {/* Month Filter Selector with SVG Icon (NO emoji) */}
+            <div className="flex items-center gap-2 bg-surface-muted px-3 py-1.5 rounded-xl border border-surface-border shadow-xs">
+              <Calendar size={14} className="text-brand shrink-0" />
+              <span className="text-[11px] font-bold text-ink-600">Periode:</span>
               <select
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}
-                className="bg-white border border-surface-border rounded-lg text-xs font-bold text-ink-900 py-1 px-2 focus:outline-none cursor-pointer shadow-sm"
+                className="bg-white border border-surface-border rounded-lg text-xs font-bold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
               >
                 {MONTH_LIST.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -377,7 +484,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                     : 'text-ink-500 hover:text-ink-900'
                 }`}
               >
-                Nominal
+                Nominal (Rp)
               </button>
               <button
                 type="button"
@@ -388,7 +495,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                     : 'text-ink-500 hover:text-ink-900'
                 }`}
               >
-                Volume
+                Volume (Trx)
               </button>
             </div>
           </div>
@@ -416,7 +523,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
         </div>
       </div>
 
-      {/* Main Content: Chart & Breakdown */}
+      {/* Main Content: Pie/Donut Chart & 4 Category Cards */}
       <div className="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         {/* Left: Donut Chart with Direct Slice Labels */}
         <div className="lg:col-span-5 flex flex-col items-center justify-center">
@@ -448,7 +555,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                     />
                   ))}
                 </Pie>
-                <Tooltip content={<CustomTooltip viewType={viewType} periodLabel={periodLabel} />} />
+                <Tooltip content={<CustomPieTooltip viewType={viewType} periodLabel={periodLabel} />} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -539,6 +646,136 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
               </div>
             )
           })}
+        </div>
+      </div>
+
+      {/* NEW SECTION: Grafik Tren Skala Usaha (2024-2025 Akhir Tahun & 2026 Bulanan) */}
+      <div className="p-4 sm:p-6 border-t border-surface-border space-y-4 bg-slate-50/40">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2">
+              <TrendingUp size={16} className="text-brand shrink-0" />
+              <h3 className="text-sm sm:text-base font-black text-ink-900">
+                Tren Perkembangan Skala Usaha (2024 - 2025 Akhir Tahun & 2026 Per Bulan)
+              </h3>
+            </div>
+            <p className="text-xs text-ink-500 mt-0.5">
+              Grafik historis akhir tahun (2024, 2025) dilanjutkan dengan rincian data per bulan di tahun 2026 ({currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`})
+            </p>
+          </div>
+
+          {/* Trend Mode Switcher */}
+          <div className="inline-flex p-1 bg-white rounded-xl border border-surface-border shadow-xs self-start sm:self-auto">
+            <button
+              type="button"
+              onClick={() => setTrendMode('all')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                trendMode === 'all'
+                  ? 'bg-ink-900 text-white shadow-sm'
+                  : 'text-ink-600 hover:text-ink-900'
+              }`}
+            >
+              Historis + 2026
+            </button>
+            <button
+              type="button"
+              onClick={() => setTrendMode('monthly2026')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                trendMode === 'monthly2026'
+                  ? 'bg-ink-900 text-white shadow-sm'
+                  : 'text-ink-600 hover:text-ink-900'
+              }`}
+            >
+              Khusus Bulanan 2026
+            </button>
+          </div>
+        </div>
+
+        {/* Trend Area Chart */}
+        <div className="bg-white p-3 sm:p-5 rounded-xl border border-surface-border shadow-xs">
+          <div className="w-full h-[280px] sm:h-[320px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={trendData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="gradUMI" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={CATEGORY_META.UMI.color} stopOpacity={0.4} />
+                    <stop offset="95%" stopColor={CATEGORY_META.UMI.color} stopOpacity={0.0} />
+                  </linearGradient>
+                  <linearGradient id="gradUKE" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={CATEGORY_META.UKE.color} stopOpacity={0.4} />
+                    <stop offset="95%" stopColor={CATEGORY_META.UKE.color} stopOpacity={0.0} />
+                  </linearGradient>
+                  <linearGradient id="gradUME" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={CATEGORY_META.UME.color} stopOpacity={0.4} />
+                    <stop offset="95%" stopColor={CATEGORY_META.UME.color} stopOpacity={0.0} />
+                  </linearGradient>
+                  <linearGradient id="gradUBE" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={CATEGORY_META.UBE.color} stopOpacity={0.4} />
+                    <stop offset="95%" stopColor={CATEGORY_META.UBE.color} stopOpacity={0.0} />
+                  </linearGradient>
+                </defs>
+
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
+                <XAxis
+                  dataKey="shortPeriod"
+                  tick={{ fontSize: 11, fill: '#64748B', fontWeight: 600 }}
+                  axisLine={{ stroke: '#CBD5E1' }}
+                  tickLine={false}
+                />
+                <YAxis
+                  tickFormatter={(v) => (viewType === 'nominal' ? formatRupiahShort(v) : formatVolumeShort(v))}
+                  tick={{ fontSize: 10, fill: '#64748B' }}
+                  axisLine={false}
+                  tickLine={false}
+                  width={65}
+                />
+                <Tooltip content={<CustomTrendTooltip viewType={viewType} />} />
+                <Legend
+                  verticalAlign="top"
+                  align="right"
+                  iconType="circle"
+                  wrapperStyle={{ paddingBottom: '10px', fontSize: '11px', fontWeight: 700 }}
+                  formatter={(value) => {
+                    const meta = CATEGORY_META[value]
+                    return <span className="text-slate-700 font-bold">{meta?.label || value}</span>
+                  }}
+                />
+
+                <Area
+                  type="monotone"
+                  dataKey="UMI"
+                  stroke={CATEGORY_META.UMI.color}
+                  strokeWidth={2.5}
+                  fillOpacity={1}
+                  fill="url(#gradUMI)"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="UKE"
+                  stroke={CATEGORY_META.UKE.color}
+                  strokeWidth={2.5}
+                  fillOpacity={1}
+                  fill="url(#gradUKE)"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="UME"
+                  stroke={CATEGORY_META.UME.color}
+                  strokeWidth={2.5}
+                  fillOpacity={1}
+                  fill="url(#gradUME)"
+                />
+                <Area
+                  type="monotone"
+                  dataKey="UBE"
+                  stroke={CATEGORY_META.UBE.color}
+                  strokeWidth={2.5}
+                  fillOpacity={1}
+                  fill="url(#gradUBE)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 
