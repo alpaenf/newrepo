@@ -63,7 +63,7 @@ export default function App() {
     if (guestView === 'landing') {
       return (
         <LandingPage
-          onOpenMap={() => setGuestView('map')}
+          onOpenMap={() => setGuestView('login')}
           onOpenLogin={() => setGuestView('login')}
           onLoginSuccess={() => setIsLoggedIn(true)}
         />
