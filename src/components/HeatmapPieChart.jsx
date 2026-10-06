@@ -12,7 +12,7 @@ import {
   CartesianGrid,
   Legend
 } from 'recharts'
-import { Calendar, TrendingUp, BarChart2 } from './icons.jsx'
+import { Calendar, TrendingUp } from './icons.jsx'
 import { qrisRealData } from '../data/qrisData.js'
 
 const KABUPATEN_LIST = [
