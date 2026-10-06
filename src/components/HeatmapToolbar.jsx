@@ -68,27 +68,34 @@ export default function HeatmapToolbar({
             ))}
           </div>
 
-          {/* Month Selector Dropdown */}
+          {/* Month Selector Dropdown (Active for 2026, or Akhir Tahun for historical) */}
           {onMonthChange && (
-            <select
-              value={month || '08'}
-              onChange={(e) => onMonthChange(e.target.value)}
-              className="py-2 px-3 bg-white border border-surface-border rounded-xl text-xs font-semibold text-ink-700 focus:outline-none shadow-sm cursor-pointer"
-            >
-              <option value="ALL">Semua Bulan (Tahunan)</option>
-              <option value="01">Januari</option>
-              <option value="02">Februari</option>
-              <option value="03">Maret</option>
-              <option value="04">April</option>
-              <option value="05">Mei</option>
-              <option value="06">Juni</option>
-              <option value="07">Juli</option>
-              <option value="08">Agustus</option>
-              <option value="09">September</option>
-              <option value="10">Oktober</option>
-              <option value="11">November</option>
-              <option value="12">Desember</option>
-            </select>
+            range === '2026' ? (
+              <select
+                value={month || '08'}
+                onChange={(e) => onMonthChange(e.target.value)}
+                className="py-2 px-3 bg-white border border-surface-border rounded-xl text-xs font-semibold text-ink-700 focus:outline-none shadow-sm cursor-pointer"
+              >
+                <option value="ALL">Semua Bulan (Tahunan 2026)</option>
+                <option value="01">Januari</option>
+                <option value="02">Februari</option>
+                <option value="03">Maret</option>
+                <option value="04">April</option>
+                <option value="05">Mei</option>
+                <option value="06">Juni</option>
+                <option value="07">Juli</option>
+                <option value="08">Agustus</option>
+                <option value="09">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+              </select>
+            ) : (
+              <div className="py-2 px-3 bg-slate-50 border border-surface-border rounded-xl text-xs font-semibold text-ink-600 shadow-sm flex items-center gap-1.5 whitespace-nowrap">
+                <span>Akhir Tahun {range}</span>
+                <span className="text-[10px] text-ink-400 font-normal">(Riwayat)</span>
+              </div>
+            )
           )}
 
           {/* Business Category (Jenis Usaha) Dropdown Filter */}

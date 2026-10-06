@@ -9,7 +9,7 @@ import KecamatanRankingList from '../components/KecamatanRankingList.jsx'
 import HeatmapPieChart from '../components/HeatmapPieChart.jsx'
 import { ShieldCheck, Store, ArrowLeftRight, Banknote } from '../components/icons.jsx'
 import { kecamatanZonation } from '../data/heatmapData.js'
-import { qrisRealData } from '../data/qrisData.js'
+import { qrisRealData, qrisMonthlyByCategory } from '../data/qrisData.js'
 
 const formatRp = (v) => `Rp ${Math.round(v).toLocaleString('id-ID')}`
 
@@ -114,18 +114,36 @@ export default function Heatmap({ isAdmin = true }) {
     const selectedKecamatan = data.find(k => k.id === selectedId)
     const activeRegency = selectedKecamatan ? selectedKecamatan.regency.trim() : null
 
-    let totalMerchants = 0;
-    let totalVolume = 0;
-    let totalNominal = 0;
+    let totalMerchants = 0
+    let totalVolume = 0
+    let totalNominal = 0
 
     const kabList = ['Banyumas', 'Cilacap', 'Purbalingga', 'Banjarnegara']
     kabList.forEach(kab => {
       if (!activeRegency || activeRegency.toLowerCase().includes(kab.toLowerCase())) {
         const kabData = qrisRealData[kab]?.[range] || {}
         totalMerchants += kabData.merchants || 0
-        const catData = kabData[category] || { volume: 0, nominal: 0 }
-        totalVolume += catData.volume || 0
-        totalNominal += catData.nominal || 0
+
+        if (range === '2026' && month && month !== 'ALL' && qrisMonthlyByCategory['2026']?.[month]?.[kab]) {
+          const mData = qrisMonthlyByCategory['2026'][month][kab]
+          if (category === 'TOTAL') {
+            ;['UMI', 'UKE', 'UME', 'UBE'].forEach(c => {
+              totalVolume += mData[c]?.volume || 0
+              totalNominal += mData[c]?.nominal || 0
+            })
+          } else if (mData[category]) {
+            totalVolume += mData[category]?.volume || 0
+            totalNominal += mData[category]?.nominal || 0
+          } else {
+            const catData = kabData[category] || { volume: 0, nominal: 0 }
+            totalVolume += Math.round(catData.volume / 12)
+            totalNominal += Math.round(catData.nominal / 12)
+          }
+        } else {
+          const catData = kabData[category] || { volume: 0, nominal: 0 }
+          totalVolume += catData.volume || 0
+          totalNominal += catData.nominal || 0
+        }
       }
     })
 
@@ -135,7 +153,7 @@ export default function Heatmap({ isAdmin = true }) {
       nominal: totalNominal,
       regencyName: activeRegency
     }
-  }, [data, selectedId, range, category])
+  }, [data, selectedId, range, month, category])
 
   async function handleExport() {
     if (!captureRef.current) return
@@ -481,6 +499,7 @@ export default function Heatmap({ isAdmin = true }) {
       {/* Pie Chart: Distribusi 4 Kategori (UMI, UKE, UME, UBE) & Diagram Batang Series */}
       <HeatmapPieChart
         range={range}
+        onRangeChange={setRange}
         month={month}
         onMonthChange={setMonth}
         selectedId={selectedId}
