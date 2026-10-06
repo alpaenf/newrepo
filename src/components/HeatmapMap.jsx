@@ -98,10 +98,10 @@ export default function HeatmapMap({ metric, range, selectedId, onSelect, data }
             url="https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
           />
         </LayersControl.BaseLayer>
-        <LayersControl.BaseLayer name="Peta Ringkas (CARTO Light)">
+        <LayersControl.BaseLayer name="Peta Ringkas (OpenStreetMap)">
           <TileLayer
-            attribution='&copy; OpenStreetMap &copy; CARTO'
-            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
         </LayersControl.BaseLayer>
       </LayersControl>
