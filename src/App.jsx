@@ -10,14 +10,16 @@ import TransaksiPemerintah from './pages/transaksi/TransaksiPemerintah.jsx'
 import TransaksiUMKM from './pages/transaksi/TransaksiUMKM.jsx'
 import { Power, ShieldCheck, User, ChevronDown, ChevronUp } from './components/icons.jsx'
 
-import logoBI from '../logo1.png'
-import logo4Kab from '../logo 4 kab.png'
-import logoKpw from '../logo kpw0.png'
-import logoKiri1 from '../logokiri1.png'
-import logoKiri2 from '../logokiri2.png'
-import logoKiri3 from '../logokiri3.png'
-import logoKiri4 from '../logokiri4.png'
-import logoP2dd from '../logo p2dd.png'
+import {
+  logoBI,
+  logo4Kab,
+  logoKpw,
+  logoKiri1,
+  logoKiri2,
+  logoKiri3,
+  logoKiri4,
+  logoP2dd
+} from '@/assets/logos'
 
 const NAV_TABS = [
   { id: 'heatmap', label: 'Heatmap Zonasi' },

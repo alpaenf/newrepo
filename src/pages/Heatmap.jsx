@@ -1,17 +1,23 @@
 import { useRef, useState, useMemo } from 'react'
 import html2canvas from 'html2canvas'
 import * as XLSX from 'xlsx'
-import HeatmapToolbar from '../components/HeatmapToolbar.jsx'
-import HeatmapMap from '../components/HeatmapMap.jsx'
-import HeatmapLegend from '../components/HeatmapLegend.jsx'
-import KecamatanDetailPanel from '../components/KecamatanDetailPanel.jsx'
-import KecamatanRankingList from '../components/KecamatanRankingList.jsx'
-import HeatmapPieChart from '../components/HeatmapPieChart.jsx'
-import { ShieldCheck, Store, ArrowLeftRight, Banknote } from '../components/icons.jsx'
-import { kecamatanZonation, parseYearRange } from '../data/heatmapData.js'
-import { qrisRealData, qrisMonthlyByCategory } from '../data/qrisData.js'
+import {
+  HeatmapToolbar,
+  HeatmapMap,
+  HeatmapLegend,
+  KecamatanDetailPanel,
+  KecamatanRankingList,
+  HeatmapPieChart,
+  ShieldCheck,
+  Store,
+  ArrowLeftRight,
+  Banknote
+} from '@/components'
+import { kecamatanZonation, parseYearRange } from '@/data/heatmapData.js'
+import { qrisRealData, qrisMonthlyByCategory } from '@/data/qrisData.js'
+import { formatRupiah } from '@/utils/formatters.js'
 
-const formatRp = (v) => `Rp ${Math.round(v).toLocaleString('id-ID')}`
+const formatRp = formatRupiah
 
 function parseGmapsUrl(url) {
   if (!url) return null

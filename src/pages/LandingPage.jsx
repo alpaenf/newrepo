@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
-import logoBI from '../../logo1.png'
-import logo4Kab from '../../logo 4 kab.png'
-import logoKiri1 from '../../logokiri1.png'
-import logoKiri2 from '../../logokiri2.png'
-import logoKiri3 from '../../logokiri3.png'
-import logoKiri4 from '../../logokiri4.png'
-import logoP2dd from '../../logo p2dd.png'
-import { BankIndonesiaLogo } from './MapGuest.jsx'
-import { Lock, X, User, KeyRound } from '../components/icons.jsx'
+import {
+  logoBI,
+  logo4Kab,
+  logoKiri1,
+  logoKiri2,
+  logoKiri3,
+  logoKiri4,
+  logoP2dd
+} from '@/assets/logos'
+import { Lock, X, User, KeyRound } from '@/components/icons.jsx'
 
 export default function LandingPage({ onOpenMap, onOpenLogin, onLoginSuccess }) {
   const desktopText = "Zona QRIS Banyumas Raya merupakan instrumen strategis KPwBI Purwokerto untuk mengintegrasikan pemetaan potensi wilayah sebagai dasar pelaksanaan program yang lebih tepat sasaran. Melalui sinergi dengan Instansi Vertikal Pemerintah Pusat, Organisasi Perangkat Daerah (OPD), Kecamatan, Perbankan, serta Komunitas terkait di Banyumas Raya, Zona QRIS mendukung penguatan digitalisasi sistem pembayaran, elektronifikasi transaksi pemerintah daerah, optimalisasi potensi ekonomi dan penerimaan daerah, pengembangan UMKM hingga pasar ekspor, serta perluasan manfaat transaksi digital bagi masyarakat."

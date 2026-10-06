@@ -99,3 +99,6 @@ export function MarkerClusterGroup({ pins, onPinClick, focusId, getIcon, getTool
 
   return null
 }
+
+export default MarkerClusterGroup
+

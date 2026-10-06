@@ -1,15 +1,7 @@
 import { useState, useMemo } from 'react'
 import * as XLSX from 'xlsx'
-import StokMapLeaflet, { StokMapLegend } from '../../components/StokMapLeaflet.jsx'
-import StokDetailPanel from './StokDetailPanel.jsx'
-import StokChartAnalytics from './StokChartAnalytics.jsx'
-
-const stockMetricOptions = [
-  { key: 'volumeStok', label: 'Volume Stok' },
-  { key: 'bufferStok', label: 'Target Buffer' },
-  { key: 'avgPrice', label: 'Rata-rata Harga' }
-]
 import {
+  StokMapLeaflet,
   Package,
   AlertTriangle,
   Search,
@@ -29,7 +21,16 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDown
-} from '../../components/icons.jsx'
+} from '@/components'
+import { formatRupiah, formatNumber, formatPercent } from '@/utils/formatters.js'
+import StokDetailPanel from './StokDetailPanel.jsx'
+import StokChartAnalytics from './StokChartAnalytics.jsx'
+
+const stockMetricOptions = [
+  { key: 'volumeStok', label: 'Volume Stok' },
+  { key: 'bufferStok', label: 'Target Buffer' },
+  { key: 'avgPrice', label: 'Rata-rata Harga' }
+]
 
 const sampleStokData = [
   {

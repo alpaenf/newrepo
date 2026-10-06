@@ -1,14 +1,18 @@
 import { useRef, useState, useMemo } from 'react'
 import html2canvas from 'html2canvas'
-import HeatmapToolbar from '../components/HeatmapToolbar.jsx'
-import PajakMap from '../components/PajakMap.jsx'
-import HeatmapLegend from '../components/HeatmapLegend.jsx'
-import PajakDetailPanel from '../components/PajakDetailPanel.jsx'
-import KecamatanRankingList from '../components/KecamatanRankingList.jsx'
-import KabupatenSummaryPanel from '../components/KabupatenSummaryPanel.jsx'
-import { Landmark, ArrowLeft } from '../components/icons.jsx'
-import { pajakRawData, pajakMetricsOptions, timeRangeOptions, kabupatenOptions } from '../data/pajakData.js'
-import { kabupatenPADData } from '../data/kabupatenPADData.js'
+import {
+  HeatmapToolbar,
+  PajakMap,
+  HeatmapLegend,
+  PajakDetailPanel,
+  KecamatanRankingList,
+  KabupatenSummaryPanel,
+  Landmark,
+  ArrowLeft
+} from '@/components'
+import { pajakRawData, pajakMetricsOptions, timeRangeOptions, kabupatenOptions } from '@/data/pajakData.js'
+import { kabupatenPADData } from '@/data/kabupatenPADData.js'
+import { formatRupiah, formatNumber } from '@/utils/formatters.js'
 const daerahMetricsOptions = [
   { key: 'penerimaan', label: 'Total PAD' },
   { key: 'lapor', label: 'Total PAD Nontunai' },

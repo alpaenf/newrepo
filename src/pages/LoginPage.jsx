@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import logoBI from '../../logo1.png'
-import logoKpw from '../../logo kpw0.png'
-import { User, Lock, Eye, EyeOff, ShieldCheck, ArrowRight, Lightbulb } from '../components/icons.jsx'
+import { logoBI, logoKpw, logoQrisEmblem } from '@/assets/logos'
+import { User, Lock, Eye, EyeOff, ShieldCheck, ArrowRight, Lightbulb } from '@/components/icons.jsx'
 
 export default function LoginPage({ onBack, onLoginSuccess }) {
   const [username, setUsername] = useState('')
@@ -36,7 +35,7 @@ export default function LoginPage({ onBack, onLoginSuccess }) {
             {/* Logo Zona QRIS Emblem */}
             <div className="w-full flex items-center justify-center">
               <img
-                src="/logo2.png"
+                src={logoQrisEmblem}
                 alt="Zona QRIS Emblem"
                 className="max-h-36 sm:max-h-44 w-auto object-contain drop-shadow-sm transition-transform hover:scale-105"
                 loading="eager"

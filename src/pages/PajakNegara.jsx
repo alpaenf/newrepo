@@ -1,15 +1,19 @@
 import { useRef, useState, useMemo } from 'react'
 import html2canvas from 'html2canvas'
-import HeatmapToolbar from '../components/HeatmapToolbar.jsx'
-import PajakMap from '../components/PajakMap.jsx'
-import HeatmapLegend from '../components/HeatmapLegend.jsx'
-import PajakDetailPanel from '../components/PajakDetailPanel.jsx'
-import KecamatanRankingList from '../components/KecamatanRankingList.jsx'
-import KabupatenSummaryPanel from '../components/KabupatenSummaryPanel.jsx'
-import { Landmark, ArrowLeft } from '../components/icons.jsx'
-import { pajakRawData, timeRangeOptions, kabupatenOptions } from '../data/pajakData.js'
-import { kabupatenPADData } from '../data/kabupatenPADData.js'
-import { banyumasPajakNegaraRaw, sdaSectorData } from '../data/banyumasPajakNegaraData.js'
+import {
+  HeatmapToolbar,
+  PajakMap,
+  HeatmapLegend,
+  PajakDetailPanel,
+  KecamatanRankingList,
+  KabupatenSummaryPanel,
+  Landmark,
+  ArrowLeft
+} from '@/components'
+import { pajakRawData, timeRangeOptions, kabupatenOptions } from '@/data/pajakData.js'
+import { kabupatenPADData } from '@/data/kabupatenPADData.js'
+import { banyumasPajakNegaraRaw, sdaSectorData } from '@/data/banyumasPajakNegaraData.js'
+import { formatRupiah, formatNumber } from '@/utils/formatters.js'
 
 const negaraMetricsOptions = [
   { key: 'penerimaan', label: 'Realisasi PPh Orang Pribadi' },

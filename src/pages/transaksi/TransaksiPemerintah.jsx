@@ -5,15 +5,21 @@ import {
   AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from 'recharts'
-import TransaksiToolbar from '../../components/TransaksiToolbar.jsx'
-import Pagination from '../../components/Pagination.jsx'
 import {
-  Landmark, Banknote, Receipt, TrendingUp, TrendingDown, ShieldCheck,
-  BarChart3, QrCode, Target
-} from '../../components/icons.jsx'
-import {
-  kabupatenList
-} from '../../data/transaksiUMKMData.js'
+  TransaksiToolbar,
+  Pagination,
+  Landmark,
+  Banknote,
+  Receipt,
+  TrendingUp,
+  TrendingDown,
+  ShieldCheck,
+  BarChart3,
+  QrCode,
+  Target
+} from '@/components'
+import { formatRupiah, formatNumber, formatPercent } from '@/utils/formatters.js'
+import { kabupatenList } from '@/data/transaksiUMKMData.js'
 import {
   pajakKecamatan,
   kabupatenPajak,
