@@ -954,32 +954,32 @@ export default function HeatmapPieChart({
             })}
           </div>
 
-          {/* Quick Category Focus Filter Pills */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none pt-0.5 border-t border-slate-100">
-            <span className="text-[11px] font-semibold text-ink-500 shrink-0 mr-1">Filter Kategori:</span>
-            {CATEGORY_FILTER_OPTIONS.map((catOpt) => {
-              const isSelected = categoryFilter === catOpt.id
-              return (
-                <button
-                  key={catOpt.id}
-                  type="button"
-                  onClick={() => setCategoryFilter(catOpt.id)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all whitespace-nowrap border flex items-center gap-1.5 ${
-                    isSelected
-                      ? 'bg-slate-900 text-white border-slate-900 shadow-xs font-bold'
-                      : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
-                  }`}
-                >
-                  {catOpt.color && (
-                    <span
-                      className="w-2 h-2 rounded-full shrink-0"
-                      style={{ backgroundColor: catOpt.color }}
-                    />
-                  )}
-                  <span>{catOpt.label}</span>
-                </button>
-              )
-            })}
+          {/* Quick Category Focus Dropdown */}
+          <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-100 flex-wrap">
+            <div className="flex items-center gap-2 bg-surface-muted/80 px-2.5 py-1 rounded-xl border border-surface-border shadow-xs">
+              <Layers size={13} className="text-brand shrink-0" />
+              <span className="text-[11px] font-semibold text-ink-600">Filter Skala Usaha:</span>
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
+              >
+                {CATEGORY_FILTER_OPTIONS.map((catOpt) => (
+                  <option key={catOpt.id} value={catOpt.id}>
+                    {catOpt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {categoryFilter !== 'ALL' && (
+              <button
+                type="button"
+                onClick={() => setCategoryFilter('ALL')}
+                className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors px-2.5 py-1 bg-blue-50 rounded-lg border border-blue-200 shadow-xs"
+              >
+                ✕ Reset ke Semua Skala
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -1209,6 +1209,23 @@ export default function HeatmapPieChart({
               </div>
             )}
 
+            {/* Skala Usaha Filter Dropdown */}
+            <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1 rounded-xl border border-surface-border shadow-xs">
+              <Layers size={13} className="text-brand shrink-0" />
+              <span className="text-[11px] font-semibold text-ink-600">Skala:</span>
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2 focus:outline-none cursor-pointer shadow-xs max-w-[170px]"
+              >
+                {CATEGORY_FILTER_OPTIONS.map((catOpt) => (
+                  <option key={catOpt.id} value={catOpt.id}>
+                    {catOpt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             {/* Bar Chart Mode Switcher */}
             {categoryFilter === 'ALL' && (
               <div className="inline-flex p-1 bg-surface-muted rounded-xl border border-surface-border shadow-xs">
@@ -1237,34 +1254,6 @@ export default function HeatmapPieChart({
               </div>
             )}
           </div>
-        </div>
-
-        {/* Filter Skala Usaha */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none pt-1 border-t border-slate-100">
-          <span className="text-[11px] font-semibold text-ink-600 shrink-0 mr-1">Filter Skala:</span>
-          {CATEGORY_FILTER_OPTIONS.map((catOpt) => {
-            const isSelected = categoryFilter === catOpt.id
-            return (
-              <button
-                key={catOpt.id}
-                type="button"
-                onClick={() => setCategoryFilter(catOpt.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap border flex items-center gap-1.5 ${
-                  isSelected
-                    ? 'bg-slate-900 text-white border-slate-900 shadow-xs ring-2 ring-offset-1 ring-blue-500/30 font-bold'
-                    : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300'
-                }`}
-              >
-                {catOpt.color && (
-                  <span
-                    className="w-2.5 h-2.5 rounded-full shrink-0"
-                    style={{ backgroundColor: catOpt.color }}
-                  />
-                )}
-                <span>{catOpt.label}</span>
-              </button>
-            )
-          })}
         </div>
 
         {/* Recharts Multi-Series / Focused Bar Chart */}
@@ -1602,59 +1591,51 @@ export default function HeatmapPieChart({
             </p>
           </div>
 
-          {/* Trend Mode Switcher */}
-          <div className="inline-flex p-1 bg-white rounded-xl border border-surface-border shadow-xs self-start sm:self-auto">
-            <button
-              type="button"
-              onClick={() => setTrendMode('all')}
-              className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                trendMode === 'all'
-                  ? 'bg-ink-900 text-white shadow-sm'
-                  : 'text-ink-600 hover:text-ink-900'
-              }`}
-            >
-              Historis + 2026
-            </button>
-            <button
-              type="button"
-              onClick={() => setTrendMode('monthly2026')}
-              className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                trendMode === 'monthly2026'
-                  ? 'bg-ink-900 text-white shadow-sm'
-                  : 'text-ink-600 hover:text-ink-900'
-              }`}
-            >
-              Khusus Bulanan 2026
-            </button>
-          </div>
-        </div>
+          {/* Trend Controls: Skala Dropdown & Trend Mode Switcher */}
+          <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+            {/* Skala Usaha Dropdown */}
+            <div className="flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-xl border border-surface-border shadow-xs">
+              <Layers size={13} className="text-brand shrink-0" />
+              <span className="text-[11px] font-semibold text-ink-600">Skala:</span>
+              <select
+                value={trendCategoryFilter}
+                onChange={(e) => setTrendCategoryFilter(e.target.value)}
+                className="bg-slate-50 border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs max-w-[170px]"
+              >
+                {CATEGORY_FILTER_OPTIONS.map((catOpt) => (
+                  <option key={catOpt.id} value={catOpt.id}>
+                    {catOpt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        {/* Filter Skala Usaha untuk Grafik Tren */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none pt-1 border-t border-slate-200/60">
-          <span className="text-[11px] font-semibold text-ink-600 shrink-0 mr-1">Filter Skala:</span>
-          {CATEGORY_FILTER_OPTIONS.map((catOpt) => {
-            const isSelected = trendCategoryFilter === catOpt.id
-            return (
+            {/* Trend Mode Switcher */}
+            <div className="inline-flex p-1 bg-white rounded-xl border border-surface-border shadow-xs">
               <button
-                key={catOpt.id}
                 type="button"
-                onClick={() => setTrendCategoryFilter(catOpt.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap border flex items-center gap-1.5 ${
-                  isSelected
-                    ? 'bg-slate-900 text-white border-slate-900 shadow-xs ring-2 ring-offset-1 ring-blue-500/30 font-bold'
-                    : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300'
+                onClick={() => setTrendMode('all')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  trendMode === 'all'
+                    ? 'bg-ink-900 text-white shadow-sm'
+                    : 'text-ink-600 hover:text-ink-900'
                 }`}
               >
-                {catOpt.color && (
-                  <span
-                    className="w-2.5 h-2.5 rounded-full shrink-0"
-                    style={{ backgroundColor: catOpt.color }}
-                  />
-                )}
-                <span>{catOpt.label}</span>
+                Historis + 2026
               </button>
-            )
-          })}
+              <button
+                type="button"
+                onClick={() => setTrendMode('monthly2026')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  trendMode === 'monthly2026'
+                    ? 'bg-ink-900 text-white shadow-sm'
+                    : 'text-ink-600 hover:text-ink-900'
+                }`}
+              >
+                Khusus Bulanan 2026
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Trend Area Chart */}
