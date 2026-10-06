@@ -16,6 +16,7 @@ import {
 } from 'recharts'
 import { Calendar, TrendingUp, BarChart3, Layers } from './icons.jsx'
 import { qrisRealData, qrisMonthlyByCategory } from '../data/qrisData.js'
+import { YEAR_OPTIONS, parseYearRange } from '../data/heatmapData.js'
 
 const KABUPATEN_LIST = [
   { id: 'ALL', name: 'Semua (Banyumas Raya)', shortName: 'Banyumas Raya' },
@@ -336,12 +337,18 @@ export default function HeatmapPieChart({
     }
   }, [month])
 
-  const handleYearChange = (newYear) => {
-    setSelectedYear(newYear)
+  const { startYear, endYear, isRange } = parseYearRange(selectedYear)
+
+  const handleYearRangeChange = (newStart, newEnd) => {
+    let s = parseInt(newStart, 10) || 2026
+    let e = parseInt(newEnd, 10) || s
+    if (s > e) e = s
+    const val = s === e ? String(s) : `${s}-${e}`
+    setSelectedYear(val)
     if (onRangeChange) {
-      onRangeChange(newYear)
+      onRangeChange(val)
     }
-    if (newYear !== '2026') {
+    if (val !== '2026') {
       setSelectedMonth('ALL')
       if (onMonthChange) onMonthChange('ALL')
     } else {
@@ -364,8 +371,12 @@ export default function HeatmapPieChart({
   }, [selectedMonth])
 
   const periodLabel = useMemo(() => {
-    if (selectedYear !== '2026') {
-      return `Akhir Tahun ${selectedYear}`
+    const { startYear: s, endYear: e, isRange: r } = parseYearRange(selectedYear)
+    if (r) {
+      return `Rentang Tahun ${s} - ${e}`
+    }
+    if (s !== '2026') {
+      return `Akhir Tahun ${s}`
     }
     if (selectedMonth === 'ALL') {
       return 'Tahun 2026 (Tahunan)'
@@ -377,46 +388,82 @@ export default function HeatmapPieChart({
   const categories = ['UMI', 'UKE', 'UME', 'UBE']
   const fourKab = ['Banyumas', 'Cilacap', 'Purbalingga', 'Banjarnegara']
 
-  // Helper to fetch category data for a kabupaten based on active year & month
-  const getCatData = (kab, yr, mKey, catKey) => {
-    if (yr !== '2026') {
-      // Historical years: if qrisRealData has this year, use it
-      const kabData = qrisRealData[kab]?.[yr]
-      if (kabData) {
-        const catData = kabData[catKey] || { nominal: 0, volume: 0 }
+  // Helper to fetch category data for a kabupaten based on active year range & month
+  const getCatData = (kab, rangeStr, mKey, catKey) => {
+    const { startYear: s, endYear: e, isRange: r } = parseYearRange(rangeStr)
+    const sNum = parseInt(s, 10) || 2026
+    const eNum = parseInt(e, 10) || sNum
+
+    if (!r) {
+      const yr = s
+      if (yr !== '2026') {
+        const kabData = qrisRealData[kab]?.[yr]
+        if (kabData) {
+          const catData = kabData[catKey] || { nominal: 0, volume: 0 }
+          return {
+            nominal: catData.nominal || 0,
+            volume: catData.volume || 0
+          }
+        }
+        const base2024 = qrisRealData[kab]?.['2024']?.[catKey] || { nominal: 0, volume: 0 }
+        const diffYears = Math.max(1, 2024 - (parseInt(yr, 10) || 2024))
+        const scale = Math.max(0.08, Math.pow(0.72, diffYears))
         return {
-          nominal: catData.nominal || 0,
-          volume: catData.volume || 0
+          nominal: Math.round(base2024.nominal * scale),
+          volume: Math.round(base2024.volume * scale)
         }
       }
-      // If historical year is earlier than 2024, scale down proportionally from 2024
-      const base2024 = qrisRealData[kab]?.['2024']?.[catKey] || { nominal: 0, volume: 0 }
-      const diffYears = Math.max(1, 2024 - (parseInt(yr, 10) || 2024))
-      const scale = Math.max(0.08, Math.pow(0.72, diffYears))
+
+      // Single Year 2026:
+      if (mKey === 'ALL') {
+        let nom = 0, vol = 0
+        for (let m = 1; m <= 12; m++) {
+          const mStr = String(m).padStart(2, '0')
+          const mData = qrisMonthlyByCategory['2026']?.[mStr]?.[kab]?.[catKey]
+          nom += mData?.nominal || 0
+          vol += mData?.volume || 0
+        }
+        return { nominal: nom, volume: vol }
+      }
+
+      // Specific month in 2026:
+      const mData = qrisMonthlyByCategory['2026']?.[mKey]?.[kab]?.[catKey] || {}
       return {
-        nominal: Math.round(base2024.nominal * scale),
-        volume: Math.round(base2024.volume * scale)
+        nominal: mData.nominal || 0,
+        volume: mData.volume || 0
       }
     }
 
-    // Year 2026:
-    if (mKey === 'ALL') {
-      let nom = 0, vol = 0
-      for (let m = 1; m <= 12; m++) {
-        const mStr = String(m).padStart(2, '0')
-        const mData = qrisMonthlyByCategory['2026']?.[mStr]?.[kab]?.[catKey]
-        nom += mData?.nominal || 0
-        vol += mData?.volume || 0
+    // Multi-Year Range (e.g. 2024 - 2026):
+    let totalNom = 0
+    let totalVol = 0
+
+    for (let y = sNum; y <= eNum; y++) {
+      const yStr = String(y)
+      if (yStr === '2026') {
+        for (let m = 1; m <= 12; m++) {
+          const mStr = String(m).padStart(2, '0')
+          const mData = qrisMonthlyByCategory['2026']?.[mStr]?.[kab]?.[catKey]
+          totalNom += mData?.nominal || 0
+          totalVol += mData?.volume || 0
+        }
+      } else {
+        const kabData = qrisRealData[kab]?.[yStr]
+        if (kabData) {
+          const catData = kabData[catKey] || { nominal: 0, volume: 0 }
+          totalNom += catData.nominal || 0
+          totalVol += catData.volume || 0
+        } else {
+          const base2024 = qrisRealData[kab]?.['2024']?.[catKey] || { nominal: 0, volume: 0 }
+          const diffYears = Math.max(1, 2024 - y)
+          const scale = Math.max(0.08, Math.pow(0.72, diffYears))
+          totalNom += Math.round(base2024.nominal * scale)
+          totalVol += Math.round(base2024.volume * scale)
+        }
       }
-      return { nominal: nom, volume: vol }
     }
 
-    // Specific month in 2026:
-    const mData = qrisMonthlyByCategory['2026']?.[mKey]?.[kab]?.[catKey] || {}
-    return {
-      nominal: mData.nominal || 0,
-      volume: mData.volume || 0
-    }
+    return { nominal: totalNom, volume: totalVol }
   }
 
   // Multi-Series Bar Chart Data for comparing 4 Kabupaten side-by-side (Per Wilayah)
@@ -623,24 +670,36 @@ export default function HeatmapPieChart({
 
           {/* Controls: Year, Month, Metric Switcher */}
           <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-auto">
-            {/* Year Dropdown Selector */}
-            <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1.5 rounded-xl border border-surface-border shadow-xs">
-              <span className="text-[11px] font-semibold text-ink-600">Tahun:</span>
+            {/* Year Range Selector: Dari [Tahun] s.d. [Tahun] */}
+            <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1.5 rounded-xl border border-surface-border shadow-xs whitespace-nowrap">
+              <span className="text-[11px] font-semibold text-ink-600">Rentang:</span>
               <select
-                value={selectedYear}
-                onChange={(e) => handleYearChange(e.target.value)}
-                className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
+                value={startYear}
+                onChange={(e) => handleYearRangeChange(e.target.value, endYear)}
+                className="py-1 px-2 bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 focus:outline-none shadow-xs cursor-pointer"
               >
-                {YEAR_LIST.map((yr) => (
-                  <option key={yr.id} value={yr.id}>
-                    {yr.name}
+                {YEAR_OPTIONS.map((yr) => (
+                  <option key={yr} value={yr}>
+                    {yr}
+                  </option>
+                ))}
+              </select>
+              <span className="text-xs font-medium text-ink-400">s.d.</span>
+              <select
+                value={endYear}
+                onChange={(e) => handleYearRangeChange(startYear, e.target.value)}
+                className="py-1 px-2 bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 focus:outline-none shadow-xs cursor-pointer"
+              >
+                {YEAR_OPTIONS.map((yr) => (
+                  <option key={yr} value={yr}>
+                    {yr}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* Month Filter Selector with SVG Icon for 2026, or Akhir Tahun Badge for 2024/2025 */}
-            {selectedYear === '2026' ? (
+            {/* Month Filter Selector for single 2026, or Akhir Tahun / Akumulasi Badge */}
+            {!isRange && startYear === '2026' ? (
               <div className="flex items-center gap-2 bg-surface-muted px-3 py-1.5 rounded-xl border border-surface-border shadow-xs">
                 <Calendar size={14} className="text-brand shrink-0" />
                 <span className="text-[11px] font-semibold text-ink-600">Periode:</span>
@@ -659,8 +718,8 @@ export default function HeatmapPieChart({
             ) : (
               <div className="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 shadow-xs">
                 <Calendar size={14} className="text-slate-500 shrink-0" />
-                <span>Akhir Tahun {selectedYear}</span>
-                <span className="text-[10px] text-slate-500 font-normal">(Riwayat Tahunan)</span>
+                <span>{isRange ? `Akumulasi ${startYear} - ${endYear}` : `Akhir Tahun ${startYear}`}</span>
+                <span className="text-[10px] text-slate-500 font-normal">(Riwayat)</span>
               </div>
             )}
 
@@ -912,24 +971,36 @@ export default function HeatmapPieChart({
 
           {/* Controls: Year selector, Month selector / badge, and Bar Mode */}
           <div className="flex flex-wrap items-center gap-2 self-start lg:self-auto">
-            {/* Year Dropdown Selector */}
-            <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1 rounded-xl border border-surface-border shadow-xs">
-              <span className="text-[11px] font-semibold text-ink-600">Tahun:</span>
+            {/* Year Range Selector: Dari [Tahun] s.d. [Tahun] */}
+            <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1 rounded-xl border border-surface-border shadow-xs whitespace-nowrap">
+              <span className="text-[11px] font-semibold text-ink-600">Rentang:</span>
               <select
-                value={selectedYear}
-                onChange={(e) => handleYearChange(e.target.value)}
-                className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
+                value={startYear}
+                onChange={(e) => handleYearRangeChange(e.target.value, endYear)}
+                className="py-1 px-2 bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 focus:outline-none shadow-xs cursor-pointer"
               >
-                {YEAR_LIST.map((yr) => (
-                  <option key={yr.id} value={yr.id}>
-                    {yr.shortName}
+                {YEAR_OPTIONS.map((yr) => (
+                  <option key={yr} value={yr}>
+                    {yr}
+                  </option>
+                ))}
+              </select>
+              <span className="text-xs font-medium text-ink-400">s.d.</span>
+              <select
+                value={endYear}
+                onChange={(e) => handleYearRangeChange(startYear, e.target.value)}
+                className="py-1 px-2 bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 focus:outline-none shadow-xs cursor-pointer"
+              >
+                {YEAR_OPTIONS.map((yr) => (
+                  <option key={yr} value={yr}>
+                    {yr}
                   </option>
                 ))}
               </select>
             </div>
 
             {/* Quick Month Selector / Badge */}
-            {selectedYear === '2026' ? (
+            {!isRange && startYear === '2026' ? (
               <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1 rounded-xl border border-surface-border shadow-xs">
                 <Calendar size={13} className="text-brand shrink-0" />
                 <span className="text-[11px] font-semibold text-ink-600">Bulan:</span>
@@ -948,8 +1019,8 @@ export default function HeatmapPieChart({
             ) : (
               <div className="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 shadow-xs">
                 <Calendar size={13} className="text-slate-500 shrink-0" />
-                <span>Akhir Tahun {selectedYear}</span>
-                <span className="text-[10px] text-slate-500 font-normal">(Riwayat Tahunan)</span>
+                <span>{isRange ? `Akumulasi ${startYear} - ${endYear}` : `Akhir Tahun ${startYear}`}</span>
+                <span className="text-[10px] text-slate-500 font-normal">(Riwayat)</span>
               </div>
             )}
 

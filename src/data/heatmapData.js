@@ -104,3 +104,25 @@ export const timeRangeOptions = [
   { key: '2018', label: 'Tahun 2018' },
   { key: '2017', label: 'Tahun 2017' }
 ]
+
+export const YEAR_OPTIONS = ['2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026']
+
+export function parseYearRange(rangeStr) {
+  if (!rangeStr) return { startYear: '2026', endYear: '2026', isRange: false }
+  const str = String(rangeStr).trim()
+  if (str.includes('-')) {
+    const parts = str.split('-').map(s => s.trim())
+    const s = parts[0] || '2026'
+    const e = parts[1] || s
+    const startNum = parseInt(s, 10) || 2026
+    const endNum = parseInt(e, 10) || startNum
+    const minYr = String(Math.min(startNum, endNum))
+    const maxYr = String(Math.max(startNum, endNum))
+    return {
+      startYear: minYr,
+      endYear: maxYr,
+      isRange: minYr !== maxYr
+    }
+  }
+  return { startYear: str, endYear: str, isRange: false }
+}

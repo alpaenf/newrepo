@@ -1,6 +1,6 @@
 import { Image, FileSpreadsheet } from './icons.jsx'
 import { Upload } from 'lucide-react'
-import { metricOptions, timeRangeOptions } from '../data/heatmapData.js'
+import { metricOptions, YEAR_OPTIONS, parseYearRange } from '../data/heatmapData.js'
 
 const defaultCategories = [
   { key: 'TOTAL', label: 'Semua Jenis Usaha' },
@@ -26,12 +26,19 @@ export default function HeatmapToolbar({
   onExportExcel,
   onImportExcel,
   metricOptions: customMetricOptions,
-  timeRangeOptions: customTimeRangeOptions,
   showExport = true,
   isAdmin = true
 }) {
   const activeMetrics = customMetricOptions || metricOptions
-  const activeRanges = customTimeRangeOptions || timeRangeOptions
+  const { startYear, endYear, isRange } = parseYearRange(range)
+
+  const handleYearRangeChange = (newStart, newEnd) => {
+    let s = parseInt(newStart, 10) || 2026
+    let e = parseInt(newEnd, 10) || s
+    if (s > e) e = s
+    const val = s === e ? String(s) : `${s}-${e}`
+    onRangeChange(val)
+  }
 
   return (
     <div className="w-full bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-surface-border shadow-card overflow-x-auto no-scrollbar">
@@ -53,22 +60,37 @@ export default function HeatmapToolbar({
             ))}
           </div>
 
-          {/* Time range selector (Tahun) as Dropdown */}
-          <select
-            value={range}
-            onChange={(e) => onRangeChange(e.target.value)}
-            className="py-2 px-3 bg-white border border-surface-border rounded-xl text-xs font-semibold text-ink-700 focus:outline-none shadow-sm cursor-pointer"
-          >
-            {activeRanges.map((opt) => (
-              <option key={opt.key} value={opt.key}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+          {/* Time range selector: Dari [Tahun] s.d. [Tahun] */}
+          <div className="flex items-center gap-1.5 bg-surface-muted px-3 py-1.5 rounded-xl border border-surface-border shadow-xs whitespace-nowrap">
+            <span className="text-[11px] font-semibold text-ink-600">Rentang Tahun:</span>
+            <select
+              value={startYear}
+              onChange={(e) => handleYearRangeChange(e.target.value, endYear)}
+              className="py-1 px-2 bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 focus:outline-none shadow-xs cursor-pointer"
+            >
+              {YEAR_OPTIONS.map((yr) => (
+                <option key={yr} value={yr}>
+                  {yr}
+                </option>
+              ))}
+            </select>
+            <span className="text-xs font-medium text-ink-400">s.d.</span>
+            <select
+              value={endYear}
+              onChange={(e) => handleYearRangeChange(startYear, e.target.value)}
+              className="py-1 px-2 bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 focus:outline-none shadow-xs cursor-pointer"
+            >
+              {YEAR_OPTIONS.map((yr) => (
+                <option key={yr} value={yr}>
+                  {yr}
+                </option>
+              ))}
+            </select>
+          </div>
 
-          {/* Month Selector Dropdown (Active for 2026, or Akhir Tahun for historical) */}
+          {/* Month Selector Dropdown (Active when single year 2026 is selected) */}
           {onMonthChange && (
-            range === '2026' ? (
+            (!isRange && startYear === '2026') ? (
               <select
                 value={month || '08'}
                 onChange={(e) => onMonthChange(e.target.value)}
@@ -90,7 +112,7 @@ export default function HeatmapToolbar({
               </select>
             ) : (
               <div className="py-2 px-3 bg-slate-50 border border-surface-border rounded-xl text-xs font-semibold text-ink-600 shadow-sm flex items-center gap-1.5 whitespace-nowrap">
-                <span>Akhir Tahun {range}</span>
+                <span>{isRange ? `Akumulasi ${startYear} - ${endYear}` : `Akhir Tahun ${startYear}`}</span>
                 <span className="text-[10px] text-ink-400 font-normal">(Riwayat)</span>
               </div>
             )

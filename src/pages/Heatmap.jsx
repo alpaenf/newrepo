@@ -8,7 +8,7 @@ import KecamatanDetailPanel from '../components/KecamatanDetailPanel.jsx'
 import KecamatanRankingList from '../components/KecamatanRankingList.jsx'
 import HeatmapPieChart from '../components/HeatmapPieChart.jsx'
 import { ShieldCheck, Store, ArrowLeftRight, Banknote } from '../components/icons.jsx'
-import { kecamatanZonation } from '../data/heatmapData.js'
+import { kecamatanZonation, parseYearRange } from '../data/heatmapData.js'
 import { qrisRealData, qrisMonthlyByCategory } from '../data/qrisData.js'
 
 const formatRp = (v) => `Rp ${Math.round(v).toLocaleString('id-ID')}`
@@ -54,7 +54,9 @@ export default function Heatmap({ isAdmin = true }) {
   const baseKecamatan = importedData || kecamatanZonation
 
   const data = useMemo(() => {
-    const selectedYear = range
+    const { startYear, endYear } = parseYearRange(range)
+    const sNum = parseInt(startYear, 10) || 2026
+    const eNum = parseInt(endYear, 10) || sNum
     const selectedCat = category
 
     // Sum of zonation scores for each kabupaten
@@ -69,16 +71,39 @@ export default function Heatmap({ isAdmin = true }) {
 
     const mapped = baseKecamatan.map(k => {
       const reg = k.regency.trim()
-      const kabRealData = qrisRealData[reg]?.[selectedYear] || {}
-      const catRealData = kabRealData[selectedCat] || { volume: 0, nominal: 0 }
-      const realMerchants = kabRealData.merchants || 0
+      let realMerchants = 0
+      let catVolume = 0
+      let catNominal = 0
+
+      for (let y = sNum; y <= eNum; y++) {
+        const yStr = String(y)
+        const kabRealData = qrisRealData[reg]?.[yStr]
+        if (kabRealData) {
+          if (y === eNum) realMerchants = kabRealData.merchants || realMerchants || 0
+          const catData = kabRealData[selectedCat] || { volume: 0, nominal: 0 }
+          catVolume += catData.volume || 0
+          catNominal += catData.nominal || 0
+        } else {
+          const base2024 = qrisRealData[reg]?.['2024'] || {}
+          if (y === eNum && !realMerchants) realMerchants = base2024.merchants || 50000
+          const catData = base2024[selectedCat] || { volume: 0, nominal: 0 }
+          const diffYears = Math.max(1, 2024 - y)
+          const scale = Math.max(0.08, Math.pow(0.72, diffYears))
+          catVolume += Math.round((catData.volume || 0) * scale)
+          catNominal += Math.round((catData.nominal || 0) * scale)
+        }
+      }
+
+      if (!realMerchants) {
+        realMerchants = qrisRealData[reg]?.['2026']?.merchants || 50000
+      }
 
       const totalWeight = regencyWeights[reg] || 1
       const proportion = (k.zonationScore || 50) / totalWeight
 
       const distributedMerchants = Math.round(realMerchants * proportion)
-      const distributedVolume = Math.round(catRealData.volume * proportion)
-      const distributedNominal = Math.round(catRealData.nominal * proportion)
+      const distributedVolume = Math.round(catVolume * proportion)
+      const distributedNominal = Math.round(catNominal * proportion)
 
       return {
         ...k,
@@ -98,7 +123,7 @@ export default function Heatmap({ isAdmin = true }) {
     mapped.forEach(k => {
       if (k.indicators.merchants > maxMerchants) maxMerchants = k.indicators.merchants
       if (k.indicators.transactionVolume7d > maxVolume) maxVolume = k.indicators.transactionVolume7d
-    });
+    })
 
     return mapped.map(k => ({
       ...k,
@@ -118,31 +143,47 @@ export default function Heatmap({ isAdmin = true }) {
     let totalVolume = 0
     let totalNominal = 0
 
+    const { startYear, endYear, isRange } = parseYearRange(range)
+    const sNum = parseInt(startYear, 10) || 2026
+    const eNum = parseInt(endYear, 10) || sNum
+
     const kabList = ['Banyumas', 'Cilacap', 'Purbalingga', 'Banjarnegara']
     kabList.forEach(kab => {
       if (!activeRegency || activeRegency.toLowerCase().includes(kab.toLowerCase())) {
-        const kabData = qrisRealData[kab]?.[range] || {}
-        totalMerchants += kabData.merchants || 0
-
-        if (range === '2026' && month && month !== 'ALL' && qrisMonthlyByCategory['2026']?.[month]?.[kab]) {
-          const mData = qrisMonthlyByCategory['2026'][month][kab]
-          if (category === 'TOTAL') {
-            ;['UMI', 'UKE', 'UME', 'UBE'].forEach(c => {
-              totalVolume += mData[c]?.volume || 0
-              totalNominal += mData[c]?.nominal || 0
-            })
-          } else if (mData[category]) {
-            totalVolume += mData[category]?.volume || 0
-            totalNominal += mData[category]?.nominal || 0
-          } else {
-            const catData = kabData[category] || { volume: 0, nominal: 0 }
-            totalVolume += Math.round(catData.volume / 12)
-            totalNominal += Math.round(catData.nominal / 12)
+        for (let y = sNum; y <= eNum; y++) {
+          const yStr = String(y)
+          const kabData = qrisRealData[kab]?.[yStr]
+          if (y === eNum && kabData) {
+            totalMerchants += kabData.merchants || 0
           }
-        } else {
-          const catData = kabData[category] || { volume: 0, nominal: 0 }
-          totalVolume += catData.volume || 0
-          totalNominal += catData.nominal || 0
+
+          if (yStr === '2026' && !isRange && month && month !== 'ALL' && qrisMonthlyByCategory['2026']?.[month]?.[kab]) {
+            const mData = qrisMonthlyByCategory['2026'][month][kab]
+            if (category === 'TOTAL') {
+              ;['UMI', 'UKE', 'UME', 'UBE'].forEach(c => {
+                totalVolume += mData[c]?.volume || 0
+                totalNominal += mData[c]?.nominal || 0
+              })
+            } else if (mData[category]) {
+              totalVolume += mData[category]?.volume || 0
+              totalNominal += mData[category]?.nominal || 0
+            } else {
+              const catData = kabData ? kabData[category] || { volume: 0, nominal: 0 } : { volume: 0, nominal: 0 }
+              totalVolume += Math.round(catData.volume / 12)
+              totalNominal += Math.round(catData.nominal / 12)
+            }
+          } else if (kabData) {
+            const catData = kabData[category] || { volume: 0, nominal: 0 }
+            totalVolume += catData.volume || 0
+            totalNominal += catData.nominal || 0
+          } else {
+            const base2024 = qrisRealData[kab]?.['2024'] || {}
+            const catData = base2024[category] || { volume: 0, nominal: 0 }
+            const diffYears = Math.max(1, 2024 - y)
+            const scale = Math.max(0.08, Math.pow(0.72, diffYears))
+            totalVolume += Math.round((catData.volume || 0) * scale)
+            totalNominal += Math.round((catData.nominal || 0) * scale)
+          }
         }
       }
     })
