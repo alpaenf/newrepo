@@ -255,6 +255,54 @@ function CustomTrendTooltip({ active, payload, label, viewType }) {
   )
 }
 
+function CustomYearlyGrowthTooltip({ active, payload, label, viewType, categoryFilter }) {
+  if (!active || !payload || !payload.length) return null
+  const item = payload[0]?.payload || {}
+  const total = payload.reduce((sum, p) => sum + (Number(p.value) || 0), 0)
+
+  return (
+    <div className="bg-white/95 backdrop-blur-md p-3.5 rounded-xl shadow-2xl border border-slate-200 text-xs min-w-[270px] space-y-2 z-[9999]">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+        <div>
+          <span className="font-bold text-slate-900 text-sm block">{item.label}</span>
+          <span className="text-[10px] text-slate-400 font-medium">{item.status}</span>
+        </div>
+        <div className="text-right">
+          <span className="text-[10px] font-semibold text-slate-400 block uppercase">Total {viewType === 'nominal' ? 'Nominal' : 'Volume'}</span>
+          <span className="font-bold text-slate-900 text-xs">
+            {viewType === 'nominal' ? formatRupiahShort(total) : formatVolumeShort(total)}
+          </span>
+        </div>
+      </div>
+
+      <div className="space-y-1.5 pt-0.5">
+        {payload.map((entry) => {
+          const meta = CATEGORY_META[entry.dataKey] || {}
+          const val = Number(entry.value) || 0
+          const pct = total > 0 ? ((val / total) * 100).toFixed(1) : '0.0'
+
+          return (
+            <div key={entry.dataKey} className="flex items-center justify-between text-[11px]">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: entry.color }} />
+                <span className="font-semibold text-slate-700">{meta.label || entry.name} ({entry.dataKey}):</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-slate-900">
+                  {viewType === 'nominal' ? formatRupiahShort(val) : formatVolumeShort(val)}
+                </span>
+                {categoryFilter === 'ALL' && (
+                  <span className="text-[10px] font-semibold text-slate-500">({pct}%)</span>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 const RADIAN = Math.PI / 180
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, payload }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5
@@ -303,6 +351,8 @@ export default function HeatmapPieChart({
   const [barChartMode, setBarChartMode] = useState('grouped') // 'grouped' (berdampingan) | 'stacked' (bertumpuk)
   const [categoryFilter, setCategoryFilter] = useState('ALL') // 'ALL' | 'UMI' (Khusus Mikro) | 'UKE' | 'UME' | 'UBE'
   const [trendCategoryFilter, setTrendCategoryFilter] = useState('ALL') // 'ALL' | 'UMI' | 'UKE' | 'UME' | 'UBE'
+  const [yearlyCategoryFilter, setYearlyCategoryFilter] = useState('ALL') // 'ALL' | 'UMI' | 'UKE' | 'UME' | 'UBE'
+  const [yearlyBarMode, setYearlyBarMode] = useState('grouped') // 'grouped' | 'stacked'
   const [activeIndex, setActiveIndex] = useState(null)
 
   // Update selected year if toolbar range changes
@@ -536,6 +586,104 @@ export default function HeatmapPieChart({
 
     return points
   }, [currentWilayah, viewType, trendMode])
+
+  // 3-Year Annual Growth Comparison Data (2024 vs 2025 vs 2026)
+  const yearlyComparisonData = useMemo(() => {
+    const activeKabList = currentWilayah === 'ALL' ? fourKab : [currentWilayah]
+    const years = ['2024', '2025', '2026']
+
+    return years.map((yr) => {
+      let umiNominal = 0, umiVolume = 0
+      let ukeNominal = 0, ukeVolume = 0
+      let umeNominal = 0, umeVolume = 0
+      let ubeNominal = 0, ubeVolume = 0
+
+      activeKabList.forEach((kab) => {
+        for (let m = 1; m <= 12; m++) {
+          const mKey = String(m).padStart(2, '0')
+          const mData = qrisMonthlyByCategory[yr]?.[mKey]?.[kab] || {}
+          umiNominal += mData.UMI?.nominal || 0
+          umiVolume += mData.UMI?.volume || 0
+          ukeNominal += mData.UKE?.nominal || 0
+          ukeVolume += mData.UKE?.volume || 0
+          umeNominal += mData.UME?.nominal || 0
+          umeVolume += mData.UME?.volume || 0
+          ubeNominal += mData.UBE?.nominal || 0
+          ubeVolume += mData.UBE?.volume || 0
+        }
+      })
+
+      const umiVal = viewType === 'nominal' ? umiNominal : umiVolume
+      const ukeVal = viewType === 'nominal' ? ukeNominal : ukeVolume
+      const umeVal = viewType === 'nominal' ? umeNominal : umeVolume
+      const ubeVal = viewType === 'nominal' ? ubeNominal : ubeVolume
+      const total = umiVal + ukeVal + umeVal + ubeVal
+
+      const status =
+        yr === '2024'
+          ? 'Tahun Dasar (Baseline)'
+          : yr === '2025'
+          ? 'Realisasi Penuh'
+          : 'Realisasi 2026'
+
+      return {
+        year: yr,
+        label: `Tahun ${yr}`,
+        status,
+        UMI: umiVal,
+        UKE: ukeVal,
+        UME: umeVal,
+        UBE: ubeVal,
+        total,
+        nominalUMI: umiNominal,
+        nominalUKE: ukeNominal,
+        nominalUME: umeNominal,
+        nominalUBE: ubeNominal,
+        volumeUMI: umiVolume,
+        volumeUKE: ukeVolume,
+        volumeUME: umeVolume,
+        volumeUBE: ubeVolume
+      }
+    })
+  }, [currentWilayah, viewType])
+
+  // YoY Growth calculations for the 3-Year Comparison Section
+  const yearlyGrowthStats = useMemo(() => {
+    if (!yearlyComparisonData || yearlyComparisonData.length < 3) {
+      return { val2024: 0, val2025: 0, val2026: 0, growth25: 0, growth26: 0, totalGrowth: 0, diff25: 0, diff26: 0 }
+    }
+
+    const d24 = yearlyComparisonData[0]
+    const d25 = yearlyComparisonData[1]
+    const d26 = yearlyComparisonData[2]
+
+    const getVal = (d) => {
+      if (yearlyCategoryFilter === 'ALL') return d.total
+      return d[yearlyCategoryFilter] || 0
+    }
+
+    const val2024 = getVal(d24)
+    const val2025 = getVal(d25)
+    const val2026 = getVal(d26)
+
+    const growth25 = val2024 > 0 ? ((val2025 - val2024) / val2024) * 100 : 0
+    const growth26 = val2025 > 0 ? ((val2026 - val2025) / val2025) * 100 : 0
+    const totalGrowth = val2024 > 0 ? ((val2026 - val2024) / val2024) * 100 : 0
+
+    const diff25 = val2025 - val2024
+    const diff26 = val2026 - val2025
+
+    return {
+      val2024,
+      val2025,
+      val2026,
+      growth25,
+      growth26,
+      totalGrowth,
+      diff25,
+      diff26
+    }
+  }, [yearlyComparisonData, yearlyCategoryFilter])
 
   // Comparison data for all 4 kabupaten (adjusted for month)
   const kabComparison = useMemo(() => {
@@ -1165,6 +1313,256 @@ export default function HeatmapPieChart({
                 </div>
               </>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* SECTION: Diagram Batang Komparasi Pertumbuhan Tahunan (2024 vs 2025 vs 2026) */}
+      <div className="p-4 sm:p-6 border-t border-surface-border space-y-4 bg-white">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2">
+              <TrendingUp size={16} className="text-brand shrink-0" />
+              <h3 className="text-sm sm:text-base font-bold text-ink-900 tracking-tight">
+                {yearlyCategoryFilter === 'ALL'
+                  ? 'Pertumbuhan Tahunan QRIS (2024 vs 2025 vs 2026)'
+                  : `Pertumbuhan Tahunan: Khusus ${CATEGORY_META[yearlyCategoryFilter]?.label} (${yearlyCategoryFilter})`}
+              </h3>
+            </div>
+            <p className="text-xs text-ink-500 mt-0.5">
+              Komparasi pertumbuhan tahunan (YoY) nominal & volume transaksi antar tahun 2024, 2025, dan 2026 di{' '}
+              <strong>{currentWilayah === 'ALL' ? 'Banyumas Raya (4 Kabupaten)' : `Kab. ${currentWilayah}`}</strong>
+            </p>
+          </div>
+
+          {/* Mode Switcher: Grouped vs Stacked (visible when Semua Skala) */}
+          {yearlyCategoryFilter === 'ALL' && (
+            <div className="inline-flex p-1 bg-surface-muted rounded-xl border border-surface-border shadow-xs self-start lg:self-auto">
+              <button
+                type="button"
+                onClick={() => setYearlyBarMode('grouped')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  yearlyBarMode === 'grouped'
+                    ? 'bg-ink-900 text-white shadow-sm'
+                    : 'text-ink-600 hover:text-ink-900'
+                }`}
+              >
+                Berdampingan
+              </button>
+              <button
+                type="button"
+                onClick={() => setYearlyBarMode('stacked')}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
+                  yearlyBarMode === 'stacked'
+                    ? 'bg-ink-900 text-white shadow-sm'
+                    : 'text-ink-600 hover:text-ink-900'
+                }`}
+              >
+                Bertumpuk
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Filter Skala Usaha (4 Skala + Semua) */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none pt-1 border-t border-slate-100">
+          <span className="text-[11px] font-semibold text-ink-600 shrink-0 mr-1">Filter Skala:</span>
+          {[
+            { id: 'ALL', label: 'Semua Skala (4 Kategori)' },
+            { id: 'UMI', label: 'Khusus Mikro (UMI)', color: CATEGORY_META.UMI.color },
+            { id: 'UKE', label: 'Khusus Kecil (UKE)', color: CATEGORY_META.UKE.color },
+            { id: 'UME', label: 'Khusus Menengah (UME)', color: CATEGORY_META.UME.color },
+            { id: 'UBE', label: 'Khusus Besar (UBE)', color: CATEGORY_META.UBE.color }
+          ].map((catOpt) => {
+            const isSelected = yearlyCategoryFilter === catOpt.id
+            return (
+              <button
+                key={catOpt.id}
+                type="button"
+                onClick={() => setYearlyCategoryFilter(catOpt.id)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap border flex items-center gap-1.5 ${
+                  isSelected
+                    ? 'bg-slate-900 text-white border-slate-900 shadow-xs ring-2 ring-offset-1 ring-blue-500/30 font-bold'
+                    : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300'
+                }`}
+              >
+                {catOpt.color && (
+                  <span
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
+                    style={{ backgroundColor: catOpt.color }}
+                  />
+                )}
+                <span>{catOpt.label}</span>
+              </button>
+            )
+          })}
+        </div>
+
+        {/* 3 Summary Highlight Cards with YoY Growth Badges */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {/* Card 2024 */}
+          <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 shadow-xs">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs font-bold text-slate-800">Tahun 2024</span>
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-200 text-slate-700">
+                Baseline
+              </span>
+            </div>
+            <div className="text-base sm:text-lg font-bold text-slate-900">
+              {viewType === 'nominal'
+                ? formatRupiahShort(yearlyGrowthStats.val2024)
+                : formatVolumeShort(yearlyGrowthStats.val2024)}
+            </div>
+            <p className="text-[10px] text-slate-500 mt-1">
+              {yearlyCategoryFilter === 'ALL'
+                ? 'Total 4 skala usaha (Jan - Des 2024)'
+                : `Total khusus ${yearlyCategoryFilter} (Jan - Des 2024)`}
+            </p>
+          </div>
+
+          {/* Card 2025 */}
+          <div className="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/50 shadow-xs">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs font-bold text-slate-800">Tahun 2025</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 flex items-center gap-0.5">
+                ▲ +{yearlyGrowthStats.growth25.toFixed(1)}% YoY
+              </span>
+            </div>
+            <div className="text-base sm:text-lg font-bold text-emerald-950">
+              {viewType === 'nominal'
+                ? formatRupiahShort(yearlyGrowthStats.val2025)
+                : formatVolumeShort(yearlyGrowthStats.val2025)}
+            </div>
+            <p className="text-[10px] text-emerald-700 font-medium mt-1">
+              Tumbuh +{viewType === 'nominal' ? formatRupiahShort(yearlyGrowthStats.diff25) : formatVolumeShort(yearlyGrowthStats.diff25)} dibanding 2024
+            </p>
+          </div>
+
+          {/* Card 2026 */}
+          <div className="p-3.5 rounded-xl border border-blue-200 bg-blue-50/50 shadow-xs">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs font-bold text-slate-800">Tahun 2026</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 flex items-center gap-0.5">
+                ▲ +{yearlyGrowthStats.growth26.toFixed(1)}% YoY
+              </span>
+            </div>
+            <div className="text-base sm:text-lg font-bold text-blue-950">
+              {viewType === 'nominal'
+                ? formatRupiahShort(yearlyGrowthStats.val2026)
+                : formatVolumeShort(yearlyGrowthStats.val2026)}
+            </div>
+            <p className="text-[10px] text-blue-700 font-medium mt-1">
+              Tumbuh +{viewType === 'nominal' ? formatRupiahShort(yearlyGrowthStats.diff26) : formatVolumeShort(yearlyGrowthStats.diff26)} vs 2025 (Total 3-thn: +{yearlyGrowthStats.totalGrowth.toFixed(1)}%)
+            </p>
+          </div>
+        </div>
+
+        {/* Recharts Bar Chart: 2024 vs 2025 vs 2026 */}
+        <div className="bg-slate-50/50 p-3 sm:p-5 rounded-xl border border-surface-border shadow-xs">
+          <div className="w-full h-[300px] sm:h-[350px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={yearlyComparisonData} margin={{ top: 16, right: 20, left: 10, bottom: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
+                <XAxis
+                  dataKey="label"
+                  tick={{ fontSize: 11, fill: '#334155', fontWeight: 600 }}
+                  axisLine={{ stroke: '#CBD5E1' }}
+                  tickLine={false}
+                  dy={8}
+                />
+                <YAxis
+                  tickFormatter={(v) => (viewType === 'nominal' ? formatRupiahShort(v) : formatVolumeShort(v))}
+                  tick={{ fontSize: 11, fill: '#64748B', fontWeight: 500 }}
+                  axisLine={false}
+                  tickLine={false}
+                  width={85}
+                  dx={-4}
+                />
+                <Tooltip
+                  content={
+                    <CustomYearlyGrowthTooltip
+                      viewType={viewType}
+                      categoryFilter={yearlyCategoryFilter}
+                    />
+                  }
+                />
+                <Legend
+                  verticalAlign="top"
+                  align="right"
+                  iconType="circle"
+                  wrapperStyle={{ paddingBottom: '14px', fontSize: '11px', fontWeight: 600 }}
+                  formatter={(value) => {
+                    const meta = CATEGORY_META[value]
+                    return <span className="text-slate-700 font-semibold">{meta?.label || value}</span>
+                  }}
+                />
+
+                {yearlyCategoryFilter === 'ALL' ? (
+                  <>
+                    <Bar
+                      dataKey="UMI"
+                      name="Usaha Mikro (UMI)"
+                      fill={CATEGORY_META.UMI.color}
+                      stackId={yearlyBarMode === 'stacked' ? 'yearlyStack' : undefined}
+                      radius={yearlyBarMode === 'stacked' ? [0, 0, 0, 0] : [4, 4, 0, 0]}
+                      maxBarSize={yearlyBarMode === 'stacked' ? 56 : 32}
+                    />
+                    <Bar
+                      dataKey="UKE"
+                      name="Usaha Kecil (UKE)"
+                      fill={CATEGORY_META.UKE.color}
+                      stackId={yearlyBarMode === 'stacked' ? 'yearlyStack' : undefined}
+                      radius={yearlyBarMode === 'stacked' ? [0, 0, 0, 0] : [4, 4, 0, 0]}
+                      maxBarSize={yearlyBarMode === 'stacked' ? 56 : 32}
+                    />
+                    <Bar
+                      dataKey="UME"
+                      name="Usaha Menengah (UME)"
+                      fill={CATEGORY_META.UME.color}
+                      stackId={yearlyBarMode === 'stacked' ? 'yearlyStack' : undefined}
+                      radius={yearlyBarMode === 'stacked' ? [0, 0, 0, 0] : [4, 4, 0, 0]}
+                      maxBarSize={yearlyBarMode === 'stacked' ? 56 : 32}
+                    />
+                    <Bar
+                      dataKey="UBE"
+                      name="Usaha Besar (UBE)"
+                      fill={CATEGORY_META.UBE.color}
+                      stackId={yearlyBarMode === 'stacked' ? 'yearlyStack' : undefined}
+                      radius={yearlyBarMode === 'stacked' ? [4, 4, 0, 0] : [4, 4, 0, 0]}
+                      maxBarSize={yearlyBarMode === 'stacked' ? 56 : 32}
+                    />
+                  </>
+                ) : (
+                  <Bar
+                    dataKey={yearlyCategoryFilter}
+                    name={`${CATEGORY_META[yearlyCategoryFilter]?.label} (${yearlyCategoryFilter})`}
+                    fill={CATEGORY_META[yearlyCategoryFilter]?.color}
+                    radius={[6, 6, 0, 0]}
+                    maxBarSize={64}
+                  />
+                )}
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Dynamic Insight Banner */}
+          <div className="mt-3 p-3 bg-white rounded-lg border border-slate-200/80 text-xs text-slate-700 flex items-start gap-2">
+            <span className="text-brand font-bold shrink-0">💡 Analisis Tren:</span>
+            <span>
+              {yearlyCategoryFilter === 'ALL' ? (
+                <>
+                  Pertumbuhan total transaksi di <strong>{currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}</strong> mencatatkan lonjakan signifikan sebesar{' '}
+                  <strong className="text-emerald-700">+{yearlyGrowthStats.growth25.toFixed(1)}% YoY</strong> pada 2025 dan kembali naik{' '}
+                  <strong className="text-blue-700">+{yearlyGrowthStats.growth26.toFixed(1)}% YoY</strong> pada 2026.
+                </>
+              ) : (
+                <>
+                  Khusus kategori <strong>{CATEGORY_META[yearlyCategoryFilter]?.label} ({yearlyCategoryFilter})</strong> di <strong>{currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}</strong>, transaksi meningkat{' '}
+                  <strong className="text-emerald-700">+{yearlyGrowthStats.growth25.toFixed(1)}% YoY</strong> di 2025 dan berlanjut naik{' '}
+                  <strong className="text-blue-700">+{yearlyGrowthStats.growth26.toFixed(1)}% YoY</strong> di 2026 (akumulasi 3 tahun bertumbuh <strong className="text-indigo-700">+{yearlyGrowthStats.totalGrowth.toFixed(1)}%</strong>).
+                </>
+              )}
+            </span>
           </div>
         </div>
       </div>
