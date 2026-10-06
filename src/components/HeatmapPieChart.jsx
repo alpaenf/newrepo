@@ -13,7 +13,7 @@ import {
   Legend
 } from 'recharts'
 import { Calendar, TrendingUp } from './icons.jsx'
-import { qrisRealData } from '../data/qrisData.js'
+import { qrisRealData, qrisMonthlyByCategory } from '../data/qrisData.js'
 
 const KABUPATEN_LIST = [
   { id: 'ALL', name: 'Semua (Banyumas Raya)', shortName: 'Banyumas Raya' },
@@ -24,19 +24,19 @@ const KABUPATEN_LIST = [
 ]
 
 const MONTH_LIST = [
-  { id: 'ALL', name: 'Semua Bulan (Tahunan)', shortName: 'Tahunan', factor: 1.0 },
-  { id: '01', name: 'Januari', shortName: 'Jan', factor: 0.076 },
-  { id: '02', name: 'Februari', shortName: 'Feb', factor: 0.073 },
-  { id: '03', name: 'Maret', shortName: 'Mar', factor: 0.088 },
-  { id: '04', name: 'April', shortName: 'Apr', factor: 0.094 },
-  { id: '05', name: 'Mei', shortName: 'Mei', factor: 0.085 },
-  { id: '06', name: 'Juni', shortName: 'Jun', factor: 0.086 },
-  { id: '07', name: 'Juli', shortName: 'Jul', factor: 0.083 },
-  { id: '08', name: 'Agustus', shortName: 'Agu', factor: 0.087 },
-  { id: '09', name: 'September', shortName: 'Sep', factor: 0.082 },
-  { id: '10', name: 'Oktober', shortName: 'Okt', factor: 0.084 },
-  { id: '11', name: 'November', shortName: 'Nov', factor: 0.079 },
-  { id: '12', name: 'Desember', shortName: 'Des', factor: 0.093 }
+  { id: 'ALL', name: 'Semua Bulan (Tahunan)', shortName: 'Tahunan' },
+  { id: '01', name: 'Januari', shortName: 'Jan' },
+  { id: '02', name: 'Februari', shortName: 'Feb' },
+  { id: '03', name: 'Maret', shortName: 'Mar' },
+  { id: '04', name: 'April', shortName: 'Apr' },
+  { id: '05', name: 'Mei', shortName: 'Mei' },
+  { id: '06', name: 'Juni', shortName: 'Jun' },
+  { id: '07', name: 'Juli', shortName: 'Jul' },
+  { id: '08', name: 'Agustus', shortName: 'Agu' },
+  { id: '09', name: 'September', shortName: 'Sep' },
+  { id: '10', name: 'Oktober', shortName: 'Okt' },
+  { id: '11', name: 'November', shortName: 'Nov' },
+  { id: '12', name: 'Desember', shortName: 'Des' }
 ]
 
 const CATEGORY_META = {
@@ -90,15 +90,15 @@ function formatRupiahShort(value) {
   if (!value || isNaN(value)) return 'Rp 0'
   if (value >= 1_000_000_000_000) {
     const num = value / 1_000_000_000_000
-    return `Rp ${num.toLocaleString('id-ID', { minimumFractionDigits: num % 1 === 0 ? 0 : 1, maximumFractionDigits: 2 })} T`
+    return `Rp ${num.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} T`
   }
   if (value >= 1_000_000_000) {
     const num = value / 1_000_000_000
-    return `Rp ${num.toLocaleString('id-ID', { minimumFractionDigits: num % 1 === 0 ? 0 : 1, maximumFractionDigits: 1 })} M`
+    return `Rp ${num.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} M`
   }
   if (value >= 1_000_000) {
     const num = value / 1_000_000
-    return `Rp ${num.toLocaleString('id-ID', { minimumFractionDigits: num % 1 === 0 ? 0 : 1, maximumFractionDigits: 1 })} Jt`
+    return `Rp ${num.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 1 })} Jt`
   }
   return `Rp ${Math.round(value).toLocaleString('id-ID')}`
 }
@@ -111,7 +111,7 @@ function formatVolumeShort(value) {
   if (!value || isNaN(value)) return '0 trx'
   if (value >= 1_000_000) {
     const num = value / 1_000_000
-    return `${num.toLocaleString('id-ID', { minimumFractionDigits: num % 1 === 0 ? 0 : 1, maximumFractionDigits: 2 })} Jt trx`
+    return `${num.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 })} Jt trx`
   }
   if (value >= 1_000) {
     const num = value / 1_000
@@ -242,7 +242,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, pay
 
 export default function HeatmapPieChart({ range = '2026', selectedId = null, data = [] }) {
   const [selectedWilayah, setSelectedWilayah] = useState('ALL')
-  const [selectedMonth, setSelectedMonth] = useState('ALL') // 'ALL' | '01'..'12'
+  const [selectedMonth, setSelectedMonth] = useState('08') // Default: '08' (Agustus 2026 data riil)
   const [selectedYear, setSelectedYear] = useState(range)
   const [viewType, setViewType] = useState('nominal') // 'nominal' | 'volume'
   const [trendMode, setTrendMode] = useState('all') // 'all' (2024, 2025 akhir tahun + 2026 bulanan) | 'monthly2026' (khusus 2026 per bulan)
@@ -255,7 +255,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
 
   const currentWilayah = selectedWilayah
   const currentMonthObj = useMemo(() => {
-    return MONTH_LIST.find((m) => m.id === selectedMonth) || MONTH_LIST[0]
+    return MONTH_LIST.find((m) => m.id === selectedMonth) || MONTH_LIST.find((m) => m.id === '08') || MONTH_LIST[0]
   }, [selectedMonth])
 
   const periodLabel = useMemo(() => {
@@ -278,20 +278,29 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
       UBE: { nominal: 0, volume: 0 }
     }
 
-    const monthFactor = currentMonthObj.factor || 1.0
     const activeKabList = currentWilayah === 'ALL' ? fourKab : [currentWilayah]
 
     activeKabList.forEach((kab) => {
-      const kabData = qrisRealData[kab]?.[selectedYear] || {}
-      categories.forEach((cat) => {
-        if (kabData[cat]) {
-          const rawNominal = kabData[cat].nominal || 0
-          const rawVolume = kabData[cat].volume || 0
-
-          totals[cat].nominal += Math.round(rawNominal * monthFactor)
-          totals[cat].volume += Math.round(rawVolume * monthFactor)
+      if (selectedMonth === 'ALL') {
+        for (let m = 1; m <= 12; m++) {
+          const mKey = String(m).padStart(2, '0')
+          const mData = qrisMonthlyByCategory[selectedYear]?.[mKey]?.[kab] || {}
+          categories.forEach((cat) => {
+            if (mData[cat]) {
+              totals[cat].nominal += mData[cat].nominal || 0
+              totals[cat].volume += mData[cat].volume || 0
+            }
+          })
         }
-      })
+      } else {
+        const mData = qrisMonthlyByCategory[selectedYear]?.[selectedMonth]?.[kab] || {}
+        categories.forEach((cat) => {
+          if (mData[cat]) {
+            totals[cat].nominal += mData[cat].nominal || 0
+            totals[cat].volume += mData[cat].volume || 0
+          }
+        })
+      }
     })
 
     const totalNominal = categories.reduce((sum, c) => sum + totals[c].nominal, 0)
@@ -315,7 +324,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
         meta
       }
     })
-  }, [currentWilayah, selectedYear, currentMonthObj, viewType])
+  }, [currentWilayah, selectedYear, selectedMonth, viewType])
 
   const totalSummary = useMemo(() => {
     const totalNominal = chartData.reduce((acc, c) => acc + c.nominal, 0)
@@ -329,26 +338,21 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
   // Trend Data Generation (2024 Akhir Tahun, 2025 Akhir Tahun, dan 2026 per Bulan)
   const trendData = useMemo(() => {
     const activeKabList = currentWilayah === 'ALL' ? fourKab : [currentWilayah]
-
-    const getKabTotals = (year, factor = 1.0) => {
-      const t = { UMI: 0, UKE: 0, UME: 0, UBE: 0 }
-      activeKabList.forEach((kab) => {
-        const kabData = qrisRealData[kab]?.[year] || {}
-        categories.forEach((cat) => {
-          if (kabData[cat]) {
-            const raw = viewType === 'nominal' ? (kabData[cat].nominal || 0) : (kabData[cat].volume || 0)
-            t[cat] += Math.round(raw * factor)
-          }
-        })
-      })
-      return t
-    }
-
     const points = []
 
     if (trendMode === 'all') {
-      // 2024 Akhir Tahun
-      const y2024 = getKabTotals('2024', 1.0)
+      // 2024 Akhir Tahun (Sum of all months 2024)
+      const y2024 = { UMI: 0, UKE: 0, UME: 0, UBE: 0 }
+      activeKabList.forEach((kab) => {
+        for (let m = 1; m <= 12; m++) {
+          const mKey = String(m).padStart(2, '0')
+          const mData = qrisMonthlyByCategory['2024']?.[mKey]?.[kab] || {}
+          categories.forEach((cat) => {
+            const raw = viewType === 'nominal' ? (mData[cat]?.nominal || 0) : (mData[cat]?.volume || 0)
+            y2024[cat] += raw
+          })
+        }
+      })
       points.push({
         period: '2024 (Akhir Thn)',
         shortPeriod: "'24 Akhir",
@@ -357,8 +361,18 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
         total: y2024.UMI + y2024.UKE + y2024.UME + y2024.UBE
       })
 
-      // 2025 Akhir Tahun
-      const y2025 = getKabTotals('2025', 1.0)
+      // 2025 Akhir Tahun (Sum of all months 2025)
+      const y2025 = { UMI: 0, UKE: 0, UME: 0, UBE: 0 }
+      activeKabList.forEach((kab) => {
+        for (let m = 1; m <= 12; m++) {
+          const mKey = String(m).padStart(2, '0')
+          const mData = qrisMonthlyByCategory['2025']?.[mKey]?.[kab] || {}
+          categories.forEach((cat) => {
+            const raw = viewType === 'nominal' ? (mData[cat]?.nominal || 0) : (mData[cat]?.volume || 0)
+            y2025[cat] += raw
+          })
+        }
+      })
       points.push({
         period: '2025 (Akhir Thn)',
         shortPeriod: "'25 Akhir",
@@ -371,7 +385,15 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
     // 2026 Bulanan (Januari s.d. Desember)
     const monthlyItems = MONTH_LIST.filter((m) => m.id !== 'ALL')
     monthlyItems.forEach((m) => {
-      const mTotals = getKabTotals('2026', m.factor)
+      const mTotals = { UMI: 0, UKE: 0, UME: 0, UBE: 0 }
+      activeKabList.forEach((kab) => {
+        const mData = qrisMonthlyByCategory['2026']?.[m.id]?.[kab] || {}
+        categories.forEach((cat) => {
+          const raw = viewType === 'nominal' ? (mData[cat]?.nominal || 0) : (mData[cat]?.volume || 0)
+          mTotals[cat] += raw
+        })
+      })
+
       points.push({
         period: `${m.name} 2026`,
         shortPeriod: `${m.shortName} '26`,
@@ -386,34 +408,55 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
 
   // Comparison data for all 4 kabupaten (adjusted for month)
   const kabComparison = useMemo(() => {
-    const monthFactor = currentMonthObj.factor || 1.0
-
     return fourKab.map((kab) => {
-      const kabData = qrisRealData[kab]?.[selectedYear] || {}
-      const umi = kabData.UMI || { nominal: 0, volume: 0 }
-      const uke = kabData.UKE || { nominal: 0, volume: 0 }
-      const ume = kabData.UME || { nominal: 0, volume: 0 }
-      const ube = kabData.UBE || { nominal: 0, volume: 0 }
+      let umiNominal = 0, umiVolume = 0
+      let ukeNominal = 0, ukeVolume = 0
+      let umeNominal = 0, umeVolume = 0
+      let ubeNominal = 0, ubeVolume = 0
 
-      const adjNominal = (val) => Math.round(val * monthFactor)
-      const adjVolume = (val) => Math.round(val * monthFactor)
+      if (selectedMonth === 'ALL') {
+        for (let m = 1; m <= 12; m++) {
+          const mKey = String(m).padStart(2, '0')
+          const kData = qrisMonthlyByCategory[selectedYear]?.[mKey]?.[kab] || {}
+          umiNominal += kData.UMI?.nominal || 0
+          umiVolume += kData.UMI?.volume || 0
+          ukeNominal += kData.UKE?.nominal || 0
+          ukeVolume += kData.UKE?.volume || 0
+          umeNominal += kData.UME?.nominal || 0
+          umeVolume += kData.UME?.volume || 0
+          ubeNominal += kData.UBE?.nominal || 0
+          ubeVolume += kData.UBE?.volume || 0
+        }
+      } else {
+        const kData = qrisMonthlyByCategory[selectedYear]?.[selectedMonth]?.[kab] || {}
+        umiNominal = kData.UMI?.nominal || 0
+        umiVolume = kData.UMI?.volume || 0
+        ukeNominal = kData.UKE?.nominal || 0
+        ukeVolume = kData.UKE?.volume || 0
+        umeNominal = kData.UME?.nominal || 0
+        umeVolume = kData.UME?.volume || 0
+        ubeNominal = kData.UBE?.nominal || 0
+        ubeVolume = kData.UBE?.volume || 0
+      }
 
-      const totalKabNominal = adjNominal(umi.nominal) + adjNominal(uke.nominal) + adjNominal(ume.nominal) + adjNominal(ube.nominal)
-      const totalKabVolume = adjVolume(umi.volume) + adjVolume(uke.volume) + adjVolume(ume.volume) + adjVolume(ube.volume)
+      const totalKabNominal = umiNominal + ukeNominal + umeNominal + ubeNominal
+      const totalKabVolume = umiVolume + ukeVolume + umeVolume + ubeVolume
 
       const getPct = (val, tot) => (tot > 0 ? (val / tot) * 100 : 0)
 
-      const umiVal = viewType === 'nominal' ? adjNominal(umi.nominal) : adjVolume(umi.volume)
-      const ukeVal = viewType === 'nominal' ? adjNominal(uke.nominal) : adjVolume(uke.volume)
-      const umeVal = viewType === 'nominal' ? adjNominal(ume.nominal) : adjVolume(ume.volume)
-      const ubeVal = viewType === 'nominal' ? adjNominal(ube.nominal) : adjVolume(ube.volume)
+      const umiVal = viewType === 'nominal' ? umiNominal : umiVolume
+      const ukeVal = viewType === 'nominal' ? ukeNominal : ukeVolume
+      const umeVal = viewType === 'nominal' ? umeNominal : umeVolume
+      const ubeVal = viewType === 'nominal' ? ubeNominal : ubeVolume
       const activeTotal = viewType === 'nominal' ? totalKabNominal : totalKabVolume
+
+      const kabReal = qrisRealData[kab]?.[selectedYear] || {}
 
       return {
         kab,
         totalNominal: totalKabNominal,
         totalVolume: totalKabVolume,
-        merchants: kabData.merchants || 0,
+        merchants: kabReal.merchants || 0,
         shares: {
           UMI: getPct(umiVal, activeTotal),
           UKE: getPct(ukeVal, activeTotal),
@@ -422,7 +465,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
         }
       }
     })
-  }, [selectedYear, currentMonthObj, viewType])
+  }, [selectedYear, selectedMonth, viewType])
 
   return (
     <div className="bg-white rounded-2xl border border-surface-border shadow-card overflow-hidden space-y-0">
