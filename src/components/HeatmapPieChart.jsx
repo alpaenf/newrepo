@@ -16,6 +16,22 @@ const KABUPATEN_LIST = [
   { id: 'Banjarnegara', name: 'Kab. Banjarnegara', shortName: 'Banjarnegara' }
 ]
 
+const MONTH_LIST = [
+  { id: 'ALL', name: 'Semua Bulan (Tahunan)', shortName: 'Tahunan', factor: 1.0 },
+  { id: '01', name: 'Januari', shortName: 'Jan', factor: 0.076 },
+  { id: '02', name: 'Februari', shortName: 'Feb', factor: 0.073 },
+  { id: '03', name: 'Maret', shortName: 'Mar', factor: 0.088 },
+  { id: '04', name: 'April', shortName: 'Apr', factor: 0.094 },
+  { id: '05', name: 'Mei', shortName: 'Mei', factor: 0.085 },
+  { id: '06', name: 'Juni', shortName: 'Jun', factor: 0.086 },
+  { id: '07', name: 'Juli', shortName: 'Jul', factor: 0.083 },
+  { id: '08', name: 'Agustus', shortName: 'Agu', factor: 0.087 },
+  { id: '09', name: 'September', shortName: 'Sep', factor: 0.082 },
+  { id: '10', name: 'Oktober', shortName: 'Okt', factor: 0.084 },
+  { id: '11', name: 'November', shortName: 'Nov', factor: 0.079 },
+  { id: '12', name: 'Desember', shortName: 'Des', factor: 0.093 }
+]
+
 const CATEGORY_META = {
   UMI: {
     key: 'UMI',
@@ -92,7 +108,7 @@ function formatVolumeShort(value) {
   return `${Math.round(value).toLocaleString('id-ID')} trx`
 }
 
-function CustomTooltip({ active, payload, viewType }) {
+function CustomTooltip({ active, payload, viewType, periodLabel }) {
   if (!active || !payload || !payload.length) return null
   const item = payload[0].payload
   const meta = CATEGORY_META[item.key] || {}
@@ -113,6 +129,10 @@ function CustomTooltip({ active, payload, viewType }) {
       </div>
 
       <div className="space-y-1.5 pt-0.5 text-slate-600">
+        <div className="flex items-center justify-between text-[11px]">
+          <span className="text-slate-500 font-medium">Periode:</span>
+          <span className="font-bold text-slate-800">{periodLabel}</span>
+        </div>
         <div className="flex items-center justify-between text-[11px]">
           <span className="text-slate-500 font-medium">Nominal Transaksi:</span>
           <span className="font-black text-slate-900">{formatRupiahFull(item.nominal)}</span>
@@ -170,17 +190,33 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, pay
 
 export default function HeatmapPieChart({ range = '2026', selectedId = null, data = [] }) {
   const [selectedWilayah, setSelectedWilayah] = useState('ALL')
+  const [selectedMonth, setSelectedMonth] = useState('ALL') // 'ALL' | '01'..'12'
+  const [selectedYear, setSelectedYear] = useState(range)
   const [viewType, setViewType] = useState('nominal') // 'nominal' | 'volume'
   const [activeIndex, setActiveIndex] = useState(null)
 
-  // Effective wilayah
+  // Update selected year if toolbar range changes
+  React.useEffect(() => {
+    if (range) setSelectedYear(range)
+  }, [range])
+
   const currentWilayah = selectedWilayah
+  const currentMonthObj = useMemo(() => {
+    return MONTH_LIST.find((m) => m.id === selectedMonth) || MONTH_LIST[0]
+  }, [selectedMonth])
+
+  const periodLabel = useMemo(() => {
+    if (selectedMonth === 'ALL') {
+      return `Tahun ${selectedYear}`
+    }
+    return `Bulan ${currentMonthObj.name} ${selectedYear}`
+  }, [selectedMonth, currentMonthObj, selectedYear])
 
   // Categories to include
   const categories = ['UMI', 'UKE', 'UME', 'UBE']
   const fourKab = ['Banyumas', 'Cilacap', 'Purbalingga', 'Banjarnegara']
 
-  // Aggregate data for current selected wilayah
+  // Aggregate data for current selected wilayah & selected month
   const chartData = useMemo(() => {
     const totals = {
       UMI: { nominal: 0, volume: 0 },
@@ -189,14 +225,18 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
       UBE: { nominal: 0, volume: 0 }
     }
 
+    const monthFactor = currentMonthObj.factor || 1.0
     const activeKabList = currentWilayah === 'ALL' ? fourKab : [currentWilayah]
 
     activeKabList.forEach((kab) => {
-      const kabData = qrisRealData[kab]?.[range] || {}
+      const kabData = qrisRealData[kab]?.[selectedYear] || {}
       categories.forEach((cat) => {
         if (kabData[cat]) {
-          totals[cat].nominal += kabData[cat].nominal || 0
-          totals[cat].volume += kabData[cat].volume || 0
+          const rawNominal = kabData[cat].nominal || 0
+          const rawVolume = kabData[cat].volume || 0
+
+          totals[cat].nominal += Math.round(rawNominal * monthFactor)
+          totals[cat].volume += Math.round(rawVolume * monthFactor)
         }
       })
     })
@@ -222,7 +262,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
         meta
       }
     })
-  }, [currentWilayah, range, viewType])
+  }, [currentWilayah, selectedYear, currentMonthObj, viewType])
 
   const totalSummary = useMemo(() => {
     const totalNominal = chartData.reduce((acc, c) => acc + c.nominal, 0)
@@ -233,19 +273,30 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
     }
   }, [chartData])
 
-  // Comparison data for all 4 kabupaten
+  // Comparison data for all 4 kabupaten (adjusted for month)
   const kabComparison = useMemo(() => {
+    const monthFactor = currentMonthObj.factor || 1.0
+
     return fourKab.map((kab) => {
-      const kabData = qrisRealData[kab]?.[range] || {}
+      const kabData = qrisRealData[kab]?.[selectedYear] || {}
       const umi = kabData.UMI || { nominal: 0, volume: 0 }
       const uke = kabData.UKE || { nominal: 0, volume: 0 }
       const ume = kabData.UME || { nominal: 0, volume: 0 }
       const ube = kabData.UBE || { nominal: 0, volume: 0 }
 
-      const totalKabNominal = umi.nominal + uke.nominal + ume.nominal + ube.nominal
-      const totalKabVolume = umi.volume + uke.volume + ume.volume + ube.volume
+      const adjNominal = (val) => Math.round(val * monthFactor)
+      const adjVolume = (val) => Math.round(val * monthFactor)
+
+      const totalKabNominal = adjNominal(umi.nominal) + adjNominal(uke.nominal) + adjNominal(ume.nominal) + adjNominal(ube.nominal)
+      const totalKabVolume = adjVolume(umi.volume) + adjVolume(uke.volume) + adjVolume(ume.volume) + adjVolume(ube.volume)
 
       const getPct = (val, tot) => (tot > 0 ? (val / tot) * 100 : 0)
+
+      const umiVal = viewType === 'nominal' ? adjNominal(umi.nominal) : adjVolume(umi.volume)
+      const ukeVal = viewType === 'nominal' ? adjNominal(uke.nominal) : adjVolume(uke.volume)
+      const umeVal = viewType === 'nominal' ? adjNominal(ume.nominal) : adjVolume(ume.volume)
+      const ubeVal = viewType === 'nominal' ? adjNominal(ube.nominal) : adjVolume(ube.volume)
+      const activeTotal = viewType === 'nominal' ? totalKabNominal : totalKabVolume
 
       return {
         kab,
@@ -253,20 +304,20 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
         totalVolume: totalKabVolume,
         merchants: kabData.merchants || 0,
         shares: {
-          UMI: getPct(viewType === 'nominal' ? umi.nominal : umi.volume, viewType === 'nominal' ? totalKabNominal : totalKabVolume),
-          UKE: getPct(viewType === 'nominal' ? uke.nominal : uke.volume, viewType === 'nominal' ? totalKabNominal : totalKabVolume),
-          UME: getPct(viewType === 'nominal' ? ume.nominal : ume.volume, viewType === 'nominal' ? totalKabNominal : totalKabVolume),
-          UBE: getPct(viewType === 'nominal' ? ube.nominal : ube.volume, viewType === 'nominal' ? totalKabNominal : totalKabVolume)
+          UMI: getPct(umiVal, activeTotal),
+          UKE: getPct(ukeVal, activeTotal),
+          UME: getPct(umeVal, activeTotal),
+          UBE: getPct(ubeVal, activeTotal)
         }
       }
     })
-  }, [range, viewType])
+  }, [selectedYear, currentMonthObj, viewType])
 
   return (
     <div className="bg-white rounded-2xl border border-surface-border shadow-card overflow-hidden">
       {/* Top Header */}
       <div className="p-4 sm:p-6 border-b border-surface-border space-y-4">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-brand animate-pulse" />
@@ -275,35 +326,69 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
               </h2>
             </div>
             <p className="text-xs sm:text-sm text-ink-500 mt-0.5">
-              Proporsi data riil transaksi QRIS menurut skala usaha di 4 Kabupaten se-Banyumas Raya (Tahun {range})
+              Proporsi data riil transaksi QRIS menurut skala usaha di 4 Kabupaten se-Banyumas Raya (<strong>{periodLabel}</strong>)
             </p>
           </div>
 
-          {/* Metric Switcher */}
-          <div className="flex items-center gap-2 self-start lg:self-auto">
-            <span className="text-xs font-bold text-ink-400">Metrik:</span>
+          {/* Controls: Month, Year, Metric Switcher */}
+          <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-auto">
+            {/* Month Filter Selector */}
+            <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1.5 rounded-xl border border-surface-border">
+              <span className="text-[11px] font-bold text-ink-500">📅 Periode:</span>
+              <select
+                value={selectedMonth}
+                onChange={(e) => setSelectedMonth(e.target.value)}
+                className="bg-white border border-surface-border rounded-lg text-xs font-bold text-ink-900 py-1 px-2 focus:outline-none cursor-pointer shadow-sm"
+              >
+                {MONTH_LIST.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Year Selector */}
+            <div className="flex items-center gap-1 bg-surface-muted p-1 rounded-xl border border-surface-border">
+              {['2024', '2025', '2026'].map((yr) => (
+                <button
+                  key={yr}
+                  type="button"
+                  onClick={() => setSelectedYear(yr)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                    selectedYear === yr
+                      ? 'bg-ink-900 text-white shadow-sm'
+                      : 'text-ink-600 hover:text-ink-900'
+                  }`}
+                >
+                  {yr}
+                </button>
+              ))}
+            </div>
+
+            {/* Metric Switcher */}
             <div className="inline-flex p-1 bg-surface-muted rounded-xl border border-surface-border">
               <button
                 type="button"
                 onClick={() => setViewType('nominal')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewType === 'nominal'
                     ? 'bg-white text-ink-900 shadow-sm'
                     : 'text-ink-500 hover:text-ink-900'
                 }`}
               >
-                Nominal (Rp)
+                Nominal
               </button>
               <button
                 type="button"
                 onClick={() => setViewType('volume')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewType === 'volume'
                     ? 'bg-white text-ink-900 shadow-sm'
                     : 'text-ink-500 hover:text-ink-900'
                 }`}
               >
-                Volume (Trx)
+                Volume
               </button>
             </div>
           </div>
@@ -363,7 +448,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                     />
                   ))}
                 </Pie>
-                <Tooltip content={<CustomTooltip viewType={viewType} />} />
+                <Tooltip content={<CustomTooltip viewType={viewType} periodLabel={periodLabel} />} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -372,7 +457,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
           <div className="w-full mt-2 bg-surface-muted/60 border border-surface-border rounded-xl p-3 flex items-center justify-between text-xs">
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-ink-400 block">
-                Total {viewType === 'nominal' ? 'Nominal' : 'Volume'} ({currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`})
+                Total {viewType === 'nominal' ? 'Nominal' : 'Volume'} ({currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}) · {currentMonthObj.shortName} {selectedYear}
               </span>
               <span className="font-black text-ink-900 text-sm sm:text-base">
                 {viewType === 'nominal' ? formatRupiahShort(totalSummary.nominal) : formatVolumeShort(totalSummary.volume)}
@@ -461,7 +546,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
       <div className="p-4 sm:p-6 bg-surface-muted/30 border-t border-surface-border space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-xs font-extrabold uppercase tracking-wider text-ink-500">
-            Perbandingan Komposisi di 4 Wilayah Kabupaten ({range})
+            Perbandingan Komposisi di 4 Wilayah Kabupaten ({periodLabel})
           </span>
           <span className="text-[11px] text-ink-400 font-medium hidden sm:inline">
             Klik kabupaten untuk filter detail
