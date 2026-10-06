@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Heatmap from './pages/Heatmap.jsx'
 import LandingPage from './pages/LandingPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
@@ -8,7 +9,7 @@ import PajakDaerah from './pages/PajakDaerah.jsx'
 import PajakNegara from './pages/PajakNegara.jsx'
 import TransaksiPemerintah from './pages/transaksi/TransaksiPemerintah.jsx'
 import TransaksiUMKM from './pages/transaksi/TransaksiUMKM.jsx'
-import { Power, ShieldCheck, User, ChevronDown, ChevronUp } from './components/icons.jsx'
+import { Power, ShieldCheck, User, ChevronDown, ChevronUp, Menu } from './components/icons.jsx'
 
 import {
   logoBI,
@@ -74,6 +75,38 @@ export default function App() {
   const [active, setActive] = useState(() => {
     return localStorage.getItem('zonasi_active_tab') || 'heatmap'
   })
+  const [isNavOpen, setIsNavOpen] = useState(true)
+  const lastScrollY = useRef(0)
+  const manualActionTimeRef = useRef(0)
+
+  // Auto-collapse navigation only on active downward scroll, expand when at top
+  useEffect(() => {
+    let ticking = false
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY
+          const timeSinceManualAction = Date.now() - manualActionTimeRef.current
+
+          // When user manually opens/closes, don't trigger auto scroll action for 1.2s
+          if (timeSinceManualAction > 1200) {
+            const diff = currentScrollY - lastScrollY.current
+            if (currentScrollY <= 20) {
+              setIsNavOpen(true)
+            } else if (diff > 18 && currentScrollY > 70) {
+              setIsNavOpen(false)
+            }
+          }
+          lastScrollY.current = currentScrollY
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const handleLoginSuccess = () => {
     localStorage.setItem('zonasi_is_logged_in', 'true')
@@ -175,28 +208,82 @@ export default function App() {
       </header>
 
       {/* ==========================================
-          STICKY NAVIGATION TABS (MATCHES CANVAS BACKGROUND)
+          PREMIUM FLOATING NAVIGATION CAPSULE (BUKA / TUTUP & TRANSPARENT BG)
           ========================================== */}
-      <nav className="sticky top-0 z-[1000] bg-surface-muted/95 backdrop-blur-md shrink-0 font-sans py-2 sm:py-3">
-        <div className="max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar flex-1">
-            {NAV_TABS.map((tab) => {
-              const isActive = active === tab.id
-              return (
+      <nav className="sticky top-0 z-[1000] font-sans py-2 sm:py-2.5 pointer-events-none transition-all">
+        <div className="max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8">
+          <AnimatePresence mode="wait">
+            {isNavOpen ? (
+              <motion.div
+                key="nav-expanded"
+                initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-2 pointer-events-auto bg-white/95 backdrop-blur-md border border-surface-border rounded-2xl shadow-md px-2 py-1.5 min-w-0"
+              >
+                {/* Scrollable Floating Pill Tabs */}
+                <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar flex-1 min-w-0 py-0.5 px-0.5">
+                  {NAV_TABS.map((tab) => {
+                    const isActive = active === tab.id
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => handleTabChange(tab.id)}
+                        className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 whitespace-nowrap active:scale-95 cursor-pointer shrink-0 ${
+                          isActive
+                            ? 'bg-brand text-white shadow-sm shadow-brand/30 ring-1 ring-brand'
+                            : 'text-ink-600 hover:bg-slate-100 hover:text-ink-900'
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    )
+                  })}
+                </div>
+
+                {/* Divider */}
+                <div className="h-6 w-px bg-surface-border shrink-0" />
+
+                {/* Right Action: Collapse Toggle Button */}
                 <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(tab.id)}
-                  className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-150 whitespace-nowrap active:scale-95 cursor-pointer ${
-                    isActive
-                      ? 'bg-brand text-white shadow-md shadow-brand/25 ring-1 ring-brand'
-                      : 'bg-white text-ink-700 hover:bg-slate-50 hover:text-ink-900 border border-surface-border shadow-xs'
-                  }`}
+                  onClick={() => {
+                    manualActionTimeRef.current = Date.now()
+                    setIsNavOpen(false)
+                  }}
+                  className="px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold text-ink-500 hover:bg-slate-100 hover:text-ink-800 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer shrink-0"
+                  title="Sembunyikan Menu Navigasi"
                 >
-                  {tab.label}
+                  <ChevronUp size={14} className="text-ink-400" />
+                  <span className="hidden sm:inline">Tutup</span>
                 </button>
-              )
-            })}
-          </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="nav-collapsed"
+                initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center justify-start pointer-events-auto"
+              >
+                {/* Floating Island Compact Menu Button */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    manualActionTimeRef.current = Date.now()
+                    setIsNavOpen(true)
+                  }}
+                  className="inline-flex items-center gap-2 bg-white/95 backdrop-blur-md px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl border border-surface-border shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer group text-xs sm:text-sm font-semibold font-sans text-brand hover:text-brand-dark"
+                  title="Buka Menu Navigasi"
+                >
+                  <Menu size={16} className="text-brand shrink-0" />
+                  <span>Menu</span>
+                  <ChevronDown size={14} className="transition-transform group-hover:translate-y-0.5" />
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </nav>
 

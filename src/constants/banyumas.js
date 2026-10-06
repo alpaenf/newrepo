@@ -3,11 +3,12 @@
  */
 
 export const KABUPATEN_LIST = [
+  'Banjarnegara',
   'Banyumas',
   'Cilacap',
-  'Purbalingga',
-  'Banjarnegara'
+  'Purbalingga'
 ]
+
 
 export const KABUPATEN_COORDINATES = {
   Banyumas: { lat: -7.5147, lng: 109.2943, zoom: 11 },
@@ -42,11 +43,12 @@ export const BULAN_OPTIONS = [
   { value: 'Juni', label: 'Juni' },
   { value: 'Juli', label: 'Juli' },
   { value: 'Agustus', label: 'Agustus' },
-  { value: 'September', label: 'September' },
-  { value: 'Oktober', label: 'Oktober' },
-  { value: 'November', label: 'November' },
-  { value: 'Desember', label: 'Desember' }
+  { value: 'September', label: 'September (Belum tersedia)', disabled: true },
+  { value: 'Oktober', label: 'Oktober (Belum tersedia)', disabled: true },
+  { value: 'November', label: 'November (Belum tersedia)', disabled: true },
+  { value: 'Desember', label: 'Desember (Belum tersedia)', disabled: true }
 ]
+
 
 export const TAHUN_OPTIONS = [
   { value: '2026', label: '2026' },

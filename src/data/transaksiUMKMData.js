@@ -8,7 +8,7 @@
 
 import { kecamatanZonation } from './heatmapData.js'
 
-export const kabupatenList = ['Banyumas', 'Cilacap', 'Purbalingga', 'Banjarnegara']
+export const kabupatenList = ['Banjarnegara', 'Banyumas', 'Cilacap', 'Purbalingga']
 
 export const rangeOptions = [
   { key: '30d', label: '30 Hari' },

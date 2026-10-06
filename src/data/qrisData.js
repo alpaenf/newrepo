@@ -2871,744 +2871,240 @@ export const qrisMonthlyByCategory = {
     },
     "01": {
       "Banjarnegara": {
-        "UMI": {
-          "nominal": 29996800257,
-          "volume": 449524
-        },
-        "UKE": {
-          "nominal": 8320989532,
-          "volume": 89117
-        },
-        "UME": {
-          "nominal": 8993259321,
-          "volume": 86453
-        },
-        "UBE": {
-          "nominal": 3891892738,
-          "volume": 54754
-        },
-        "BLU/PSO": {
-          "nominal": 4215418151,
-          "volume": 43696
-        },
-        "Lainnya": {
-          "nominal": 3003171790,
-          "volume": 24726
-        }
+        "UMI":    { "nominal": 22407814463,  "volume": 305417 },
+        "UKE":    { "nominal": 19095672093,  "volume": 196310 },
+        "UME":    { "nominal": 17209199457,  "volume": 96708 },
+        "UBE":    { "nominal": 3978856240,   "volume": 47732 },
+        "BLU/PSO":{ "nominal": 5662952999,   "volume": 139677 },
+        "Lainnya":{ "nominal": 3683914558,   "volume": 30094 }
       },
       "Banyumas": {
-        "UMI": {
-          "nominal": 177657723194,
-          "volume": 3027673
-        },
-        "UKE": {
-          "nominal": 54728224983,
-          "volume": 632608
-        },
-        "UME": {
-          "nominal": 118662281196,
-          "volume": 870434
-        },
-        "UBE": {
-          "nominal": 65298978243,
-          "volume": 534523
-        },
-        "BLU/PSO": {
-          "nominal": 774799114,
-          "volume": 2223
-        },
-        "Lainnya": {
-          "nominal": 13513624955,
-          "volume": 80798
-        }
+        "UMI":    { "nominal": 163866715481, "volume": 2442909 },
+        "UKE":    { "nominal": 168227732410, "volume": 1807989 },
+        "UME":    { "nominal": 308670616161, "volume": 2118504 },
+        "UBE":    { "nominal": 48613660667,  "volume": 523072 },
+        "BLU/PSO":{ "nominal": 1099466405,   "volume": 12100 },
+        "Lainnya":{ "nominal": 27645282549,  "volume": 144343 }
       },
       "Cilacap": {
-        "UMI": {
-          "nominal": 96803754276,
-          "volume": 1424755
-        },
-        "UKE": {
-          "nominal": 21712998334,
-          "volume": 226527
-        },
-        "UME": {
-          "nominal": 44144142168,
-          "volume": 489917
-        },
-        "UBE": {
-          "nominal": 23632585776,
-          "volume": 298527
-        },
-        "BLU/PSO": {
-          "nominal": 504813411,
-          "volume": 1471
-        },
-        "Lainnya": {
-          "nominal": 13379402291,
-          "volume": 63344
-        }
+        "UMI":    { "nominal": 87356716501,  "volume": 1214440 },
+        "UKE":    { "nominal": 67196664793,  "volume": 665230 },
+        "UME":    { "nominal": 73800201886,  "volume": 468358 },
+        "UBE":    { "nominal": 349493485736, "volume": 7298104 },
+        "BLU/PSO":{ "nominal": 704540420,    "volume": 5023 },
+        "Lainnya":{ "nominal": 17190539520,  "volume": 80904 }
       },
       "Purbalingga": {
-        "UMI": {
-          "nominal": 42374842823,
-          "volume": 622945
-        },
-        "UKE": {
-          "nominal": 7773619882,
-          "volume": 76620
-        },
-        "UME": {
-          "nominal": 28418948624,
-          "volume": 277263
-        },
-        "UBE": {
-          "nominal": 135353380942,
-          "volume": 3559542
-        },
-        "BLU/PSO": {
-          "nominal": 783771623,
-          "volume": 12274
-        },
-        "Lainnya": {
-          "nominal": 11183352232,
-          "volume": 55548
-        }
+        "UMI":    { "nominal": 41297291054,  "volume": 513176 },
+        "UKE":    { "nominal": 52736546047,  "volume": 533538 },
+        "UME":    { "nominal": 87749295063,  "volume": 555562 },
+        "UBE":    { "nominal": 8016685453,   "volume": 107335 },
+        "BLU/PSO":{ "nominal": 966017282,    "volume": 22102 },
+        "Lainnya":{ "nominal": 11358318932,  "volume": 62894 }
       }
     },
     "02": {
       "Banjarnegara": {
-        "UMI": {
-          "nominal": 31246666934,
-          "volume": 468254
-        },
-        "UKE": {
-          "nominal": 8667697429,
-          "volume": 92830
-        },
-        "UME": {
-          "nominal": 9367978460,
-          "volume": 90056
-        },
-        "UBE": {
-          "nominal": 4054054936,
-          "volume": 57035
-        },
-        "BLU/PSO": {
-          "nominal": 4391060574,
-          "volume": 45517
-        },
-        "Lainnya": {
-          "nominal": 3128303948,
-          "volume": 25756
-        }
+        "UMI":    { "nominal": 20944426246,  "volume": 312575 },
+        "UKE":    { "nominal": 17935908095,  "volume": 178533 },
+        "UME":    { "nominal": 19893571044,  "volume": 100988 },
+        "UBE":    { "nominal": 29936797434,  "volume": 245675 },
+        "BLU/PSO":{ "nominal": 5607049904,   "volume": 132843 },
+        "Lainnya":{ "nominal": 3431767119,   "volume": 28563 }
       },
       "Banyumas": {
-        "UMI": {
-          "nominal": 185060128328,
-          "volume": 3153827
-        },
-        "UKE": {
-          "nominal": 57008567690,
-          "volume": 658967
-        },
-        "UME": {
-          "nominal": 123606542913,
-          "volume": 906702
-        },
-        "UBE": {
-          "nominal": 68019769003,
-          "volume": 556795
-        },
-        "BLU/PSO": {
-          "nominal": 807082410,
-          "volume": 2315
-        },
-        "Lainnya": {
-          "nominal": 14076692661,
-          "volume": 84165
-        }
+        "UMI":    { "nominal": 159912488396, "volume": 2385669 },
+        "UKE":    { "nominal": 175978709360, "volume": 1924238 },
+        "UME":    { "nominal": 270763790012, "volume": 1712215 },
+        "UBE":    { "nominal": 49688824188,  "volume": 553734 },
+        "BLU/PSO":{ "nominal": 880998815,    "volume": 10449 },
+        "Lainnya":{ "nominal": 27926868572,  "volume": 137703 }
       },
       "Cilacap": {
-        "UMI": {
-          "nominal": 100837244038,
-          "volume": 1484120
-        },
-        "UKE": {
-          "nominal": 22617706598,
-          "volume": 235966
-        },
-        "UME": {
-          "nominal": 45983481425,
-          "volume": 510330
-        },
-        "UBE": {
-          "nominal": 24617276850,
-          "volume": 310966
-        },
-        "BLU/PSO": {
-          "nominal": 525847304,
-          "volume": 1532
-        },
-        "Lainnya": {
-          "nominal": 13936877387,
-          "volume": 65984
-        }
+        "UMI":    { "nominal": 84037451382,  "volume": 1201294 },
+        "UKE":    { "nominal": 69983931631,  "volume": 698729 },
+        "UME":    { "nominal": 70113740666,  "volume": 414062 },
+        "UBE":    { "nominal": 192234754034, "volume": 3616444 },
+        "BLU/PSO":{ "nominal": 733993010,    "volume": 3933 },
+        "Lainnya":{ "nominal": 18505127593,  "volume": 78410 }
       },
       "Purbalingga": {
-        "UMI": {
-          "nominal": 44140461274,
-          "volume": 648901
-        },
-        "UKE": {
-          "nominal": 8097520711,
-          "volume": 79813
-        },
-        "UME": {
-          "nominal": 29603071484,
-          "volume": 288816
-        },
-        "UBE": {
-          "nominal": 140993105148,
-          "volume": 3707856
-        },
-        "BLU/PSO": {
-          "nominal": 816428774,
-          "volume": 12785
-        },
-        "Lainnya": {
-          "nominal": 11649325242,
-          "volume": 57863
-        }
+        "UMI":    { "nominal": 39986898253,  "volume": 488125 },
+        "UKE":    { "nominal": 58648610197,  "volume": 608305 },
+        "UME":    { "nominal": 87399184002,  "volume": 543640 },
+        "UBE":    { "nominal": 7404533642,   "volume": 100051 },
+        "BLU/PSO":{ "nominal": 1078465885,   "volume": 25852 },
+        "Lainnya":{ "nominal": 12664087522,  "volume": 60971 }
       }
     },
     "03": {
       "Banjarnegara": {
-        "UMI": {
-          "nominal": 34163022515,
-          "volume": 511958
-        },
-        "UKE": {
-          "nominal": 9476682522,
-          "volume": 101494
-        },
-        "UME": {
-          "nominal": 10242323116,
-          "volume": 98461
-        },
-        "UBE": {
-          "nominal": 4432433396,
-          "volume": 62359
-        },
-        "BLU/PSO": {
-          "nominal": 4800892894,
-          "volume": 49765
-        },
-        "Lainnya": {
-          "nominal": 3420278983,
-          "volume": 28160
-        }
+        "UMI":    { "nominal": 30746355363,  "volume": 437296 },
+        "UKE":    { "nominal": 25086616525,  "volume": 267110 },
+        "UME":    { "nominal": 33942230297,  "volume": 117832 },
+        "UBE":    { "nominal": 92749959235,  "volume": 908621 },
+        "BLU/PSO":{ "nominal": 5363469779,   "volume": 123254 },
+        "Lainnya":{ "nominal": 3984452411,   "volume": 34804 }
       },
       "Banyumas": {
-        "UMI": {
-          "nominal": 202332406971,
-          "volume": 3448184
-        },
-        "UKE": {
-          "nominal": 62329367341,
-          "volume": 720470
-        },
-        "UME": {
-          "nominal": 135143153585,
-          "volume": 991328
-        },
-        "UBE": {
-          "nominal": 74368280776,
-          "volume": 608762
-        },
-        "BLU/PSO": {
-          "nominal": 882410102,
-          "volume": 2531
-        },
-        "Lainnya": {
-          "nominal": 15390517309,
-          "volume": 92020
-        }
+        "UMI":    { "nominal": 198522978418, "volume": 2980253 },
+        "UKE":    { "nominal": 231866274910, "volume": 2723124 },
+        "UME":    { "nominal": 397343821214, "volume": 2580125 },
+        "UBE":    { "nominal": 45563688762,  "volume": 406027 },
+        "BLU/PSO":{ "nominal": 1211639855,   "volume": 10904 },
+        "Lainnya":{ "nominal": 31082754669,  "volume": 161883 }
       },
       "Cilacap": {
-        "UMI": {
-          "nominal": 110248720148,
-          "volume": 1622638
-        },
-        "UKE": {
-          "nominal": 24728692547,
-          "volume": 257989
-        },
-        "UME": {
-          "nominal": 50275273025,
-          "volume": 557961
-        },
-        "UBE": {
-          "nominal": 26914889356,
-          "volume": 339989
-        },
-        "BLU/PSO": {
-          "nominal": 574926385,
-          "volume": 1675
-        },
-        "Lainnya": {
-          "nominal": 15237652609,
-          "volume": 72142
-        }
+        "UMI":    { "nominal": 112695943082, "volume": 1544441 },
+        "UKE":    { "nominal": 91157384740,  "volume": 1004499 },
+        "UME":    { "nominal": 113689822565, "volume": 541925 },
+        "UBE":    { "nominal": 34231736634,  "volume": 546986 },
+        "BLU/PSO":{ "nominal": 671652933,    "volume": 3069 },
+        "Lainnya":{ "nominal": 28526358605,  "volume": 114199 }
       },
       "Purbalingga": {
-        "UMI": {
-          "nominal": 48260237659,
-          "volume": 709465
-        },
-        "UKE": {
-          "nominal": 8853289310,
-          "volume": 87262
-        },
-        "UME": {
-          "nominal": 32366024822,
-          "volume": 315772
-        },
-        "UBE": {
-          "nominal": 154152461628,
-          "volume": 4053923
-        },
-        "BLU/PSO": {
-          "nominal": 892628792,
-          "volume": 13979
-        },
-        "Lainnya": {
-          "nominal": 12736595598,
-          "volume": 63263
-        }
+        "UMI":    { "nominal": 52394189826,  "volume": 691355 },
+        "UKE":    { "nominal": 75092223104,  "volume": 882470 },
+        "UME":    { "nominal": 82599192185,  "volume": 470773 },
+        "UBE":    { "nominal": 6670625976,   "volume": 80153 },
+        "BLU/PSO":{ "nominal": 958928260,    "volume": 23077 },
+        "Lainnya":{ "nominal": 20171837818,  "volume": 89447 }
       }
     },
     "04": {
       "Banjarnegara": {
-        "UMI": {
-          "nominal": 39579111450,
-          "volume": 593122
-        },
-        "UKE": {
-          "nominal": 10979083410,
-          "volume": 117584
-        },
-        "UME": {
-          "nominal": 11866106049,
-          "volume": 114070
-        },
-        "UBE": {
-          "nominal": 5135136252,
-          "volume": 72245
-        },
-        "BLU/PSO": {
-          "nominal": 5562010060,
-          "volume": 57655
-        },
-        "Lainnya": {
-          "nominal": 3962518334,
-          "volume": 32624
-        }
+        "UMI":    { "nominal": 28980995906,  "volume": 470781 },
+        "UKE":    { "nominal": 20861073851,  "volume": 229289 },
+        "UME":    { "nominal": 10823616465,  "volume": 67494 },
+        "UBE":    { "nominal": 60093232727,  "volume": 1705336 },
+        "BLU/PSO":{ "nominal": 7059338692,   "volume": 134905 },
+        "Lainnya":{ "nominal": 997633875,    "volume": 6524 }
       },
       "Banyumas": {
-        "UMI": {
-          "nominal": 234409495882,
-          "volume": 3994847
-        },
-        "UKE": {
-          "nominal": 72210852408,
-          "volume": 834691
-        },
-        "UME": {
-          "nominal": 156568287690,
-          "volume": 1148489
-        },
-        "UBE": {
-          "nominal": 86158374070,
-          "volume": 705273
-        },
-        "BLU/PSO": {
-          "nominal": 1022304386,
-          "volume": 2933
-        },
-        "Lainnya": {
-          "nominal": 17830477371,
-          "volume": 106609
-        }
+        "UMI":    { "nominal": 204655167141, "volume": 3701309 },
+        "UKE":    { "nominal": 194409381845, "volume": 2321778 },
+        "UME":    { "nominal": 517942267835, "volume": 4918775 },
+        "UBE":    { "nominal": 24222932855,  "volume": 212462 },
+        "BLU/PSO":{ "nominal": 1130373297,   "volume": 6959 },
+        "Lainnya":{ "nominal": 3570712424,   "volume": 30598 }
       },
       "Cilacap": {
-        "UMI": {
-          "nominal": 127727175781,
-          "volume": 1879886
-        },
-        "UKE": {
-          "nominal": 28649095024,
-          "volume": 298890
-        },
-        "UME": {
-          "nominal": 58245743139,
-          "volume": 646418
-        },
-        "UBE": {
-          "nominal": 31181884010,
-          "volume": 393890
-        },
-        "BLU/PSO": {
-          "nominal": 666073251,
-          "volume": 1941
-        },
-        "Lainnya": {
-          "nominal": 17653378023,
-          "volume": 83579
-        }
+        "UMI":    { "nominal": 112131389525, "volume": 1698522 },
+        "UKE":    { "nominal": 71917128862,  "volume": 795401 },
+        "UME":    { "nominal": 52259980818,  "volume": 321753 },
+        "UBE":    { "nominal": 55765600717,  "volume": 992115 },
+        "BLU/PSO":{ "nominal": 812697666,    "volume": 2798 },
+        "Lainnya":{ "nominal": 2337096535,   "volume": 18035 }
       },
       "Purbalingga": {
-        "UMI": {
-          "nominal": 55911250947,
-          "volume": 821941
-        },
-        "UKE": {
-          "nominal": 10256859567,
-          "volume": 101096
-        },
-        "UME": {
-          "nominal": 37497223879,
-          "volume": 365834
-        },
-        "UBE": {
-          "nominal": 178591266521,
-          "volume": 4696618
-        },
-        "BLU/PSO": {
-          "nominal": 1034143113,
-          "volume": 16195
-        },
-        "Lainnya": {
-          "nominal": 14755811973,
-          "volume": 73293
-        }
+        "UMI":    { "nominal": 56863608118,  "volume": 849098 },
+        "UKE":    { "nominal": 61851174062,  "volume": 703698 },
+        "UME":    { "nominal": 30050141600,  "volume": 246984 },
+        "UBE":    { "nominal": 6709441886,   "volume": 85211 },
+        "BLU/PSO":{ "nominal": 1232087596,   "volume": 26263 },
+        "Lainnya":{ "nominal": 129266382,    "volume": 2382 }
       }
     },
     "05": {
       "Banjarnegara": {
-        "UMI": {
-          "nominal": 36662755870,
-          "volume": 549418
-        },
-        "UKE": {
-          "nominal": 10170098316,
-          "volume": 108920
-        },
-        "UME": {
-          "nominal": 10991761392,
-          "volume": 105665
-        },
-        "UBE": {
-          "nominal": 4756757791,
-          "volume": 66921
-        },
-        "BLU/PSO": {
-          "nominal": 5152177740,
-          "volume": 53406
-        },
-        "Lainnya": {
-          "nominal": 3670543299,
-          "volume": 30220
-        }
+        "UMI":    { "nominal": 38842117325,  "volume": 618289 },
+        "UKE":    { "nominal": 46587919608,  "volume": 509427 },
+        "UME":    { "nominal": 13103884490,  "volume": 60018 },
+        "UBE":    { "nominal": 284432465772, "volume": 10118635 },
+        "BLU/PSO":{ "nominal": 6380535525,   "volume": 111629 },
+        "Lainnya":{ "nominal": 4863746104,   "volume": 38503 }
       },
       "Banyumas": {
-        "UMI": {
-          "nominal": 217137217238,
-          "volume": 3700490
-        },
-        "UKE": {
-          "nominal": 66890052757,
-          "volume": 773187
-        },
-        "UME": {
-          "nominal": 145031677018,
-          "volume": 1063864
-        },
-        "UBE": {
-          "nominal": 79809862297,
-          "volume": 653306
-        },
-        "BLU/PSO": {
-          "nominal": 946976694,
-          "volume": 2717
-        },
-        "Lainnya": {
-          "nominal": 16516652722,
-          "volume": 98754
-        }
+        "UMI":    { "nominal": 295778872799, "volume": 4882836 },
+        "UKE":    { "nominal": 210079366278, "volume": 2496023 },
+        "UME":    { "nominal": 530158387497, "volume": 5565353 },
+        "UBE":    { "nominal": 37526410852,  "volume": 294051 },
+        "BLU/PSO":{ "nominal": 1304627784,   "volume": 6501 },
+        "Lainnya":{ "nominal": 22758057605,  "volume": 152049 }
       },
       "Cilacap": {
-        "UMI": {
-          "nominal": 118315699671,
-          "volume": 1741368
-        },
-        "UKE": {
-          "nominal": 26538109075,
-          "volume": 276866
-        },
-        "UME": {
-          "nominal": 53953951539,
-          "volume": 598787
-        },
-        "UBE": {
-          "nominal": 28884271504,
-          "volume": 364866
-        },
-        "BLU/PSO": {
-          "nominal": 616994169,
-          "volume": 1798
-        },
-        "Lainnya": {
-          "nominal": 16352602800,
-          "volume": 77421
-        }
+        "UMI":    { "nominal": 147419278274, "volume": 2134030 },
+        "UKE":    { "nominal": 79255020764,  "volume": 900932 },
+        "UME":    { "nominal": 31476622986,  "volume": 167996 },
+        "UBE":    { "nominal": 215341441703, "volume": 4060789 },
+        "BLU/PSO":{ "nominal": 784334590,    "volume": 2244 },
+        "Lainnya":{ "nominal": 22827070813,  "volume": 106908 }
       },
       "Purbalingga": {
-        "UMI": {
-          "nominal": 51791474561,
-          "volume": 761377
-        },
-        "UKE": {
-          "nominal": 9501090967,
-          "volume": 93647
-        },
-        "UME": {
-          "nominal": 34734270541,
-          "volume": 338877
-        },
-        "UBE": {
-          "nominal": 165431910040,
-          "volume": 4350551
-        },
-        "BLU/PSO": {
-          "nominal": 957943094,
-          "volume": 15001
-        },
-        "Lainnya": {
-          "nominal": 13668541617,
-          "volume": 67892
-        }
+        "UMI":    { "nominal": 73419657204,  "volume": 1010545 },
+        "UKE":    { "nominal": 63413215816,  "volume": 724686 },
+        "UME":    { "nominal": 15895697156,  "volume": 108773 },
+        "UBE":    { "nominal": 8298682085,   "volume": 104493 },
+        "BLU/PSO":{ "nominal": 1020522927,   "volume": 21578 },
+        "Lainnya":{ "nominal": 16881451695,  "volume": 90872 }
       }
     },
     "06": {
       "Banjarnegara": {
-        "UMI": {
-          "nominal": 38329244773,
-          "volume": 574392
-        },
-        "UKE": {
-          "nominal": 10632375513,
-          "volume": 113871
-        },
-        "UME": {
-          "nominal": 11491386910,
-          "volume": 110468
-        },
-        "UBE": {
-          "nominal": 4972974055,
-          "volume": 69963
-        },
-        "BLU/PSO": {
-          "nominal": 5386367637,
-          "volume": 55834
-        },
-        "Lainnya": {
-          "nominal": 3837386177,
-          "volume": 31594
-        }
+        "UMI":    { "nominal": 35477537036,  "volume": 549379 },
+        "UKE":    { "nominal": 47130977486,  "volume": 488924 },
+        "UME":    { "nominal": 12326595435,  "volume": 57814 },
+        "UBE":    { "nominal": 67568221791,  "volume": 2371885 },
+        "BLU/PSO":{ "nominal": 6753023522,   "volume": 84882 },
+        "Lainnya":{ "nominal": 4741588836,   "volume": 39700 }
       },
       "Banyumas": {
-        "UMI": {
-          "nominal": 227007090748,
-          "volume": 3868694
-        },
-        "UKE": {
-          "nominal": 69930509700,
-          "volume": 808332
-        },
-        "UME": {
-          "nominal": 151624025973,
-          "volume": 1112221
-        },
-        "UBE": {
-          "nominal": 83437583310,
-          "volume": 683002
-        },
-        "BLU/PSO": {
-          "nominal": 990021090,
-          "volume": 2840
-        },
-        "Lainnya": {
-          "nominal": 17267409664,
-          "volume": 103242
-        }
+        "UMI":    { "nominal": 249134054354, "volume": 4312628 },
+        "UKE":    { "nominal": 111461510531, "volume": 1025397 },
+        "UME":    { "nominal": 621171266099, "volume": 7063295 },
+        "UBE":    { "nominal": 38745341958,  "volume": 326047 },
+        "BLU/PSO":{ "nominal": 1334532729,   "volume": 3540 },
+        "Lainnya":{ "nominal": 21149822623,  "volume": 144876 }
       },
       "Cilacap": {
-        "UMI": {
-          "nominal": 123693686020,
-          "volume": 1820521
-        },
-        "UKE": {
-          "nominal": 27744386761,
-          "volume": 289451
-        },
-        "UME": {
-          "nominal": 56406403882,
-          "volume": 626005
-        },
-        "UBE": {
-          "nominal": 30197192936,
-          "volume": 381451
-        },
-        "BLU/PSO": {
-          "nominal": 645039359,
-          "volume": 1880
-        },
-        "Lainnya": {
-          "nominal": 17095902927,
-          "volume": 80940
-        }
+        "UMI":    { "nominal": 127089983619, "volume": 1880592 },
+        "UKE":    { "nominal": 49339848605,  "volume": 429111 },
+        "UME":    { "nominal": 33627763321,  "volume": 183032 },
+        "UBE":    { "nominal": 16553254601,  "volume": 188199 },
+        "BLU/PSO":{ "nominal": 753414819,    "volume": 2299 },
+        "Lainnya":{ "nominal": 21631980750,  "volume": 103537 }
       },
       "Purbalingga": {
-        "UMI": {
-          "nominal": 54145632496,
-          "volume": 795985
-        },
-        "UKE": {
-          "nominal": 9932958739,
-          "volume": 97904
-        },
-        "UME": {
-          "nominal": 36313101020,
-          "volume": 354281
-        },
-        "UBE": {
-          "nominal": 172951542315,
-          "volume": 4548303
-        },
-        "BLU/PSO": {
-          "nominal": 1001485962,
-          "volume": 15683
-        },
-        "Lainnya": {
-          "nominal": 14289838964,
-          "volume": 70978
-        }
+        "UMI":    { "nominal": 54308039938,  "volume": 807863 },
+        "UKE":    { "nominal": 21290727034,  "volume": 95285 },
+        "UME":    { "nominal": 15629522968,  "volume": 113558 },
+        "UBE":    { "nominal": 165176237796, "volume": 6051524 },
+        "BLU/PSO":{ "nominal": 1029959624,   "volume": 20916 },
+        "Lainnya":{ "nominal": 16905329728,  "volume": 84717 }
       }
     },
     "07": {
       "Banjarnegara": {
-        "UMI": {
-          "nominal": 39995733676,
-          "volume": 599365
-        },
-        "UKE": {
-          "nominal": 11094652709,
-          "volume": 118822
-        },
-        "UME": {
-          "nominal": 11991012428,
-          "volume": 115271
-        },
-        "UBE": {
-          "nominal": 5189190318,
-          "volume": 73005
-        },
-        "BLU/PSO": {
-          "nominal": 5620557535,
-          "volume": 58261
-        },
-        "Lainnya": {
-          "nominal": 4004229054,
-          "volume": 32967
-        }
+        "UMI":    { "nominal": 40098078502, "volume": 615050 },
+        "UKE":    { "nominal": 29400670280, "volume": 297460 },
+        "UME":    { "nominal": 11466561286, "volume": 81785 },
+        "UBE":    { "nominal": 6424846108,  "volume": 76444 },
+        "BLU/PSO":{ "nominal": 6806189375,  "volume": 78106 },
+        "Lainnya":{ "nominal": 4551451823,  "volume": 38006 }
       },
       "Banyumas": {
-        "UMI": {
-          "nominal": 236876964259,
-          "volume": 4036898
-        },
-        "UKE": {
-          "nominal": 72970966644,
-          "volume": 843477
-        },
-        "UME": {
-          "nominal": 158216374929,
-          "volume": 1160579
-        },
-        "UBE": {
-          "nominal": 87065304324,
-          "volume": 712697
-        },
-        "BLU/PSO": {
-          "nominal": 1033065485,
-          "volume": 2964
-        },
-        "Lainnya": {
-          "nominal": 18018166606,
-          "volume": 107731
-        }
+        "UMI":    { "nominal": 246911357672, "volume": 3994082 },
+        "UKE":    { "nominal": 81900873913,  "volume": 849523 },
+        "UME":    { "nominal": 395454964048, "volume": 4205958 },
+        "UBE":    { "nominal": 47815198736,  "volume": 428116 },
+        "BLU/PSO":{ "nominal": 1117910104,   "volume": 3318 },
+        "Lainnya":{ "nominal": 20688068440,  "volume": 125075 }
       },
       "Cilacap": {
-        "UMI": {
-          "nominal": 129071672368,
-          "volume": 1899674
-        },
-        "UKE": {
-          "nominal": 28950664446,
-          "volume": 302036
-        },
-        "UME": {
-          "nominal": 58858856224,
-          "volume": 653222
-        },
-        "UBE": {
-          "nominal": 31510114368,
-          "volume": 398036
-        },
-        "BLU/PSO": {
-          "nominal": 673084548,
-          "volume": 1961
-        },
-        "Lainnya": {
-          "nominal": 17839203055,
-          "volume": 84459
-        }
+        "UMI":    { "nominal": 134094704687, "volume": 1976335 },
+        "UKE":    { "nominal": 37633175170,  "volume": 383861 },
+        "UME":    { "nominal": 42178113095,  "volume": 331369 },
+        "UBE":    { "nominal": 30229065580,  "volume": 345773 },
+        "BLU/PSO":{ "nominal": 870586336,    "volume": 2400 },
+        "Lainnya":{ "nominal": 20818633455,  "volume": 96605 }
       },
       "Purbalingga": {
-        "UMI": {
-          "nominal": 56499790430,
-          "volume": 830593
-        },
-        "UKE": {
-          "nominal": 10364826510,
-          "volume": 102160
-        },
-        "UME": {
-          "nominal": 37891931499,
-          "volume": 369684
-        },
-        "UBE": {
-          "nominal": 180471174589,
-          "volume": 4746056
-        },
-        "BLU/PSO": {
-          "nominal": 1045028830,
-          "volume": 16365
-        },
-        "Lainnya": {
-          "nominal": 14911136310,
-          "volume": 74064
-        }
+        "UMI":    { "nominal": 54136041234,  "volume": 814524 },
+        "UKE":    { "nominal": 10349460643,  "volume": 93729 },
+        "UME":    { "nominal": 17525095802,  "volume": 196661 },
+        "UBE":    { "nominal": 217885053857, "volume": 6842618 },
+        "BLU/PSO":{ "nominal": 1163490597,   "volume": 21526 },
+        "Lainnya":{ "nominal": 17028688992,  "volume": 85037 }
       }
     },
     "08": {

@@ -27,6 +27,49 @@ const KABUPATEN_LIST = [
   { id: 'Purbalingga', name: 'Kab. Purbalingga', shortName: 'Purbalingga' }
 ]
 
+export const KABUPATEN_META = {
+  Banjarnegara: {
+    id: 'Banjarnegara',
+    name: 'Kab. Banjarnegara',
+    shortName: 'Banjarnegara',
+    color: '#D97706', // Warm Amber / Emas
+    bgLight: 'bg-amber-50',
+    borderLight: 'border-amber-200',
+    textMain: 'text-amber-700',
+    dotColor: 'bg-amber-500'
+  },
+  Banyumas: {
+    id: 'Banyumas',
+    name: 'Kab. Banyumas',
+    shortName: 'Banyumas',
+    color: '#2563EB', // Blue BI
+    bgLight: 'bg-blue-50',
+    borderLight: 'border-blue-200',
+    textMain: 'text-blue-700',
+    dotColor: 'bg-blue-600'
+  },
+  Cilacap: {
+    id: 'Cilacap',
+    name: 'Kab. Cilacap',
+    shortName: 'Cilacap',
+    color: '#059669', // Emerald Green
+    bgLight: 'bg-emerald-50',
+    borderLight: 'border-emerald-200',
+    textMain: 'text-emerald-700',
+    dotColor: 'bg-emerald-600'
+  },
+  Purbalingga: {
+    id: 'Purbalingga',
+    name: 'Kab. Purbalingga',
+    shortName: 'Purbalingga',
+    color: '#7C3AED', // Royal Purple
+    bgLight: 'bg-purple-50',
+    borderLight: 'border-purple-200',
+    textMain: 'text-purple-700',
+    dotColor: 'bg-purple-600'
+  }
+}
+
 const MONTH_LIST = [
   { id: 'ALL', name: 'Semua Bulan (Tahunan)', shortName: 'Tahunan' },
   { id: '01', name: 'Januari', shortName: 'Jan' },
@@ -37,11 +80,12 @@ const MONTH_LIST = [
   { id: '06', name: 'Juni', shortName: 'Jun' },
   { id: '07', name: 'Juli', shortName: 'Jul' },
   { id: '08', name: 'Agustus', shortName: 'Agu' },
-  { id: '09', name: 'September', shortName: 'Sep' },
-  { id: '10', name: 'Oktober', shortName: 'Okt' },
-  { id: '11', name: 'November', shortName: 'Nov' },
-  { id: '12', name: 'Desember', shortName: 'Des' }
+  { id: '09', name: 'September', shortName: 'Sep', disabled: true },
+  { id: '10', name: 'Oktober', shortName: 'Okt', disabled: true },
+  { id: '11', name: 'November', shortName: 'Nov', disabled: true },
+  { id: '12', name: 'Desember', shortName: 'Des', disabled: true }
 ]
+
 
 const CATEGORY_META = {
   UMI: {
@@ -126,6 +170,10 @@ const CATEGORY_FILTER_OPTIONS = [
 
 function getGradientId(catKey) {
   return `grad_${catKey.replace(/[^a-zA-Z0-9]/g, '_')}`
+}
+
+function getKabGradientId(kab) {
+  return `trend_kab_grad_${kab.replace(/[^a-zA-Z0-9]/g, '_')}`
 }
 
 function formatRupiahShort(value) {
@@ -369,37 +417,64 @@ function CustomBarSeriesTooltip({ active, payload, label, viewType, periodLabel,
   )
 }
 
-function CustomTrendTooltip({ active, payload, label, viewType }) {
+function CustomTrendTooltip({ active, payload, label, viewType, trendSplitBy, trendCategoryFilter }) {
   if (!active || !payload || !payload.length) return null
 
   const total = payload.reduce((sum, p) => sum + (p.value || 0), 0)
+  const isWilayahMode = trendSplitBy === 'wilayah'
 
   return (
-    <div className="bg-white/95 backdrop-blur-md p-3.5 rounded-xl shadow-2xl border border-slate-200 text-xs min-w-[270px] space-y-2 z-[9999]">
+    <div className="bg-white/95 backdrop-blur-md p-3.5 rounded-xl shadow-2xl border border-slate-200 text-xs min-w-[280px] space-y-2 z-[9999]">
       <div className="flex items-center justify-between border-b border-slate-100 pb-1.5">
-        <span className="font-semibold text-slate-900 text-sm">{label}</span>
-        <span className="text-[11px] font-semibold text-ink-500">
-          Total: {viewType === 'nominal' ? formatRupiahShort(total) : formatVolumeFull(total)}
-        </span>
+        <div>
+          <span className="font-semibold text-slate-900 text-sm block">{label}</span>
+          {isWilayahMode && trendCategoryFilter !== 'ALL' && (
+            <span className="text-[10px] text-blue-600 font-semibold block">
+              Skala: {CATEGORY_META[trendCategoryFilter]?.label} ({trendCategoryFilter})
+            </span>
+          )}
+        </div>
+        <div className="text-right">
+          <span className="text-[11px] font-bold text-slate-900 block">
+            {isWilayahMode ? 'Total Gabungan:' : 'Total:'} {viewType === 'nominal' ? formatRupiahShort(total) : formatVolumeFull(total)}
+          </span>
+          {viewType === 'nominal' && (
+            <span className="text-[9.5px] text-slate-400 font-mono block">
+              {formatRupiahFull(total)}
+            </span>
+          )}
+        </div>
       </div>
 
       <div className="space-y-1.5 pt-0.5">
         {payload.map((entry) => {
-          const meta = CATEGORY_META[entry.dataKey] || {}
           const val = entry.value || 0
           const pct = total > 0 ? ((val / total) * 100).toFixed(1) : '0.0'
+          const kabMeta = KABUPATEN_META[entry.dataKey]
+          const catMeta = CATEGORY_META[entry.dataKey]
+          const displayName = kabMeta ? kabMeta.name : (catMeta?.label || entry.name)
 
           return (
             <div key={entry.dataKey} className="flex items-center justify-between text-[11px]">
               <div className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: entry.color }} />
-                <span className="font-semibold text-slate-700">{meta.label || entry.name} ({entry.dataKey}):</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-slate-900">
-                  {viewType === 'nominal' ? formatRupiahShort(val) : formatVolumeFull(val)}
+                <span className="font-semibold text-slate-700">
+                  {displayName}
+                  {catMeta && !kabMeta ? ` (${entry.dataKey})` : ''}:
                 </span>
-                <span className="text-[10px] font-semibold text-slate-400">({pct}%)</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-right">
+                <div>
+                  <span className="font-semibold text-slate-900 block">
+                    {viewType === 'nominal' ? formatRupiahShort(val) : formatVolumeFull(val)}
+                  </span>
+                  {viewType === 'nominal' && (
+                    <span className="text-[9.5px] text-slate-400 font-normal block font-mono">
+                      {formatRupiahFull(val)}
+                    </span>
+                  )}
+                </div>
+                <span className="text-[10px] font-semibold text-slate-400 self-center">({pct}%)</span>
               </div>
             </div>
           )
@@ -450,16 +525,85 @@ export default function HeatmapPieChart({
   selectedId,
   data
 }) {
-  const [selectedWilayah, setSelectedWilayah] = useState('ALL')
+  // Multi-select Wilayah (Array of kab IDs: e.g. ['ALL'] or ['Banjarnegara', 'Purbalingga'])
+  const [selectedWilayah, setSelectedWilayah] = useState(['ALL'])
   const [selectedMonth, setSelectedMonth] = useState(month || '08') // Default: '08' (Agustus 2026 data riil)
   const [selectedYear, setSelectedYear] = useState(range || '2026')
   const [viewType, setViewType] = useState('nominal') // 'nominal' | 'volume'
-  const [trendStartYear, setTrendStartYear] = useState('2024')
+  const [trendStartYear, setTrendStartYear] = useState('2026')
   const [trendEndYear, setTrendEndYear] = useState('2026')
   const [barChartMode, setBarChartMode] = useState('grouped') // 'grouped' | 'stacked'
   const [categoryFilter, setCategoryFilter] = useState('ALL') // 'ALL' | 'UMI' | 'UKE' | 'UME' | 'UBE' | 'BLU/PSO' | 'Lainnya'
   const [trendCategoryFilter, setTrendCategoryFilter] = useState('ALL')
+  const [trendSplitMode, setTrendSplitMode] = useState(null) // null = auto, 'wilayah' | 'skala'
   const [activeIndex, setActiveIndex] = useState(null)
+
+  // Categories to include (All 6 Scales)
+  const categories = CATEGORY_KEYS
+  // Urutan resmi: 1. Banjarnegara, 2. Banyumas, 3. Cilacap, 4. Purbalingga
+  const fourKab = ['Banjarnegara', 'Banyumas', 'Cilacap', 'Purbalingga']
+
+  const isAllWilayah = useMemo(() => {
+    return (
+      !selectedWilayah ||
+      selectedWilayah.includes('ALL') ||
+      selectedWilayah.length === 0 ||
+      selectedWilayah.length >= fourKab.length
+    )
+  }, [selectedWilayah])
+
+  const activeKabList = useMemo(() => {
+    if (isAllWilayah) return fourKab
+    return fourKab.filter((k) => selectedWilayah.includes(k))
+  }, [isAllWilayah, selectedWilayah])
+
+  // Mode split grafik tren: apakah per wilayah atau per skala usaha
+  const effectiveSplitBy = useMemo(() => {
+    if (trendSplitMode) return trendSplitMode
+    // Otomatis: jika user memilih 2 atau 3 wilayah (multi-wilayah), tampilkan garis per wilayah untuk perbandingan
+    if (!isAllWilayah && activeKabList.length > 1) {
+      return 'wilayah'
+    }
+    return 'skala'
+  }, [trendSplitMode, isAllWilayah, activeKabList.length])
+
+  const wilayahLabel = useMemo(() => {
+    if (isAllWilayah) return 'Banyumas Raya (Semua Wilayah)'
+    if (activeKabList.length === 1) return `Kab. ${activeKabList[0]}`
+    if (activeKabList.length === 2) return `Kab. ${activeKabList[0]} & Kab. ${activeKabList[1]}`
+    return `${activeKabList.length} Wilayah (${activeKabList.map((k) => `Kab. ${k}`).join(', ')})`
+  }, [isAllWilayah, activeKabList])
+
+  const toggleWilayah = (kabId) => {
+    setTrendSplitMode(null)
+    if (kabId === 'ALL') {
+      setSelectedWilayah(['ALL'])
+      return
+    }
+
+    if (isAllWilayah) {
+      setSelectedWilayah([kabId])
+      return
+    }
+
+    if (selectedWilayah.includes(kabId)) {
+      const next = selectedWilayah.filter((k) => k !== kabId)
+      if (next.length === 0) {
+        setSelectedWilayah(['ALL'])
+      } else {
+        setSelectedWilayah(next)
+      }
+    } else {
+      const next = [...selectedWilayah, kabId]
+      if (next.length >= fourKab.length) {
+        setSelectedWilayah(['ALL'])
+      } else {
+        setSelectedWilayah(next)
+      }
+    }
+  }
+
+  const currentWilayah = isAllWilayah ? 'ALL' : activeKabList.length === 1 ? activeKabList[0] : activeKabList.join(', ')
 
   const handleTrendRangeChange = (newStart, newEnd) => {
     let s = parseInt(newStart, 10) || 2024
@@ -479,10 +623,13 @@ export default function HeatmapPieChart({
     }
   }, [range])
 
-  // Sync with external month prop
+  // Sync with external month prop — auto-reset ke Agustus jika bulan tidak tersedia
   React.useEffect(() => {
-    if (month && month !== selectedMonth) {
-      setSelectedMonth(month)
+    const incomingMonth = month || '08'
+    const monthObj = MONTH_LIST.find((m) => m.id === incomingMonth)
+    const safeMonth = monthObj?.disabled ? '08' : incomingMonth
+    if (safeMonth !== selectedMonth) {
+      setSelectedMonth(safeMonth)
     }
   }, [month])
 
@@ -518,13 +665,15 @@ export default function HeatmapPieChart({
   }
 
   const handleMonthChange = (newM) => {
+    // Guard: jangan pilih bulan yang belum tersedia
+    const monthObj = MONTH_LIST.find((m) => m.id === newM)
+    if (monthObj?.disabled) return
     setSelectedMonth(newM)
     if (onMonthChange) {
       onMonthChange(newM)
     }
   }
 
-  const currentWilayah = selectedWilayah
   const currentMonthObj = useMemo(() => {
     return MONTH_LIST.find((m) => m.id === selectedMonth) || MONTH_LIST.find((m) => m.id === '08') || MONTH_LIST[0]
   }, [selectedMonth])
@@ -542,11 +691,6 @@ export default function HeatmapPieChart({
     }
     return `Bulan ${currentMonthObj.name} 2026`
   }, [selectedYear, selectedMonth, currentMonthObj])
-
-  // Categories to include (All 6 Scales)
-  const categories = CATEGORY_KEYS
-  // Urutan resmi: 1. Banjarnegara, 2. Banyumas, 3. Cilacap, 4. Purbalingga
-  const fourKab = ['Banjarnegara', 'Banyumas', 'Cilacap', 'Purbalingga']
 
   // Helper to fetch category data for a kabupaten based on active year range & month
   const getCatData = (kab, rangeStr, mKey, catKey) => {
@@ -626,9 +770,9 @@ export default function HeatmapPieChart({
     return { nominal: totalNom, volume: totalVol }
   }
 
-  // Multi-Series Bar Chart Data for comparing 4 Kabupaten side-by-side (Per Wilayah)
+  // Multi-Series Bar Chart Data for comparing selected Kabupaten side-by-side (Per Wilayah)
   const barChartData = useMemo(() => {
-    return fourKab.map((kab) => {
+    return activeKabList.map((kab) => {
       if (isRange) {
         const row = {
           kab,
@@ -687,7 +831,7 @@ export default function HeatmapPieChart({
       row.total = total
       return row
     })
-  }, [selectedYear, selectedMonth, viewType, isRange, yearsInRange, categoryFilter])
+  }, [activeKabList, selectedYear, selectedMonth, viewType, isRange, yearsInRange, categoryFilter])
 
   // Aggregate data for current selected wilayah & selected month (Pie Chart)
   const chartData = useMemo(() => {
@@ -695,8 +839,6 @@ export default function HeatmapPieChart({
     categories.forEach((cat) => {
       totals[cat] = { nominal: 0, volume: 0 }
     })
-
-    const activeKabList = currentWilayah === 'ALL' ? fourKab : [currentWilayah]
 
     activeKabList.forEach((kab) => {
       categories.forEach((cat) => {
@@ -727,7 +869,7 @@ export default function HeatmapPieChart({
         meta
       }
     })
-  }, [currentWilayah, selectedYear, selectedMonth, viewType])
+  }, [activeKabList, selectedYear, selectedMonth, viewType])
 
   const totalSummary = useMemo(() => {
     const totalNominal = chartData.reduce((acc, c) => acc + c.nominal, 0)
@@ -740,7 +882,6 @@ export default function HeatmapPieChart({
 
   // Trend Data Generation based on selected trendStartYear and trendEndYear
   const trendData = useMemo(() => {
-    const activeKabList = currentWilayah === 'ALL' ? fourKab : [currentWilayah]
     const points = []
 
     const sNum = parseInt(trendStartYear, 10) || 2024
@@ -750,50 +891,92 @@ export default function HeatmapPieChart({
     for (let y = sNum; y <= Math.min(eNum, 2025); y++) {
       const yTotals = {}
       categories.forEach((c) => { yTotals[c] = 0 })
+
+      const kabTotals = {}
+      const kabCatVals = {}
+
       activeKabList.forEach((kab) => {
+        let kabSum = 0
         categories.forEach((cat) => {
           const raw = getCatData(kab, String(y), 'ALL', cat)
-          yTotals[cat] += viewType === 'nominal' ? raw.nominal : raw.volume
+          const val = viewType === 'nominal' ? raw.nominal : raw.volume
+          yTotals[cat] += val
+          kabSum += val
+          kabCatVals[`${kab}_${cat}`] = val
         })
+        kabTotals[kab] = kabSum
       })
+
       const totY = categories.reduce((s, c) => s + yTotals[c], 0)
+
+      // Nilai per masing-masing kabupaten untuk perbandingan multi-wilayah:
+      const kabPointValues = {}
+      activeKabList.forEach((kab) => {
+        if (trendCategoryFilter === 'ALL') {
+          kabPointValues[kab] = kabTotals[kab] || 0
+        } else {
+          kabPointValues[kab] = kabCatVals[`${kab}_${trendCategoryFilter}`] || 0
+        }
+      })
+
       points.push({
         period: `Akhir Tahun ${y}`,
         shortPeriod: `'${String(y).slice(2)}`,
         isAnnual: true,
         ...yTotals,
+        ...kabPointValues,
         total: totY
       })
     }
 
     // If 2026 is included in the range:
     if (eNum >= 2026) {
-      // 2026 Bulanan (Januari s.d. Desember)
-      const monthlyItems = MONTH_LIST.filter((m) => m.id !== 'ALL')
+      // 2026 Bulanan (Januari s.d. Agustus — data tersedia)
+      const monthlyItems = MONTH_LIST.filter((m) => m.id !== 'ALL' && !m.disabled)
       monthlyItems.forEach((m) => {
         const mTotals = {}
         categories.forEach((c) => { mTotals[c] = 0 })
+
+        const kabTotals = {}
+        const kabCatVals = {}
+
         activeKabList.forEach((kab) => {
-          const mData = qrisMonthlyByCategory['2026']?.[m.id]?.[kab] || {}
+          let kabSum = 0
           categories.forEach((cat) => {
-            const raw = viewType === 'nominal' ? (mData[cat]?.nominal || 0) : (mData[cat]?.volume || 0)
-            mTotals[cat] += raw
+            const raw = getCatData(kab, '2026', m.id, cat)
+            const val = viewType === 'nominal' ? (raw?.nominal || 0) : (raw?.volume || 0)
+            mTotals[cat] += val
+            kabSum += val
+            kabCatVals[`${kab}_${cat}`] = val
           })
+          kabTotals[kab] = kabSum
         })
+
         const totM = categories.reduce((s, c) => s + mTotals[c], 0)
+
+        // Nilai per masing-masing kabupaten untuk perbandingan multi-wilayah:
+        const kabPointValues = {}
+        activeKabList.forEach((kab) => {
+          if (trendCategoryFilter === 'ALL') {
+            kabPointValues[kab] = kabTotals[kab] || 0
+          } else {
+            kabPointValues[kab] = kabCatVals[`${kab}_${trendCategoryFilter}`] || 0
+          }
+        })
 
         points.push({
           period: `${m.name} 2026`,
           shortPeriod: `${m.shortName} '26`,
           isAnnual: false,
           ...mTotals,
+          ...kabPointValues,
           total: totM
         })
       })
     }
 
     return points
-  }, [currentWilayah, viewType, trendStartYear, trendEndYear])
+  }, [activeKabList, viewType, trendStartYear, trendEndYear, trendCategoryFilter])
 
   // Comparison data for all 4 kabupaten in official sequence: Banjarnegara, Banyumas, Cilacap, Purbalingga
   const kabComparison = useMemo(() => {
@@ -887,8 +1070,8 @@ export default function HeatmapPieChart({
                   className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
                 >
                   {MONTH_LIST.map((m) => (
-                    <option key={m.id} value={m.id}>
-                      {m.name}
+                    <option key={m.id} value={m.id} disabled={!!m.disabled}>
+                      {m.disabled ? `${m.name} (Belum tersedia)` : m.name}
                     </option>
                   ))}
                 </select>
@@ -931,25 +1114,62 @@ export default function HeatmapPieChart({
 
         {/* Wilayah Tabs & Category Filter Pills */}
         <div className="space-y-2.5">
-          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
-            {KABUPATEN_LIST.map((kab) => {
-              const isActive = currentWilayah === kab.id
-              return (
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
+              {/* Button Semua */}
+              <button
+                type="button"
+                onClick={() => toggleWilayah('ALL')}
+                className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
+                  isAllWilayah
+                    ? 'bg-ink-900 text-white border-ink-900 shadow-sm'
+                    : 'bg-surface-muted/50 text-ink-600 border-surface-border hover:bg-surface-muted hover:text-ink-900'
+                }`}
+              >
+                Semua (Banyumas Raya)
+              </button>
+
+              {/* 4 Kabupaten */}
+              {fourKab.map((kabName) => {
+                const isSelected = !isAllWilayah && selectedWilayah.includes(kabName)
+                const kabColor = KABUPATEN_META[kabName]?.color || '#94A3B8'
+                return (
+                  <button
+                    key={kabName}
+                    type="button"
+                    onClick={() => toggleWilayah(kabName)}
+                    className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border flex items-center gap-1.5 ${
+                      isSelected
+                        ? 'bg-blue-600 text-white border-blue-600 shadow-sm ring-1 ring-blue-500'
+                        : 'bg-surface-muted/50 text-ink-600 border-surface-border hover:bg-surface-muted hover:text-ink-900'
+                    }`}
+                    title={isSelected ? 'Klik untuk membatalkan pilihan' : 'Klik untuk memilih/membandingkan wilayah ini'}
+                  >
+                    <span
+                      className="w-2 h-2 rounded-full shrink-0"
+                      style={{ backgroundColor: isSelected ? '#FFFFFF' : kabColor }}
+                    />
+                    {isSelected && <span className="font-bold">✓</span>}
+                    Kab. {kabName}
+                  </button>
+                )
+              })}
+            </div>
+
+            {!isAllWilayah && (
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200 shadow-xs">
+                  {activeKabList.length} Wilayah Terpilih ({activeKabList.map((k) => `Kab. ${k}`).join(', ')})
+                </span>
                 <button
-                  key={kab.id}
                   type="button"
-                  onClick={() => setSelectedWilayah(currentWilayah === kab.id && kab.id !== 'ALL' ? 'ALL' : kab.id)}
-                  className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
-                    isActive
-                      ? 'bg-ink-900 text-white border-ink-900 shadow-sm'
-                      : 'bg-surface-muted/50 text-ink-600 border-surface-border hover:bg-surface-muted hover:text-ink-900'
-                  }`}
-                  title={isActive && kab.id !== 'ALL' ? 'Klik lagi untuk kembali ke Semua Wilayah' : undefined}
+                  onClick={() => setSelectedWilayah(['ALL'])}
+                  className="text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors px-2.5 py-1 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200 shadow-xs"
                 >
-                  {kab.name}
+                  ✕ Reset ke Semua
                 </button>
-              )
-            })}
+              </div>
+            )}
           </div>
 
           {/* Quick Category Focus Dropdown */}
@@ -1026,11 +1246,16 @@ export default function HeatmapPieChart({
           <div className="w-full mt-2 bg-surface-muted/60 border border-surface-border rounded-xl p-3 flex items-center justify-between text-xs">
             <div>
               <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-400 block">
-                Total {viewType === 'nominal' ? 'Nominal' : 'Volume'} ({currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}) · {currentMonthObj.shortName} {selectedYear}
+                Total {viewType === 'nominal' ? 'Nominal' : 'Volume'} ({wilayahLabel}) · {currentMonthObj.shortName} {selectedYear}
               </span>
               <span className="font-semibold text-ink-900 text-sm sm:text-base">
                 {viewType === 'nominal' ? formatRupiahShort(totalSummary.nominal) : formatVolumeFull(totalSummary.volume)}
               </span>
+              {viewType === 'nominal' && (
+                <span className="text-[10px] text-ink-500 font-mono block">
+                  {formatRupiahFull(totalSummary.nominal)}
+                </span>
+              )}
             </div>
             <div className="text-right">
               <span className="text-[10px] font-medium text-ink-400 block">
@@ -1039,6 +1264,11 @@ export default function HeatmapPieChart({
               <span className="font-semibold text-ink-700 text-xs">
                 {viewType === 'nominal' ? formatVolumeFull(totalSummary.volume) : formatRupiahShort(totalSummary.nominal)}
               </span>
+              {viewType !== 'nominal' && (
+                <span className="text-[10px] text-ink-500 font-mono block">
+                  {formatRupiahFull(totalSummary.nominal)}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -1193,8 +1423,8 @@ export default function HeatmapPieChart({
                   className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
                 >
                   {MONTH_LIST.map((m) => (
-                    <option key={m.id} value={m.id}>
-                      {m.name}
+                    <option key={m.id} value={m.id} disabled={!!m.disabled}>
+                      {m.disabled ? `${m.name} (Belum tersedia)` : m.name}
                     </option>
                   ))}
                 </select>
@@ -1570,6 +1800,148 @@ export default function HeatmapPieChart({
         </div>
       </div>
 
+      {/* SECTION: Head-to-Head Comparison (Tampil otomatis saat memilih 2 Kabupaten) */}
+      {activeKabList.length === 2 && (() => {
+        const kabA = activeKabList[0]
+        const kabB = activeKabList[1]
+        const compA = kabComparison.find((k) => k.kab === kabA) || {}
+        const compB = kabComparison.find((k) => k.kab === kabB) || {}
+
+        const nomA = compA.totalNominal || 0
+        const nomB = compB.totalNominal || 0
+        const volA = compA.totalVolume || 0
+        const volB = compB.totalVolume || 0
+
+        const diffNom = Math.abs(nomA - nomB)
+        const diffVol = Math.abs(volA - volB)
+        const higherNomKab = nomA >= nomB ? kabA : kabB
+        const higherVolKab = volA >= volB ? kabA : kabB
+
+        return (
+          <div className="p-4 sm:p-6 border-t border-blue-200 bg-gradient-to-r from-blue-50/80 via-indigo-50/60 to-purple-50/80 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded-md uppercase tracking-wider shadow-xs">
+                  Mode Komparasi 2 Wilayah
+                </span>
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+                  Perbandingan Langsung: Kab. {kabA} VS Kab. {kabB}
+                </h3>
+              </div>
+              <span className="text-xs font-semibold text-blue-700 bg-white/80 px-2.5 py-1 rounded-lg border border-blue-200">
+                Periode: {periodLabel}
+              </span>
+            </div>
+
+            {/* Quick Metrics Comparison Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {/* Kab A Card */}
+              <div className="bg-white p-4 rounded-xl border border-blue-200 shadow-sm space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-blue-700 uppercase tracking-wide">Kab. {kabA}</span>
+                  <span className="text-[10px] text-slate-400 font-medium">{compA.merchants?.toLocaleString('id-ID')} merchant</span>
+                </div>
+                <div>
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase block">Total Nominal:</span>
+                  <span className="text-base font-extrabold text-slate-900 block">{formatRupiahShort(nomA)}</span>
+                  <span className="text-[10px] text-slate-500 font-mono block">{formatRupiahFull(nomA)}</span>
+                </div>
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <span className="text-slate-500 font-medium">Total Volume:</span>
+                  <span className="font-bold text-slate-800">{formatVolumeFull(volA)}</span>
+                </div>
+              </div>
+
+              {/* Difference / Selisih Card */}
+              <div className="bg-white/95 p-4 rounded-xl border border-indigo-200 shadow-sm flex flex-col justify-between space-y-2 text-center">
+                <span className="text-[10px] font-bold text-indigo-700 uppercase tracking-wider">
+                  Selisih Perbandingan (Gap)
+                </span>
+                <div className="space-y-1">
+                  <span className="text-[11px] font-semibold text-slate-500 block">
+                    Selisih Nominal:
+                  </span>
+                  <span className="text-lg font-black text-indigo-950 block">
+                    {formatRupiahShort(diffNom)}
+                  </span>
+                  <span className="text-[10px] text-slate-500 font-mono block">
+                    ({formatRupiahFull(diffNom)})
+                  </span>
+                  <div className="mt-1">
+                    <span className="text-[10.5px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full inline-block border border-emerald-200">
+                      Kab. {higherNomKab} lebih unggul +{nomA > 0 && nomB > 0 ? (Math.abs(nomA - nomB) / Math.min(nomA, nomB) * 100).toFixed(1) : 0}%
+                    </span>
+                  </div>
+                </div>
+                <div className="pt-2 border-t border-slate-100 text-xs text-slate-600">
+                  Selisih Volume: <strong className="text-slate-900">{formatVolumeFull(diffVol)}</strong>
+                </div>
+              </div>
+
+              {/* Kab B Card */}
+              <div className="bg-white p-4 rounded-xl border border-purple-200 shadow-sm space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-purple-700 uppercase tracking-wide">Kab. {kabB}</span>
+                  <span className="text-[10px] text-slate-400 font-medium">{compB.merchants?.toLocaleString('id-ID')} merchant</span>
+                </div>
+                <div>
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase block">Total Nominal:</span>
+                  <span className="text-base font-extrabold text-slate-900 block">{formatRupiahShort(nomB)}</span>
+                  <span className="text-[10px] text-slate-500 font-mono block">{formatRupiahFull(nomB)}</span>
+                </div>
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                  <span className="text-slate-500 font-medium">Total Volume:</span>
+                  <span className="font-bold text-slate-800">{formatVolumeFull(volB)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Per-Category Comparison Grid */}
+            <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2.5">
+              <span className="text-xs font-bold text-slate-800 block">
+                Perbandingan Nominal & Proporsi per 6 Skala Usaha:
+              </span>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                {categories.map((catKey) => {
+                  const meta = CATEGORY_META[catKey] || {}
+                  const valA = getCatData(kabA, selectedYear, selectedMonth, catKey)
+                  const valB = getCatData(kabB, selectedYear, selectedMonth, catKey)
+                  const numA = viewType === 'nominal' ? valA.nominal : valA.volume
+                  const numB = viewType === 'nominal' ? valB.nominal : valB.volume
+                  const shareA = compA.shares?.[catKey] || 0
+                  const shareB = compB.shares?.[catKey] || 0
+
+                  return (
+                    <div key={catKey} className="p-2.5 rounded-lg border border-slate-100 bg-slate-50/60 space-y-1.5 text-xs">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-slate-800 flex items-center gap-1.5">
+                          <span className={`w-2 h-2 rounded-full ${meta.dotColor || 'bg-blue-600'}`} />
+                          {meta.label} ({catKey})
+                        </span>
+                      </div>
+                      <div className="space-y-1 text-[11px]">
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-500 font-medium">Kab. {kabA}:</span>
+                          <span className="font-bold text-blue-700">
+                            {viewType === 'nominal' ? formatRupiahShort(numA) : formatVolumeFull(numA)} ({shareA.toFixed(1)}%)
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-500 font-medium">Kab. {kabB}:</span>
+                          <span className="font-bold text-purple-700">
+                            {viewType === 'nominal' ? formatRupiahShort(numB) : formatVolumeFull(numB)} ({shareB.toFixed(1)}%)
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        )
+      })()}
+
       {/* SECTION: Grafik Tren Skala Usaha */}
       <div className="p-4 sm:p-6 border-t border-surface-border space-y-4 bg-slate-50/40">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -1577,20 +1949,59 @@ export default function HeatmapPieChart({
             <div className="flex items-center gap-2">
               <TrendingUp size={16} className="text-brand shrink-0" />
               <h3 className="text-sm sm:text-base font-bold text-ink-900 tracking-tight">
-                {trendCategoryFilter === 'ALL'
+                {effectiveSplitBy === 'wilayah'
+                  ? trendCategoryFilter === 'ALL'
+                    ? `Tren Perbandingan Total Transaksi Antar-Wilayah (${activeKabList.length} Kabupaten)`
+                    : `Tren Perbandingan: Khusus ${CATEGORY_META[trendCategoryFilter]?.label} (${trendCategoryFilter})`
+                  : trendCategoryFilter === 'ALL'
                   ? 'Tren Perkembangan Skala Usaha'
                   : `Tren Perkembangan: Khusus ${CATEGORY_META[trendCategoryFilter]?.label} (${trendCategoryFilter})`}
               </h3>
             </div>
             <p className="text-xs text-ink-500 mt-0.5">
-              {trendCategoryFilter === 'ALL'
-                ? `Grafik tren rentang ${trendStartYear} s.d. ${trendEndYear}${trendEndYear === '2026' ? ' dilanjutkan data bulanan 2026' : ''} (${currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`})`
-                : `Fokus grafik perkembangan rentang ${trendStartYear} s.d. ${trendEndYear} khusus kategori ${CATEGORY_META[trendCategoryFilter]?.label} (${CATEGORY_META[trendCategoryFilter]?.criteria}) · ${currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}`}
+              {effectiveSplitBy === 'wilayah'
+                ? trendCategoryFilter === 'ALL'
+                  ? `Grafik tren membandingkan total transaksi antar ${activeKabList.length} wilayah (${activeKabList.map(k => `Kab. ${k}`).join(', ')}) rentang ${trendStartYear} s.d. ${trendEndYear}`
+                  : `Fokus grafik membandingkan ${activeKabList.length} wilayah (${activeKabList.map(k => `Kab. ${k}`).join(', ')}) khusus kategori ${CATEGORY_META[trendCategoryFilter]?.label} (${CATEGORY_META[trendCategoryFilter]?.criteria}) · Rentang ${trendStartYear} s.d. ${trendEndYear}`
+                : trendCategoryFilter === 'ALL'
+                ? `Grafik tren rentang ${trendStartYear} s.d. ${trendEndYear}${trendEndYear === '2026' ? ' dilanjutkan data bulanan 2026' : ''} (${wilayahLabel})`
+                : `Fokus grafik perkembangan rentang ${trendStartYear} s.d. ${trendEndYear} khusus kategori ${CATEGORY_META[trendCategoryFilter]?.label} (${CATEGORY_META[trendCategoryFilter]?.criteria}) · ${wilayahLabel}`}
             </p>
           </div>
 
-          {/* Trend Controls: Skala Dropdown & Year Range Selector */}
+          {/* Trend Controls: Mode Toggle, Skala Dropdown & Year Range Selector */}
           <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+            {/* Mode Split Toggle: Muncul jika ada 2 atau lebih kabupaten aktif */}
+            {activeKabList.length > 1 && (
+              <div className="flex items-center bg-slate-100 p-0.5 rounded-xl border border-surface-border shadow-xs text-xs">
+                <button
+                  type="button"
+                  onClick={() => setTrendSplitMode('wilayah')}
+                  className={`px-2.5 py-1 rounded-lg font-semibold transition-all flex items-center gap-1.5 ${
+                    effectiveSplitBy === 'wilayah'
+                      ? 'bg-white text-blue-700 shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                  title={`Tampilkan garis grafik perbandingan untuk ${activeKabList.length} wilayah yang dipilih`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                  Bandingkan Wilayah ({activeKabList.length})
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTrendSplitMode('skala')}
+                  className={`px-2.5 py-1 rounded-lg font-semibold transition-all ${
+                    effectiveSplitBy === 'skala'
+                      ? 'bg-white text-blue-700 shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                  title="Tampilkan grafik berdasarkan skala usaha gabungan"
+                >
+                  Skala Usaha
+                </button>
+              </div>
+            )}
+
             {/* Skala Usaha Dropdown */}
             <div className="flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-xl border border-surface-border shadow-xs">
               <Layers size={13} className="text-brand shrink-0" />
@@ -1644,10 +2055,18 @@ export default function HeatmapPieChart({
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={trendData} margin={{ top: 12, right: 20, left: 10, bottom: 12 }}>
                 <defs>
+                  {/* Category Gradients */}
                   {categories.map((cat) => (
                     <linearGradient key={cat} id={getGradientId(cat)} x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor={CATEGORY_META[cat]?.color} stopOpacity={0.4} />
                       <stop offset="95%" stopColor={CATEGORY_META[cat]?.color} stopOpacity={0.0} />
+                    </linearGradient>
+                  ))}
+                  {/* Kabupaten Gradients for Per-Wilayah Comparison */}
+                  {fourKab.map((kab) => (
+                    <linearGradient key={kab} id={getKabGradientId(kab)} x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={KABUPATEN_META[kab]?.color || '#2563EB'} stopOpacity={0.25} />
+                      <stop offset="95%" stopColor={KABUPATEN_META[kab]?.color || '#2563EB'} stopOpacity={0.0} />
                     </linearGradient>
                   ))}
                 </defs>
@@ -1668,19 +2087,45 @@ export default function HeatmapPieChart({
                   width={85}
                   dx={-4}
                 />
-                <Tooltip content={<CustomTrendTooltip viewType={viewType} />} />
+                <Tooltip
+                  content={
+                    <CustomTrendTooltip
+                      viewType={viewType}
+                      trendSplitBy={effectiveSplitBy}
+                      trendCategoryFilter={trendCategoryFilter}
+                    />
+                  }
+                />
                 <Legend
                   verticalAlign="top"
                   align="right"
                   iconType="circle"
                   wrapperStyle={{ paddingBottom: '12px', fontSize: '11px', fontWeight: 600 }}
                   formatter={(value) => {
+                    if (KABUPATEN_META[value]) {
+                      return <span className="text-slate-700 font-semibold">{KABUPATEN_META[value].name}</span>
+                    }
                     const meta = CATEGORY_META[value]
                     return <span className="text-slate-700 font-semibold">{meta?.label || value}</span>
                   }}
                 />
 
-                {trendCategoryFilter === 'ALL' ? (
+                {effectiveSplitBy === 'wilayah' ? (
+                  // Multi-Line per Kabupaten: Tampilkan 1 garis per masing-masing wilayah terpilih!
+                  activeKabList.map((kab) => (
+                    <Area
+                      key={kab}
+                      type="monotone"
+                      dataKey={kab}
+                      name={KABUPATEN_META[kab]?.name || `Kab. ${kab}`}
+                      stroke={KABUPATEN_META[kab]?.color || '#2563EB'}
+                      strokeWidth={2.5}
+                      fillOpacity={1}
+                      fill={`url(#${getKabGradientId(kab)})`}
+                      activeDot={{ r: 5, strokeWidth: 2, stroke: '#FFFFFF' }}
+                    />
+                  ))
+                ) : trendCategoryFilter === 'ALL' ? (
                   categories.map((cat) => (
                     <Area
                       key={cat}
@@ -1712,28 +2157,48 @@ export default function HeatmapPieChart({
 
       {/* Bottom Section: 4 Kabupaten Mini-Comparison Overview */}
       <div className="p-4 sm:p-6 bg-surface-muted/30 border-t border-surface-border space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold uppercase tracking-wider text-ink-500">
-            Perbandingan Komposisi di 4 Wilayah Kabupaten ({periodLabel})
-          </span>
-          <span className="text-[11px] text-ink-400 font-medium hidden sm:inline">
-            Klik kabupaten untuk filter detail
-          </span>
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-wider text-ink-500">
+              Perbandingan Komposisi di 4 Wilayah Kabupaten ({periodLabel})
+            </span>
+            {!isAllWilayah && (
+              <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+                {activeKabList.length} Wilayah Dipilih
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            {!isAllWilayah && (
+              <button
+                type="button"
+                onClick={() => setSelectedWilayah(['ALL'])}
+                className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 transition-colors px-2 py-0.5 bg-white rounded-lg border border-blue-200 shadow-xs"
+              >
+                ✕ Reset ke Semua Wilayah
+              </button>
+            )}
+            <span className="text-[11px] text-ink-400 font-medium hidden sm:inline">
+              Klik kartu untuk memilih/membandingkan wilayah (bisa pilih 1, 2, atau 3)
+            </span>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {kabComparison.map((item) => {
-            const isSelected = currentWilayah === item.kab
+            const isSelected = !isAllWilayah && selectedWilayah.includes(item.kab)
             return (
               <div
                 key={item.kab}
-                onClick={() => setSelectedWilayah(currentWilayah === item.kab ? 'ALL' : item.kab)}
+                onClick={() => toggleWilayah(item.kab)}
                 className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
                   isSelected
                     ? 'bg-white border-blue-600 shadow-md ring-2 ring-blue-500/40 scale-[1.01]'
-                    : 'bg-white border-surface-border hover:border-slate-300 shadow-sm hover:scale-[1.005]'
+                    : isAllWilayah
+                    ? 'bg-white border-surface-border hover:border-slate-300 shadow-sm hover:scale-[1.005]'
+                    : 'bg-white/80 border-dashed border-slate-300 opacity-75 hover:opacity-100 hover:border-blue-400 hover:scale-[1.005]'
                 }`}
-                title={isSelected ? 'Klik lagi untuk kembali ke Semua Wilayah (Reset)' : `Klik untuk fokus ke Kab. ${item.kab}`}
+                title={isSelected ? 'Klik untuk membatalkan pilihan' : `Klik untuk menambahkan Kab. ${item.kab} ke perbandingan`}
               >
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-1.5">
@@ -1741,8 +2206,8 @@ export default function HeatmapPieChart({
                       Kab. {item.kab}
                     </span>
                     {isSelected && (
-                      <span className="px-1.5 py-0.2 bg-blue-600 text-white text-[9px] rounded font-semibold uppercase">
-                        Aktif
+                      <span className="px-1.5 py-0.2 bg-blue-600 text-white text-[9px] rounded font-semibold uppercase flex items-center gap-0.5">
+                        ✓ Aktif
                       </span>
                     )}
                   </div>
@@ -1751,9 +2216,14 @@ export default function HeatmapPieChart({
                   </span>
                 </div>
 
-                <div className="text-sm font-semibold text-ink-900 mb-2">
+                <div className="text-sm font-semibold text-ink-900 mb-0.5">
                   {viewType === 'nominal' ? formatRupiahShort(item.totalNominal) : formatVolumeFull(item.totalVolume)}
                 </div>
+                {viewType === 'nominal' && (
+                  <div className="text-[10px] text-ink-400 font-mono mb-2 truncate">
+                    {formatRupiahFull(item.totalNominal)}
+                  </div>
+                )}
 
                 {/* Stacked Mini Bar across 6 categories */}
                 <div

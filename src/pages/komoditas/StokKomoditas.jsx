@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import * as XLSX from 'xlsx'
 import {
   StokMapLeaflet,
+  StokMapLegend,
   Package,
   AlertTriangle,
   Search,

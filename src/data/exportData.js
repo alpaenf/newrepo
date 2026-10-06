@@ -77,6 +77,6 @@ export const exportUmkm = base.map((u, i) => {
 
 export const komoditasOptions = ['Semua', ...new Set(exportUmkm.map((u) => u.komoditas))]
 
-export const kabupatenOptions = ['Semua', 'Banyumas', 'Cilacap', 'Purbalingga', 'Banjarnegara', 'Lainnya']
+export const kabupatenOptions = ['Semua', 'Banjarnegara', 'Banyumas', 'Cilacap', 'Purbalingga', 'Lainnya']
 
 export const pendanaanStatusOptions = ['Semua', 'Sudah', 'Belum']

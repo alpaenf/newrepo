@@ -315,7 +315,7 @@ export default function PajakNegara({ isAdmin = true }) {
 
           {viewMode === 'kabupaten' && selectedKabupatenId && (
             <KabupatenSummaryPanel
-              kabupaten={kabupatenPADData.find(k => k.id === selectedKabupatenId)}
+              kabupaten={kabupatenPADData.find(k => k.id === selectedKabupatenId) || { id: 'kab-banyumas', name: 'Banyumas' }}
               onClose={() => setSelectedKabupatenId(null)}
               onDrillDown={(kabName) => {
                 setViewMode('kecamatan')
@@ -323,6 +323,8 @@ export default function PajakNegara({ isAdmin = true }) {
                 setSelectedId(null)
               }}
               metric={metric}
+              isDaerah={false}
+              range={range}
             />
           )}
 

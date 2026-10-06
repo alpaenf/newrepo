@@ -25,7 +25,7 @@ export { default as PajakDetailPanel } from './PajakDetailPanel.jsx'
 export { default as TransaksiToolbar } from './TransaksiToolbar.jsx'
 
 // Stock & Commodity Components
-export { default as StokMapLeaflet } from './StokMapLeaflet.jsx'
+export { default as StokMapLeaflet, StokMapLegend } from './StokMapLeaflet.jsx'
 
 // General Shared Components
 export { default as FilterDropdown } from './FilterDropdown.jsx'

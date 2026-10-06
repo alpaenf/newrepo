@@ -105,10 +105,11 @@ export default function HeatmapToolbar({
                 <option value="06">Juni</option>
                 <option value="07">Juli</option>
                 <option value="08">Agustus</option>
-                <option value="09">September</option>
-                <option value="10">Oktober</option>
-                <option value="11">November</option>
-                <option value="12">Desember</option>
+                <option value="09" disabled>September (Belum tersedia)</option>
+                <option value="10" disabled>Oktober (Belum tersedia)</option>
+                <option value="11" disabled>November (Belum tersedia)</option>
+                <option value="12" disabled>Desember (Belum tersedia)</option>
+
               </select>
             ) : (
               <div className="py-2 px-3 bg-slate-50 border border-surface-border rounded-xl text-xs font-semibold text-ink-600 shadow-sm flex items-center gap-1.5 whitespace-nowrap">
