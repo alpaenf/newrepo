@@ -160,7 +160,7 @@ export default function Heatmap({ isAdmin = true }) {
           if (yStr === '2026' && !isRange && month && month !== 'ALL' && qrisMonthlyByCategory['2026']?.[month]?.[kab]) {
             const mData = qrisMonthlyByCategory['2026'][month][kab]
             if (category === 'TOTAL') {
-              ;['UMI', 'UKE', 'UME', 'UBE'].forEach(c => {
+              ;['UMI', 'UKE', 'UME', 'UBE', 'BLU/PSO', 'Lainnya'].forEach(c => {
                 totalVolume += mData[c]?.volume || 0
                 totalNominal += mData[c]?.nominal || 0
               })
