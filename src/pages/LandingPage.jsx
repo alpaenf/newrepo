@@ -102,9 +102,20 @@ export default function LandingPage({ onOpenMap, onOpenLogin, onLoginSuccess }) 
             {showCursor && <span className="typewriter-cursor">|</span>}
           </p>
 
-          {/* ACTION BUTTON TO ROUTE TO MAP GUEST */}
+          {/* ACTION BUTTON TO ROUTE TO LOGIN */}
           <div className="cover-action-wrapper">
-            <button onClick={onOpenMap} className="cover-arrow-btn" id="btnPage2">
+            <button
+              type="button"
+              onClick={() => {
+                if (typeof onOpenLogin === 'function') {
+                  onOpenLogin()
+                } else if (typeof onOpenMap === 'function') {
+                  onOpenMap()
+                }
+              }}
+              className="cover-arrow-btn cursor-pointer"
+              id="btnPage2"
+            >
               <span>Buka Peta Zona QRIS</span>
               <svg className="btn-arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12" />
