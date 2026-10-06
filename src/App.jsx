@@ -72,18 +72,43 @@ function WelcomeSplash({ onComplete }) {
 }
 
 export default function App() {
-  const [showSplash, setShowSplash] = useState(true)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('zonasi_is_logged_in') === 'true'
+  })
+  const [showSplash, setShowSplash] = useState(() => {
+    const alreadyLoggedIn = localStorage.getItem('zonasi_is_logged_in') === 'true'
+    const splashShown = sessionStorage.getItem('zonasi_splash_shown') === 'true'
+    return !alreadyLoggedIn && !splashShown
+  })
   const [guestView, setGuestView] = useState('landing') // 'landing' or 'login'
-  const [active, setActive] = useState('heatmap')
+  const [active, setActive] = useState(() => {
+    return localStorage.getItem('zonasi_active_tab') || 'heatmap'
+  })
+
+  const handleLoginSuccess = () => {
+    localStorage.setItem('zonasi_is_logged_in', 'true')
+    setIsLoggedIn(true)
+  }
 
   const handleLogout = () => {
+    localStorage.removeItem('zonasi_is_logged_in')
+    localStorage.removeItem('zonasi_active_tab')
     setIsLoggedIn(false)
     setGuestView('landing')
   }
 
+  const handleTabChange = (tabId) => {
+    setActive(tabId)
+    localStorage.setItem('zonasi_active_tab', tabId)
+  }
+
+  const handleSplashComplete = () => {
+    sessionStorage.setItem('zonasi_splash_shown', 'true')
+    setShowSplash(false)
+  }
+
   if (showSplash) {
-    return <WelcomeSplash onComplete={() => setShowSplash(false)} />
+    return <WelcomeSplash onComplete={handleSplashComplete} />
   }
 
   if (!isLoggedIn) {
@@ -92,14 +117,14 @@ export default function App() {
         <LandingPage
           onOpenMap={() => setGuestView('login')}
           onOpenLogin={() => setGuestView('login')}
-          onLoginSuccess={() => setIsLoggedIn(true)}
+          onLoginSuccess={handleLoginSuccess}
         />
       )
     }
     return (
       <LoginPage
         onBack={() => setGuestView('landing')}
-        onLoginSuccess={() => setIsLoggedIn(true)}
+        onLoginSuccess={handleLoginSuccess}
       />
     )
   }
@@ -118,7 +143,7 @@ export default function App() {
               src={logoBI}
               alt="Bank Indonesia Logo"
               className="h-7 sm:h-10 w-auto object-contain shrink-0 cursor-pointer"
-              onClick={() => setActive('heatmap')}
+              onClick={() => handleTabChange('heatmap')}
             />
 
             <div className="h-6 sm:h-8 w-px bg-surface-border mx-1 hidden sm:block" />
@@ -171,7 +196,7 @@ export default function App() {
             return (
               <button
                 key={tab.id}
-                onClick={() => setActive(tab.id)}
+                onClick={() => handleTabChange(tab.id)}
                 className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-150 whitespace-nowrap active:scale-95 ${
                   isActive
                     ? 'bg-brand text-white shadow-md ring-1 ring-brand'
