@@ -141,7 +141,7 @@ export default function App() {
           {/* Right Container: Admin Badge & Logout Button */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* Admin Profile Pill */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-50/70 border border-blue-200 text-blue-900 text-xs font-bold">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-50/70 border border-blue-200 text-blue-900 text-xs font-semibold">
               <ShieldCheck size={15} className="text-brand shrink-0" />
               <span className="truncate max-w-[200px]">KPw BI Purwokerto</span>
             </div>
@@ -149,7 +149,7 @@ export default function App() {
             {/* Logout Button */}
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-all duration-150 active:scale-95 shadow-xs"
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-all duration-150 active:scale-95 shadow-xs"
               title="Keluar dari sesi administrator"
             >
               <Power size={14} className="shrink-0" />
@@ -170,7 +170,7 @@ export default function App() {
               <button
                 key={tab.id}
                 onClick={() => setActive(tab.id)}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-extrabold transition-all duration-150 whitespace-nowrap active:scale-95 ${
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-150 whitespace-nowrap active:scale-95 ${
                   isActive
                     ? 'bg-brand text-white shadow-md ring-1 ring-brand'
                     : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200 shadow-xs'

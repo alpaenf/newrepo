@@ -644,11 +644,11 @@ export default function StokKomoditas({ isAdmin = true }) {
       {/* Header Title Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-brand text-xs font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-brand text-xs font-semibold uppercase tracking-wider mb-1">
             <Package size={16} />
             <span>Peta & Monitoring Stok Komoditas</span>
           </div>
-          <h1 className="text-2xl font-extrabold text-ink-900 tracking-tight">
+          <h1 className="text-2xl font-semibold text-ink-900 tracking-tight">
             Monitoring & Ketahanan Stok Pangan
           </h1>
           <p className="text-sm text-ink-500 mt-1">
@@ -800,20 +800,20 @@ export default function StokKomoditas({ isAdmin = true }) {
           </div>
           <div>
             <div className="flex items-center gap-2 mb-0.5">
-              <h3 className="font-extrabold text-ink-900 text-sm">Info Surplus & Potensi Kerjasama Antar Daerah (KAD)</h3>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-100 text-emerald-800 uppercase tracking-wider">
+              <h3 className="font-semibold text-ink-900 text-sm">Info Surplus & Potensi Kerjasama Antar Daerah (KAD)</h3>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800 uppercase tracking-wider">
                 Surplus +{dynamicKadSummary.totalSurplusFormatted} Ton
               </span>
             </div>
             <p className="text-xs text-ink-600 leading-relaxed">
-              Kabupaten <strong className="text-emerald-700 font-bold">{dynamicKadSummary.surplusText}</strong> memiliki cadangan stok pangan melimpah. Siap dialokasikan via <strong>KAD / Transfer Stok BI</strong> untuk menopang wilayah defisit di <strong className="text-rose-600 font-bold">{dynamicKadSummary.deficitText}</strong>.
+              Kabupaten <strong className="text-emerald-700 font-semibold">{dynamicKadSummary.surplusText}</strong> memiliki cadangan stok pangan melimpah. Siap dialokasikan via <strong>KAD / Transfer Stok BI</strong> untuk menopang wilayah defisit di <strong className="text-rose-600 font-semibold">{dynamicKadSummary.deficitText}</strong>.
             </p>
           </div>
         </div>
         <div className="shrink-0 flex items-center gap-2 border-t md:border-t-0 border-brand/10 pt-2 md:pt-0">
           <div className="text-left md:text-right">
-            <p className="text-[10px] font-bold text-ink-400 uppercase tracking-wider">Penyelesaian Transaksi KAD</p>
-            <p className="text-xs font-extrabold text-brand">QRIS B2B Wholesale Settlement</p>
+            <p className="text-[10px] font-semibold text-ink-400 uppercase tracking-wider">Penyelesaian Transaksi KAD</p>
+            <p className="text-xs font-semibold text-brand">QRIS B2B Wholesale Settlement</p>
           </div>
         </div>
       </div>
@@ -828,21 +828,21 @@ export default function StokKomoditas({ isAdmin = true }) {
             {/* Header: Regency Name + Short Badge */}
             <div className="flex items-start justify-between gap-2 border-b border-black/5 pb-2.5">
               <div className="min-w-0 flex-1">
-                <span className="text-[10px] font-extrabold text-ink-400 uppercase tracking-widest block mb-0.5">
+                <span className="text-[10px] font-semibold text-ink-400 uppercase tracking-widest block mb-0.5">
                   Kabupaten
                 </span>
-                <h4 className="text-sm font-black text-ink-900 truncate">
+                <h4 className="text-sm font-semibold text-ink-900 truncate">
                   {rec.regencyName}
                 </h4>
               </div>
-              <span className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase shrink-0 shadow-xs ${rec.badgeTagStyle}`}>
+              <span className={`px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase shrink-0 shadow-xs ${rec.badgeTagStyle}`}>
                 {rec.shortStatusBadge}
               </span>
             </div>
 
             {/* Content: Recommendation */}
             <div className="flex-1 space-y-1">
-              <p className="text-[11px] font-extrabold text-ink-500 uppercase tracking-wider">
+              <p className="text-[11px] font-semibold text-ink-500 uppercase tracking-wider">
                 Rekomendasi Pasokan:
               </p>
               <p className="text-xs text-ink-900 font-semibold leading-relaxed">
@@ -851,9 +851,9 @@ export default function StokKomoditas({ isAdmin = true }) {
             </div>
 
             {/* Footer: UMKM Count */}
-            <div className="pt-2 flex items-center justify-between text-xs font-bold border-t border-black/10">
+            <div className="pt-2 flex items-center justify-between text-xs font-semibold border-t border-black/10">
               <span className="text-ink-500 font-semibold">Merchant UMKM Terkait:</span>
-              <strong className="text-brand font-extrabold">{rec.umkmCount} QRIS Merchant</strong>
+              <strong className="text-brand font-semibold">{rec.umkmCount} QRIS Merchant</strong>
             </div>
           </div>
         ))}

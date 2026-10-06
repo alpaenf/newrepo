@@ -65,12 +65,12 @@ export default function KecamatanRankingList({ selectedId, onSelect, data }) {
   return (
     <div className="bg-white rounded-xl sm:rounded-2xl border border-surface-border shadow-card p-3.5 sm:p-5 h-full flex flex-col">
       <div className="flex items-center justify-between mb-3 gap-2 shrink-0">
-        <h3 className="font-extrabold text-ink-900 text-sm sm:text-base shrink-0">Peringkat</h3>
+        <h3 className="font-semibold text-ink-900 text-sm sm:text-base shrink-0">Peringkat</h3>
         
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="w-[140px] px-2 py-1 bg-surface-muted border border-surface-border rounded-lg text-[11px] font-bold text-ink-700 focus:outline-none focus:ring-1 focus:ring-brand focus:border-brand cursor-pointer hover:bg-white transition-all shadow-sm shrink-0 truncate"
+          className="w-[140px] px-2 py-1 bg-surface-muted border border-surface-border rounded-lg text-[11px] font-semibold text-ink-700 focus:outline-none focus:ring-1 focus:ring-brand focus:border-brand cursor-pointer hover:bg-white transition-all shadow-sm shrink-0 truncate"
         >
           {isHeatmap ? (
             <>
@@ -121,7 +121,7 @@ export default function KecamatanRankingList({ selectedId, onSelect, data }) {
                     <p className="text-xs sm:text-sm font-medium text-ink-900 truncate">{k.name}</p>
                     <p className="text-[11px] sm:text-xs text-ink-300 truncate">{k.regency} · {k.tier}</p>
                   </span>
-                  <span className="text-xs sm:text-sm font-bold text-ink-900 tabular-nums shrink-0">
+                  <span className="text-xs sm:text-sm font-semibold text-ink-900 tabular-nums shrink-0">
                     {getSubValue(k)}
                   </span>
                 </button>

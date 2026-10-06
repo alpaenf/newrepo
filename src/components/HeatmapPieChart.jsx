@@ -125,10 +125,10 @@ function CustomPieTooltip({ active, payload, viewType, periodLabel }) {
       <div className="flex items-center justify-between border-b border-slate-100 pb-2">
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
-          <span className="font-extrabold text-slate-900 text-sm">{meta.label} ({item.key})</span>
+          <span className="font-semibold text-slate-900 text-sm">{meta.label} ({item.key})</span>
         </div>
         <span
-          className="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider"
+          className="px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider"
           style={{ backgroundColor: `${item.color}18`, color: item.color }}
         >
           {item.percentage}%
@@ -138,15 +138,15 @@ function CustomPieTooltip({ active, payload, viewType, periodLabel }) {
       <div className="space-y-1.5 pt-0.5 text-slate-600">
         <div className="flex items-center justify-between text-[11px]">
           <span className="text-slate-500 font-medium">Periode:</span>
-          <span className="font-bold text-slate-800">{periodLabel}</span>
+          <span className="font-semibold text-slate-800">{periodLabel}</span>
         </div>
         <div className="flex items-center justify-between text-[11px]">
           <span className="text-slate-500 font-medium">Nominal Transaksi:</span>
-          <span className="font-black text-slate-900">{formatRupiahFull(item.nominal)}</span>
+          <span className="font-semibold text-slate-900">{formatRupiahFull(item.nominal)}</span>
         </div>
         <div className="flex items-center justify-between text-[11px]">
           <span className="text-slate-500 font-medium">Volume Transaksi:</span>
-          <span className="font-bold text-slate-800">{item.volume.toLocaleString('id-ID')} trx</span>
+          <span className="font-semibold text-slate-800">{item.volume.toLocaleString('id-ID')} trx</span>
         </div>
         <div className="flex items-center justify-between text-[11px]">
           <span className="text-slate-500 font-medium">Rata-rata/Trx:</span>
@@ -170,8 +170,8 @@ function CustomTrendTooltip({ active, payload, label, viewType }) {
   return (
     <div className="bg-white/95 backdrop-blur-md p-3.5 rounded-xl shadow-2xl border border-slate-200 text-xs min-w-[260px] space-y-2 z-[9999]">
       <div className="flex items-center justify-between border-b border-slate-100 pb-1.5">
-        <span className="font-black text-slate-900 text-sm">{label}</span>
-        <span className="text-[11px] font-extrabold text-ink-500">
+        <span className="font-semibold text-slate-900 text-sm">{label}</span>
+        <span className="text-[11px] font-semibold text-ink-500">
           Total: {viewType === 'nominal' ? formatRupiahShort(total) : formatVolumeShort(total)}
         </span>
       </div>
@@ -189,10 +189,10 @@ function CustomTrendTooltip({ active, payload, label, viewType }) {
                 <span className="font-semibold text-slate-700">{meta.label || entry.name} ({entry.dataKey}):</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-black text-slate-900">
+                <span className="font-semibold text-slate-900">
                   {viewType === 'nominal' ? formatRupiahShort(val) : formatVolumeShort(val)}
                 </span>
-                <span className="text-[10px] font-bold text-slate-400">({pct}%)</span>
+                <span className="text-[10px] font-semibold text-slate-400">({pct}%)</span>
               </div>
             </div>
           )
@@ -224,10 +224,10 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, pay
           fontFamily: 'inherit'
         }}
       >
-        <tspan x={x} dy="-0.4em" fontSize="11" fontWeight="800" fill="#ffffff">
+        <tspan x={x} dy="-0.4em" fontSize="11" fontWeight="600" fill="#ffffff">
           {payload.shortLabel}
         </tspan>
-        <tspan x={x} dy="1.2em" fontSize="12" fontWeight="900" fill="#ffffff">
+        <tspan x={x} dy="1.2em" fontSize="12" fontWeight="700" fill="#ffffff">
           {payload.percentage}%
         </tspan>
       </text>
@@ -427,7 +427,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
           <div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-brand animate-pulse" />
-              <h2 className="text-base sm:text-lg font-black text-ink-900 tracking-tight">
+              <h2 className="text-base sm:text-lg font-semibold text-ink-900 tracking-tight">
                 Segmentasi Skala Usaha QRIS (UMI, UKE, UME, UBE)
               </h2>
             </div>
@@ -441,11 +441,11 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
             {/* Month Filter Selector with SVG Icon (NO emoji) */}
             <div className="flex items-center gap-2 bg-surface-muted px-3 py-1.5 rounded-xl border border-surface-border shadow-xs">
               <Calendar size={14} className="text-brand shrink-0" />
-              <span className="text-[11px] font-bold text-ink-600">Periode:</span>
+              <span className="text-[11px] font-semibold text-ink-600">Periode:</span>
               <select
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(e.target.value)}
-                className="bg-white border border-surface-border rounded-lg text-xs font-bold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
+                className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
               >
                 {MONTH_LIST.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -462,7 +462,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                   key={yr}
                   type="button"
                   onClick={() => setSelectedYear(yr)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
+                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
                     selectedYear === yr
                       ? 'bg-ink-900 text-white shadow-sm'
                       : 'text-ink-600 hover:text-ink-900'
@@ -478,7 +478,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
               <button
                 type="button"
                 onClick={() => setViewType('nominal')}
-                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                   viewType === 'nominal'
                     ? 'bg-white text-ink-900 shadow-sm'
                     : 'text-ink-500 hover:text-ink-900'
@@ -489,7 +489,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
               <button
                 type="button"
                 onClick={() => setViewType('volume')}
-                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                   viewType === 'volume'
                     ? 'bg-white text-ink-900 shadow-sm'
                     : 'text-ink-500 hover:text-ink-900'
@@ -510,7 +510,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                 key={kab.id}
                 type="button"
                 onClick={() => setSelectedWilayah(kab.id)}
-                className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border ${
+                className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
                   isActive
                     ? 'bg-ink-900 text-white border-ink-900 shadow-sm'
                     : 'bg-surface-muted/50 text-ink-600 border-surface-border hover:bg-surface-muted hover:text-ink-900'
@@ -563,10 +563,10 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
           {/* Clean Total Card Under Chart */}
           <div className="w-full mt-2 bg-surface-muted/60 border border-surface-border rounded-xl p-3 flex items-center justify-between text-xs">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-ink-400 block">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-400 block">
                 Total {viewType === 'nominal' ? 'Nominal' : 'Volume'} ({currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}) · {currentMonthObj.shortName} {selectedYear}
               </span>
-              <span className="font-black text-ink-900 text-sm sm:text-base">
+              <span className="font-semibold text-ink-900 text-sm sm:text-base">
                 {viewType === 'nominal' ? formatRupiahShort(totalSummary.nominal) : formatVolumeShort(totalSummary.volume)}
               </span>
             </div>
@@ -574,7 +574,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
               <span className="text-[10px] font-medium text-ink-400 block">
                 {viewType === 'nominal' ? 'Total Volume' : 'Total Nominal'}
               </span>
-              <span className="font-bold text-ink-700 text-xs">
+              <span className="font-semibold text-ink-700 text-xs">
                 {viewType === 'nominal' ? formatVolumeShort(totalSummary.volume) : formatRupiahShort(totalSummary.nominal)}
               </span>
             </div>
@@ -600,7 +600,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                   <div className="flex items-center gap-2">
                     <span className={`w-3 h-3 rounded-full ${cat.meta.dotColor} shrink-0`} />
                     <div>
-                      <span className="text-xs sm:text-sm font-black text-ink-900 block leading-tight">
+                      <span className="text-xs sm:text-sm font-semibold text-ink-900 block leading-tight">
                         {cat.meta.label}
                       </span>
                       <span className="text-[10px] text-ink-400 font-medium block">
@@ -609,7 +609,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                     </div>
                   </div>
                   <span
-                    className={`px-2.5 py-1 rounded-full text-xs font-black uppercase ${
+                    className={`px-2.5 py-1 rounded-full text-xs font-semibold uppercase ${
                       isHovered ? 'bg-white shadow-sm' : cat.meta.bgLight
                     } ${cat.meta.textMain}`}
                   >
@@ -621,7 +621,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                 <div className="space-y-1 mt-3 pt-2 border-t border-slate-100">
                   <div className="flex items-baseline justify-between">
                     <span className="text-[11px] text-ink-500 font-medium">Nominal:</span>
-                    <span className="text-xs sm:text-sm font-black text-ink-900">
+                    <span className="text-xs sm:text-sm font-semibold text-ink-900">
                       {formatRupiahShort(cat.nominal)}
                     </span>
                   </div>
@@ -655,7 +655,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
           <div>
             <div className="flex items-center gap-2">
               <TrendingUp size={16} className="text-brand shrink-0" />
-              <h3 className="text-sm sm:text-base font-black text-ink-900">
+              <h3 className="text-sm sm:text-base font-semibold text-ink-900">
                 Tren Perkembangan Skala Usaha (2024 - 2025 Akhir Tahun & 2026 Per Bulan)
               </h3>
             </div>
@@ -669,7 +669,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
             <button
               type="button"
               onClick={() => setTrendMode('all')}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+              className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                 trendMode === 'all'
                   ? 'bg-ink-900 text-white shadow-sm'
                   : 'text-ink-600 hover:text-ink-900'
@@ -680,7 +680,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
             <button
               type="button"
               onClick={() => setTrendMode('monthly2026')}
-              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+              className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
                 trendMode === 'monthly2026'
                   ? 'bg-ink-900 text-white shadow-sm'
                   : 'text-ink-600 hover:text-ink-900'
@@ -734,10 +734,10 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                   verticalAlign="top"
                   align="right"
                   iconType="circle"
-                  wrapperStyle={{ paddingBottom: '10px', fontSize: '11px', fontWeight: 700 }}
+                  wrapperStyle={{ paddingBottom: '10px', fontSize: '11px', fontWeight: 600 }}
                   formatter={(value) => {
                     const meta = CATEGORY_META[value]
-                    return <span className="text-slate-700 font-bold">{meta?.label || value}</span>
+                    return <span className="text-slate-700 font-semibold">{meta?.label || value}</span>
                   }}
                 />
 
@@ -782,7 +782,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
       {/* Bottom Section: 4 Kabupaten Mini-Comparison Overview */}
       <div className="p-4 sm:p-6 bg-surface-muted/30 border-t border-surface-border space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-extrabold uppercase tracking-wider text-ink-500">
+          <span className="text-xs font-semibold uppercase tracking-wider text-ink-500">
             Perbandingan Komposisi di 4 Wilayah Kabupaten ({periodLabel})
           </span>
           <span className="text-[11px] text-ink-400 font-medium hidden sm:inline">
@@ -804,15 +804,15 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                 }`}
               >
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-black text-ink-900">
+                  <span className="text-xs font-semibold text-ink-900">
                     Kab. {item.kab}
                   </span>
-                  <span className="text-[10px] text-ink-400 font-semibold">
+                  <span className="text-[10px] text-ink-400 font-medium">
                     {item.merchants.toLocaleString('id-ID')} merchant
                   </span>
                 </div>
 
-                <div className="text-sm font-black text-ink-900 mb-2">
+                <div className="text-sm font-semibold text-ink-900 mb-2">
                   {viewType === 'nominal' ? formatRupiahShort(item.totalNominal) : formatVolumeShort(item.totalVolume)}
                 </div>
 
@@ -825,7 +825,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                 </div>
 
                 {/* Mini Legend */}
-                <div className="flex items-center justify-between text-[9px] text-ink-400 font-bold mt-1.5">
+                <div className="flex items-center justify-between text-[9px] text-ink-400 font-semibold mt-1.5">
                   <span className="text-blue-600">UMI {item.shares.UMI.toFixed(0)}%</span>
                   <span className="text-emerald-600">UKE {item.shares.UKE.toFixed(0)}%</span>
                   <span className="text-amber-600">UME {item.shares.UME.toFixed(0)}%</span>

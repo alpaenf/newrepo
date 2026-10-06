@@ -350,11 +350,11 @@ export default function TransaksiPemerintah({ isAdmin = true }) {
   return (
     <div className="space-y-4 sm:space-y-6">
       <div>
-        <div className="flex items-center gap-2 text-brand text-xs font-bold uppercase tracking-wider mb-1">
+        <div className="flex items-center gap-2 text-brand text-xs font-semibold uppercase tracking-wider mb-1">
           <Landmark size={16} />
           <span>Transaksi Pemerintah Daerah · Zona QRIS</span>
         </div>
-        <h1 className="text-xl sm:text-2xl font-extrabold text-ink-900">Analitik Penerimaan Pemerintah Daerah</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold text-ink-900">Analitik Penerimaan Pemerintah Daerah</h1>
         <p className="text-xs sm:text-sm text-ink-500 mt-0.5 sm:mt-1">
           Penerimaan PBB-P2, BPHTB, dan PAD agregat dari perangkat daerah — rata-rata per kabupaten, lalu drill ke tingkat kecamatan.
         </p>

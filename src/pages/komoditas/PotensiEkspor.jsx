@@ -410,7 +410,7 @@ export default function PotensiEkspor({ isAdmin = true }) {
   return (
     <div className="space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-xl sm:text-2xl font-extrabold text-ink-900">Potensi Ekspor</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold text-ink-900">Potensi Ekspor</h1>
         <p className="text-xs sm:text-sm text-ink-500 mt-0.5 sm:mt-1">
           {data.length === 0
             ? 'Peta UMKM siap ekspor. Silakan import file Excel/CSV untuk memuat data UMKM.'

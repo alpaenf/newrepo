@@ -339,11 +339,11 @@ export default function TransaksiUMKM({ isAdmin = true }) {
       </div>
 
       <div>
-        <div className="flex items-center gap-2 text-brand text-xs font-bold uppercase tracking-wider mb-1">
+        <div className="flex items-center gap-2 text-brand text-xs font-semibold uppercase tracking-wider mb-1">
           <Store size={16} />
           <span>Transaksi UMKM · Zona QRIS</span>
         </div>
-        <h1 className="text-xl sm:text-2xl font-extrabold text-ink-900">Analitik Transaksi UMKM Banyumas Raya</h1>
+        <h1 className="text-xl sm:text-2xl font-semibold text-ink-900">Analitik Transaksi UMKM Banyumas Raya</h1>
         <p className="text-xs sm:text-sm text-ink-500 mt-0.5 sm:mt-1">
           Rata-rata omset dan volume transaksi UMKM dari agregat resmi perbankan — per kabupaten, lalu drill ke tingkat kecamatan.
         </p>

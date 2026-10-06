@@ -63,7 +63,7 @@ export default function KecamatanDetailPanel({ kecamatanId, range, onClose, onOp
         {/* Skor Zonasi */}
         <section className="bg-surface-muted rounded-xl p-3 sm:p-4 text-center">
           <p className="text-xs text-ink-300 mb-0.5">Skor Zonasi</p>
-          <p className="text-3xl sm:text-4xl font-extrabold" style={{ color: scoreColor(k.zonationScore) }}>
+          <p className="text-3xl sm:text-4xl font-semibold" style={{ color: scoreColor(k.zonationScore) }}>
             {k.zonationScore}
           </p>
           <p className="text-[11px] sm:text-xs text-ink-500 mt-0.5">dari 100 · kerangka 3S</p>

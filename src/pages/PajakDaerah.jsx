@@ -147,7 +147,7 @@ export default function PajakDaerah({ isAdmin = true }) {
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-ink-900">Analisis Penerimaan Asli Daerah (Pajak Daerah dan Retribusi)</h1>
+          <h1 className="text-xl sm:text-2xl font-semibold text-ink-900">Analisis Penerimaan Asli Daerah (Pajak Daerah dan Retribusi)</h1>
           <p className="text-xs sm:text-sm text-ink-500 mt-0.5 sm:mt-1">
             Pemetaan potensi fiskal daerah Banyumas Raya untuk Pajak Barang & Jasa Tertentu, PBB, BPHTB, dan Retribusi Daerah.
           </p>
