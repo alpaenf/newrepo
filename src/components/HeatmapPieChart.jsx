@@ -427,7 +427,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
           <div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-brand animate-pulse" />
-              <h2 className="text-base sm:text-lg font-semibold text-ink-900 tracking-tight">
+              <h2 className="text-base sm:text-lg font-bold text-ink-900 tracking-tight">
                 Segmentasi Skala Usaha QRIS (UMI, UKE, UME, UBE)
               </h2>
             </div>
@@ -655,7 +655,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
           <div>
             <div className="flex items-center gap-2">
               <TrendingUp size={16} className="text-brand shrink-0" />
-              <h3 className="text-sm sm:text-base font-semibold text-ink-900">
+              <h3 className="text-sm sm:text-base font-bold text-ink-900 tracking-tight">
                 Tren Perkembangan Skala Usaha (2024 - 2025 Akhir Tahun & 2026 Per Bulan)
               </h3>
             </div>

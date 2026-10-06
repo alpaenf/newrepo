@@ -242,7 +242,7 @@ export default function PajakNegara({ isAdmin = true }) {
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold text-ink-900">Analisis Pajak Pemerintah Pusat (PPN, PPh, SPT)</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-ink-900 tracking-tight">Analisis Pajak Pemerintah Pusat (PPN, PPh, SPT)</h1>
           <p className="text-xs sm:text-sm text-ink-500 mt-0.5 sm:mt-1">
             Pemetaan kontribusi PPh Orang Pribadi & Badan serta tingkat kepatuhan SPT Tahunan di Kabupaten Banyumas.
           </p>

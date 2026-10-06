@@ -648,7 +648,7 @@ export default function StokKomoditas({ isAdmin = true }) {
             <Package size={16} />
             <span>Peta & Monitoring Stok Komoditas</span>
           </div>
-          <h1 className="text-2xl font-semibold text-ink-900 tracking-tight">
+          <h1 className="text-2xl font-bold text-ink-900 tracking-tight">
             Monitoring & Ketahanan Stok Pangan
           </h1>
           <p className="text-sm text-ink-500 mt-1">

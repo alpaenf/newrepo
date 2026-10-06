@@ -354,7 +354,7 @@ export default function TransaksiPemerintah({ isAdmin = true }) {
           <Landmark size={16} />
           <span>Transaksi Pemerintah Daerah · Zona QRIS</span>
         </div>
-        <h1 className="text-xl sm:text-2xl font-semibold text-ink-900">Analitik Penerimaan Pemerintah Daerah</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-ink-900 tracking-tight">Analitik Penerimaan Pemerintah Daerah</h1>
         <p className="text-xs sm:text-sm text-ink-500 mt-0.5 sm:mt-1">
           Penerimaan PBB-P2, BPHTB, dan PAD agregat dari perangkat daerah — rata-rata per kabupaten, lalu drill ke tingkat kecamatan.
         </p>

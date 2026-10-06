@@ -384,7 +384,7 @@ export default function Heatmap({ isAdmin = true }) {
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-xl sm:text-2xl font-semibold text-ink-900">Heatmap Zonasi</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-ink-900 tracking-tight">Heatmap Zonasi</h1>
           <p className="text-xs sm:text-sm text-ink-500 mt-0.5 sm:mt-1">
             {data.length === 0
               ? 'Peta zonasi interaktif. Silakan import file Excel/CSV untuk memetakan data wilayah dan industri dominan.'

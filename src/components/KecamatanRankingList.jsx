@@ -65,7 +65,7 @@ export default function KecamatanRankingList({ selectedId, onSelect, data }) {
   return (
     <div className="bg-white rounded-xl sm:rounded-2xl border border-surface-border shadow-card p-3.5 sm:p-5 h-full flex flex-col">
       <div className="flex items-center justify-between mb-3 gap-2 shrink-0">
-        <h3 className="font-semibold text-ink-900 text-sm sm:text-base shrink-0">Peringkat</h3>
+        <h3 className="font-bold text-ink-900 text-sm sm:text-base shrink-0 tracking-tight">Peringkat</h3>
         
         <select
           value={sortBy}
