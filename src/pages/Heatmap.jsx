@@ -147,7 +147,7 @@ export default function Heatmap({ isAdmin = true }) {
     const sNum = parseInt(startYear, 10) || 2026
     const eNum = parseInt(endYear, 10) || sNum
 
-    const kabList = ['Banyumas', 'Cilacap', 'Purbalingga', 'Banjarnegara']
+    const kabList = ['Banjarnegara', 'Banyumas', 'Cilacap', 'Purbalingga']
     kabList.forEach(kab => {
       if (!activeRegency || activeRegency.toLowerCase().includes(kab.toLowerCase())) {
         for (let y = sNum; y <= eNum; y++) {

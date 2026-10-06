@@ -18,12 +18,13 @@ import { Calendar, TrendingUp, BarChart3, Layers } from './icons.jsx'
 import { qrisRealData, qrisMonthlyByCategory } from '../data/qrisData.js'
 import { YEAR_OPTIONS, parseYearRange } from '../data/heatmapData.js'
 
+// Urutan resmi: Banjarnegara (1), Banyumas (2), Cilacap (3), Purbalingga (4)
 const KABUPATEN_LIST = [
   { id: 'ALL', name: 'Semua (Banyumas Raya)', shortName: 'Banyumas Raya' },
+  { id: 'Banjarnegara', name: 'Kab. Banjarnegara', shortName: 'Banjarnegara' },
   { id: 'Banyumas', name: 'Kab. Banyumas', shortName: 'Banyumas' },
   { id: 'Cilacap', name: 'Kab. Cilacap', shortName: 'Cilacap' },
-  { id: 'Purbalingga', name: 'Kab. Purbalingga', shortName: 'Purbalingga' },
-  { id: 'Banjarnegara', name: 'Kab. Banjarnegara', shortName: 'Banjarnegara' }
+  { id: 'Purbalingga', name: 'Kab. Purbalingga', shortName: 'Purbalingga' }
 ]
 
 const MONTH_LIST = [
@@ -161,6 +162,10 @@ function formatVolumeShort(value) {
   return `${Math.round(value).toLocaleString('id-ID')} trx`
 }
 
+function formatVolumeFull(value) {
+  return `${Math.round(value || 0).toLocaleString('id-ID')} trx`
+}
+
 function CustomPieTooltip({ active, payload, viewType, periodLabel }) {
   if (!active || !payload || !payload.length) return null
   const item = payload[0].payload
@@ -192,7 +197,7 @@ function CustomPieTooltip({ active, payload, viewType, periodLabel }) {
         </div>
         <div className="flex items-center justify-between text-[11px]">
           <span className="text-slate-500 font-medium">Volume Transaksi:</span>
-          <span className="font-semibold text-slate-800">{item.volume.toLocaleString('id-ID')} trx</span>
+          <span className="font-bold text-slate-900">{formatVolumeFull(item.volume)}</span>
         </div>
         <div className="flex items-center justify-between text-[11px]">
           <span className="text-slate-500 font-medium">Rata-rata/Trx:</span>
@@ -271,7 +276,7 @@ function CustomBarSeriesTooltip({ active, payload, label, viewType, periodLabel,
               Total {viewType === 'nominal' ? 'Nominal' : 'Volume'}
             </span>
             <span className="font-bold text-slate-900 text-xs text-blue-700">
-              {viewType === 'nominal' ? formatRupiahShort(totalAllYears) : formatVolumeShort(totalAllYears)}
+              {viewType === 'nominal' ? formatRupiahShort(totalAllYears) : formatVolumeFull(totalAllYears)}
             </span>
           </div>
         </div>
@@ -288,7 +293,7 @@ function CustomBarSeriesTooltip({ active, payload, label, viewType, periodLabel,
                     Tahun {yr}
                   </span>
                   <span className="text-slate-900 font-bold">
-                    {viewType === 'nominal' ? formatRupiahShort(yrTotal) : formatVolumeShort(yrTotal)}
+                    {viewType === 'nominal' ? formatRupiahShort(yrTotal) : formatVolumeFull(yrTotal)}
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 text-[10px] text-slate-600 pl-1">
@@ -302,7 +307,7 @@ function CustomBarSeriesTooltip({ active, payload, label, viewType, periodLabel,
                           {catKey}:
                         </span>
                         <span className="font-semibold text-slate-800 shrink-0">
-                          {viewType === 'nominal' ? formatRupiahShort(catVal) : formatVolumeShort(catVal)}
+                          {viewType === 'nominal' ? formatRupiahShort(catVal) : formatVolumeFull(catVal)}
                         </span>
                       </div>
                     )
@@ -332,7 +337,7 @@ function CustomBarSeriesTooltip({ active, payload, label, viewType, periodLabel,
               : `Total ${viewType === 'nominal' ? 'Nominal' : 'Volume'}`}
           </span>
           <span className="font-bold text-slate-900 text-xs">
-            {viewType === 'nominal' ? formatRupiahShort(total) : formatVolumeShort(total)}
+            {viewType === 'nominal' ? formatRupiahShort(total) : formatVolumeFull(total)}
           </span>
         </div>
       </div>
@@ -352,7 +357,7 @@ function CustomBarSeriesTooltip({ active, payload, label, viewType, periodLabel,
               </div>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-slate-900">
-                  {viewType === 'nominal' ? formatRupiahShort(val) : formatVolumeShort(val)}
+                  {viewType === 'nominal' ? formatRupiahShort(val) : formatVolumeFull(val)}
                 </span>
                 <span className="text-[10px] font-semibold text-slate-500">({pct}%)</span>
               </div>
@@ -374,7 +379,7 @@ function CustomTrendTooltip({ active, payload, label, viewType }) {
       <div className="flex items-center justify-between border-b border-slate-100 pb-1.5">
         <span className="font-semibold text-slate-900 text-sm">{label}</span>
         <span className="text-[11px] font-semibold text-ink-500">
-          Total: {viewType === 'nominal' ? formatRupiahShort(total) : formatVolumeShort(total)}
+          Total: {viewType === 'nominal' ? formatRupiahShort(total) : formatVolumeFull(total)}
         </span>
       </div>
 
@@ -392,7 +397,7 @@ function CustomTrendTooltip({ active, payload, label, viewType }) {
               </div>
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-slate-900">
-                  {viewType === 'nominal' ? formatRupiahShort(val) : formatVolumeShort(val)}
+                  {viewType === 'nominal' ? formatRupiahShort(val) : formatVolumeFull(val)}
                 </span>
                 <span className="text-[10px] font-semibold text-slate-400">({pct}%)</span>
               </div>
@@ -531,7 +536,8 @@ export default function HeatmapPieChart({
 
   // Categories to include (All 6 Scales)
   const categories = CATEGORY_KEYS
-  const fourKab = ['Banyumas', 'Cilacap', 'Purbalingga', 'Banjarnegara']
+  // Urutan resmi: 1. Banjarnegara, 2. Banyumas, 3. Cilacap, 4. Purbalingga
+  const fourKab = ['Banjarnegara', 'Banyumas', 'Cilacap', 'Purbalingga']
 
   // Helper to fetch category data for a kabupaten based on active year range & month
   const getCatData = (kab, rangeStr, mKey, catKey) => {
@@ -792,7 +798,7 @@ export default function HeatmapPieChart({
     return points
   }, [currentWilayah, viewType, trendMode])
 
-  // Comparison data for all 4 kabupaten (adjusted for month & year)
+  // Comparison data for all 4 kabupaten in official sequence: Banjarnegara, Banyumas, Cilacap, Purbalingga
   const kabComparison = useMemo(() => {
     return fourKab.map((kab) => {
       let totalKabNominal = 0
@@ -1025,7 +1031,7 @@ export default function HeatmapPieChart({
                 Total {viewType === 'nominal' ? 'Nominal' : 'Volume'} ({currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}) · {currentMonthObj.shortName} {selectedYear}
               </span>
               <span className="font-semibold text-ink-900 text-sm sm:text-base">
-                {viewType === 'nominal' ? formatRupiahShort(totalSummary.nominal) : formatVolumeShort(totalSummary.volume)}
+                {viewType === 'nominal' ? formatRupiahShort(totalSummary.nominal) : formatVolumeFull(totalSummary.volume)}
               </span>
             </div>
             <div className="text-right">
@@ -1033,7 +1039,7 @@ export default function HeatmapPieChart({
                 {viewType === 'nominal' ? 'Total Volume' : 'Total Nominal'}
               </span>
               <span className="font-semibold text-ink-700 text-xs">
-                {viewType === 'nominal' ? formatVolumeShort(totalSummary.volume) : formatRupiahShort(totalSummary.nominal)}
+                {viewType === 'nominal' ? formatVolumeFull(totalSummary.volume) : formatRupiahShort(totalSummary.nominal)}
               </span>
             </div>
           </div>
@@ -1096,8 +1102,8 @@ export default function HeatmapPieChart({
                     </div>
                     <div className="flex items-baseline justify-between">
                       <span className="text-[10px] text-ink-500 font-medium">Volume:</span>
-                      <span className="text-[10px] font-semibold text-ink-700">
-                        {formatVolumeShort(cat.volume)}
+                      <span className="text-[11px] font-bold text-ink-800">
+                        {formatVolumeFull(cat.volume)}
                       </span>
                     </div>
                   </div>
@@ -1417,7 +1423,7 @@ export default function HeatmapPieChart({
                     </span>
                     <span className="font-bold text-slate-900 block mt-0.5">Banyumas Raya</span>
                     <span className="text-[11px] text-blue-800 font-bold block">
-                      {viewType === 'nominal' ? formatRupiahShort(totalAllRange) : formatVolumeShort(totalAllRange)}
+                      {viewType === 'nominal' ? formatRupiahShort(totalAllRange) : formatVolumeFull(totalAllRange)}
                     </span>
                     <span className="text-[10px] text-slate-500 font-medium">{yearsInRange.length} Tahun Riwayat</span>
                   </div>
@@ -1430,8 +1436,8 @@ export default function HeatmapPieChart({
                       {totalGrowth >= 0 ? `+${totalGrowth.toFixed(1)}%` : `${totalGrowth.toFixed(1)}%`}
                     </span>
                     <span className="text-[10px] text-emerald-800 font-medium">
-                      {viewType === 'nominal' ? formatRupiahShort(totalStartYr) : formatVolumeShort(totalStartYr)} →{' '}
-                      {viewType === 'nominal' ? formatRupiahShort(totalEndYr) : formatVolumeShort(totalEndYr)}
+                      {viewType === 'nominal' ? formatRupiahShort(totalStartYr) : formatVolumeFull(totalStartYr)} →{' '}
+                      {viewType === 'nominal' ? formatRupiahShort(totalEndYr) : formatVolumeFull(totalEndYr)}
                     </span>
                   </div>
 
@@ -1440,7 +1446,7 @@ export default function HeatmapPieChart({
                       Kab. Banyumas ({endYr})
                     </span>
                     <span className="font-bold text-slate-900 block mt-0.5">
-                      {viewType === 'nominal' ? formatRupiahShort(banyumasRow.endVal) : formatVolumeShort(banyumasRow.endVal)}
+                      {viewType === 'nominal' ? formatRupiahShort(banyumasRow.endVal) : formatVolumeFull(banyumasRow.endVal)}
                     </span>
                     <span className="text-[10px] text-emerald-600 font-semibold">
                       +{banyumasRow.growth.toFixed(1)}% sejak {startYr}
@@ -1477,32 +1483,32 @@ export default function HeatmapPieChart({
                     <span className="text-[10px] font-semibold uppercase text-blue-700 block">Total Khusus Mikro (UMI)</span>
                     <span className="font-bold text-slate-900 block mt-0.5">Banyumas Raya (4 Kab)</span>
                     <span className="text-[11px] text-blue-800 font-bold block">
-                      {viewType === 'nominal' ? formatRupiahShort(totalUmi) : formatVolumeShort(totalUmi)}
+                      {viewType === 'nominal' ? formatRupiahShort(totalUmi) : formatVolumeFull(totalUmi)}
                     </span>
                     <span className="text-[10px] text-slate-500 font-medium">Periode {periodLabel}</span>
                   </div>
                   <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
+                    <span className="text-[10px] font-semibold uppercase text-blue-600 block">Kab. Banjarnegara (Mikro)</span>
+                    <span className="font-bold text-slate-900 block mt-0.5">
+                      {viewType === 'nominal' ? formatRupiahShort(banjarnegaraVal) : formatVolumeFull(banjarnegaraVal)}
+                    </span>
+                    <span className="text-[10px] text-slate-500 font-medium">{banjarnegaraPct}% porsi UMI</span>
+                  </div>
+                  <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
                     <span className="text-[10px] font-semibold uppercase text-blue-600 block">Kab. Banyumas (Mikro)</span>
                     <span className="font-bold text-slate-900 block mt-0.5">
-                      {viewType === 'nominal' ? formatRupiahShort(banyumasVal) : formatVolumeShort(banyumasVal)}
+                      {viewType === 'nominal' ? formatRupiahShort(banyumasVal) : formatVolumeFull(banyumasVal)}
                     </span>
                     <span className="text-[10px] text-emerald-600 font-semibold">{banyumasPct}% porsi UMI (Terbesar)</span>
                   </div>
                   <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
-                    <span className="text-[10px] font-semibold uppercase text-blue-600 block">Kab. Cilacap (Mikro)</span>
-                    <span className="font-bold text-slate-900 block mt-0.5">
-                      {viewType === 'nominal' ? formatRupiahShort(cilacapVal) : formatVolumeShort(cilacapVal)}
-                    </span>
-                    <span className="text-[10px] text-slate-500 font-medium">{cilacapPct}% porsi UMI (Kedua)</span>
-                  </div>
-                  <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
-                    <span className="text-[10px] font-semibold uppercase text-blue-600 block">Purbalingga & Banjarnegara</span>
+                    <span className="text-[10px] font-semibold uppercase text-blue-600 block">Cilacap & Purbalingga</span>
                     <span className="font-bold text-slate-900 block mt-0.5">
                       {viewType === 'nominal'
-                        ? `${formatRupiahShort(purbalinggaVal)} & ${formatRupiahShort(banjarnegaraVal)}`
-                        : `${formatVolumeShort(purbalinggaVal)} & ${formatVolumeShort(banjarnegaraVal)}`}
+                        ? `${formatRupiahShort(cilacapVal)} & ${formatRupiahShort(purbalinggaVal)}`
+                        : `${formatVolumeFull(cilacapVal)} & ${formatVolumeFull(purbalinggaVal)}`}
                     </span>
-                    <span className="text-[10px] text-slate-500 font-medium">{purbalinggaPct}% & {banjarnegaraPct}% porsi UMI</span>
+                    <span className="text-[10px] text-slate-500 font-medium">{cilacapPct}% & {purbalinggaPct}% porsi UMI</span>
                   </div>
                 </>
               )
@@ -1520,7 +1526,7 @@ export default function HeatmapPieChart({
                     <span className="text-[10px] font-semibold uppercase block" style={{ color: CATEGORY_META[categoryFilter]?.color }}>Total {CATEGORY_META[categoryFilter]?.label}</span>
                     <span className="font-bold text-slate-900 block mt-0.5">Banyumas Raya (4 Kab)</span>
                     <span className="text-[11px] font-bold block" style={{ color: CATEGORY_META[categoryFilter]?.color }}>
-                      {viewType === 'nominal' ? formatRupiahShort(totalCat) : formatVolumeShort(totalCat)}
+                      {viewType === 'nominal' ? formatRupiahShort(totalCat) : formatVolumeFull(totalCat)}
                     </span>
                     <span className="text-[10px] text-slate-500 font-medium">Periode {periodLabel}</span>
                   </div>
@@ -1528,7 +1534,7 @@ export default function HeatmapPieChart({
                     <div key={item.kab} className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
                       <span className="text-[10px] font-semibold uppercase text-slate-500 block">Kab. {item.kab}</span>
                       <span className="font-bold text-slate-900 block mt-0.5">
-                        {viewType === 'nominal' ? formatRupiahShort(item.val) : formatVolumeShort(item.val)}
+                        {viewType === 'nominal' ? formatRupiahShort(item.val) : formatVolumeFull(item.val)}
                       </span>
                       <span className="text-[10px] text-slate-500 font-medium">{item.pct}% porsi {categoryFilter}</span>
                     </div>
@@ -1546,28 +1552,28 @@ export default function HeatmapPieChart({
                     <span className="text-[10px] font-semibold uppercase text-blue-600 block">UMI Terbesar</span>
                     <span className="font-bold text-slate-900 block mt-0.5">Kab. Banyumas</span>
                     <span className="text-[10px] text-slate-500 font-medium">
-                      {viewType === 'nominal' ? formatRupiahShort(banyumasUMI) : formatVolumeShort(banyumasUMI)}
+                      {viewType === 'nominal' ? formatRupiahShort(banyumasUMI) : formatVolumeFull(banyumasUMI)}
                     </span>
                   </div>
                   <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
                     <span className="text-[10px] font-semibold uppercase text-emerald-600 block">UKE Terbesar</span>
                     <span className="font-bold text-slate-900 block mt-0.5">Kab. Banyumas</span>
                     <span className="text-[10px] text-slate-500 font-medium">
-                      {viewType === 'nominal' ? formatRupiahShort(banyumasUKE) : formatVolumeShort(banyumasUKE)}
+                      {viewType === 'nominal' ? formatRupiahShort(banyumasUKE) : formatVolumeFull(banyumasUKE)}
                     </span>
                   </div>
                   <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
                     <span className="text-[10px] font-semibold uppercase text-amber-600 block">UME Terbesar</span>
                     <span className="font-bold text-slate-900 block mt-0.5">Kab. Banyumas</span>
                     <span className="text-[10px] text-slate-500 font-medium">
-                      {viewType === 'nominal' ? formatRupiahShort(banyumasUME) : formatVolumeShort(banyumasUME)}
+                      {viewType === 'nominal' ? formatRupiahShort(banyumasUME) : formatVolumeFull(banyumasUME)}
                     </span>
                   </div>
                   <div className="bg-white p-2.5 rounded-lg border border-slate-200/70 text-xs shadow-xs">
                     <span className="text-[10px] font-semibold uppercase text-purple-600 block">UBE Terbesar</span>
                     <span className="font-bold text-slate-900 block mt-0.5">Kab. Purbalingga</span>
                     <span className="text-[10px] text-slate-500 font-medium">
-                      {viewType === 'nominal' ? formatRupiahShort(purbalinggaUBE) : formatVolumeShort(purbalinggaUBE)}
+                      {viewType === 'nominal' ? formatRupiahShort(purbalinggaUBE) : formatVolumeFull(purbalinggaUBE)}
                     </span>
                   </div>
                 </>
@@ -1757,7 +1763,7 @@ export default function HeatmapPieChart({
                 </div>
 
                 <div className="text-sm font-semibold text-ink-900 mb-2">
-                  {viewType === 'nominal' ? formatRupiahShort(item.totalNominal) : formatVolumeShort(item.totalVolume)}
+                  {viewType === 'nominal' ? formatRupiahShort(item.totalNominal) : formatVolumeFull(item.totalVolume)}
                 </div>
 
                 {/* Stacked Mini Bar across 6 categories */}
