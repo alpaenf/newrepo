@@ -89,13 +89,16 @@ const CATEGORY_META = {
 function formatRupiahShort(value) {
   if (!value || isNaN(value)) return 'Rp 0'
   if (value >= 1_000_000_000_000) {
-    return `Rp ${(value / 1_000_000_000_000).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} T`
+    const num = value / 1_000_000_000_000
+    return `Rp ${num.toLocaleString('id-ID', { minimumFractionDigits: num % 1 === 0 ? 0 : 1, maximumFractionDigits: 2 })} T`
   }
   if (value >= 1_000_000_000) {
-    return `Rp ${(value / 1_000_000_000).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} M`
+    const num = value / 1_000_000_000
+    return `Rp ${num.toLocaleString('id-ID', { minimumFractionDigits: num % 1 === 0 ? 0 : 1, maximumFractionDigits: 1 })} M`
   }
   if (value >= 1_000_000) {
-    return `Rp ${(value / 1_000_000).toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Jt`
+    const num = value / 1_000_000
+    return `Rp ${num.toLocaleString('id-ID', { minimumFractionDigits: num % 1 === 0 ? 0 : 1, maximumFractionDigits: 1 })} Jt`
   }
   return `Rp ${Math.round(value).toLocaleString('id-ID')}`
 }
@@ -107,10 +110,12 @@ function formatRupiahFull(value) {
 function formatVolumeShort(value) {
   if (!value || isNaN(value)) return '0 trx'
   if (value >= 1_000_000) {
-    return `${(value / 1_000_000).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Jt trx`
+    const num = value / 1_000_000
+    return `${num.toLocaleString('id-ID', { minimumFractionDigits: num % 1 === 0 ? 0 : 1, maximumFractionDigits: 2 })} Jt trx`
   }
   if (value >= 1_000) {
-    return `${(value / 1_000).toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} rb trx`
+    const num = value / 1_000
+    return `${num.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 1 })} rb trx`
   }
   return `${Math.round(value).toLocaleString('id-ID')} trx`
 }
@@ -695,7 +700,7 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
         <div className="bg-white p-3 sm:p-5 rounded-xl border border-surface-border shadow-xs">
           <div className="w-full h-[280px] sm:h-[320px]">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={trendData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+              <AreaChart data={trendData} margin={{ top: 12, right: 20, left: 10, bottom: 12 }}>
                 <defs>
                   <linearGradient id="gradUMI" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor={CATEGORY_META.UMI.color} stopOpacity={0.4} />
@@ -721,20 +726,22 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
                   tick={{ fontSize: 11, fill: '#64748B', fontWeight: 600 }}
                   axisLine={{ stroke: '#CBD5E1' }}
                   tickLine={false}
+                  dy={6}
                 />
                 <YAxis
                   tickFormatter={(v) => (viewType === 'nominal' ? formatRupiahShort(v) : formatVolumeShort(v))}
-                  tick={{ fontSize: 10, fill: '#64748B' }}
+                  tick={{ fontSize: 11, fill: '#64748B', fontWeight: 500 }}
                   axisLine={false}
                   tickLine={false}
-                  width={65}
+                  width={85}
+                  dx={-4}
                 />
                 <Tooltip content={<CustomTrendTooltip viewType={viewType} />} />
                 <Legend
                   verticalAlign="top"
                   align="right"
                   iconType="circle"
-                  wrapperStyle={{ paddingBottom: '10px', fontSize: '11px', fontWeight: 600 }}
+                  wrapperStyle={{ paddingBottom: '12px', fontSize: '11px', fontWeight: 600 }}
                   formatter={(value) => {
                     const meta = CATEGORY_META[value]
                     return <span className="text-slate-700 font-semibold">{meta?.label || value}</span>
