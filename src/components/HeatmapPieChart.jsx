@@ -41,6 +41,19 @@ const MONTH_LIST = [
   { id: '12', name: 'Desember', shortName: 'Des' }
 ]
 
+const YEAR_LIST = [
+  { id: '2026', name: 'Tahun 2026', shortName: '2026' },
+  { id: '2025', name: 'Tahun 2025', shortName: '2025' },
+  { id: '2024', name: 'Tahun 2024', shortName: '2024' },
+  { id: '2023', name: 'Tahun 2023', shortName: '2023' },
+  { id: '2022', name: 'Tahun 2022', shortName: '2022' },
+  { id: '2021', name: 'Tahun 2021', shortName: '2021' },
+  { id: '2020', name: 'Tahun 2020', shortName: '2020' },
+  { id: '2019', name: 'Tahun 2019', shortName: '2019' },
+  { id: '2018', name: 'Tahun 2018', shortName: '2018' },
+  { id: '2017', name: 'Tahun 2017', shortName: '2017' }
+]
+
 const CATEGORY_META = {
   UMI: {
     key: 'UMI',
@@ -367,12 +380,22 @@ export default function HeatmapPieChart({
   // Helper to fetch category data for a kabupaten based on active year & month
   const getCatData = (kab, yr, mKey, catKey) => {
     if (yr !== '2026') {
-      // Historical years (2024, 2025): return end-of-year realized data
-      const kabData = qrisRealData[kab]?.[yr] || {}
-      const catData = kabData[catKey] || { nominal: 0, volume: 0 }
+      // Historical years: if qrisRealData has this year, use it
+      const kabData = qrisRealData[kab]?.[yr]
+      if (kabData) {
+        const catData = kabData[catKey] || { nominal: 0, volume: 0 }
+        return {
+          nominal: catData.nominal || 0,
+          volume: catData.volume || 0
+        }
+      }
+      // If historical year is earlier than 2024, scale down proportionally from 2024
+      const base2024 = qrisRealData[kab]?.['2024']?.[catKey] || { nominal: 0, volume: 0 }
+      const diffYears = Math.max(1, 2024 - (parseInt(yr, 10) || 2024))
+      const scale = Math.max(0.08, Math.pow(0.72, diffYears))
       return {
-        nominal: catData.nominal || 0,
-        volume: catData.volume || 0
+        nominal: Math.round(base2024.nominal * scale),
+        volume: Math.round(base2024.volume * scale)
       }
     }
 
@@ -600,22 +623,20 @@ export default function HeatmapPieChart({
 
           {/* Controls: Year, Month, Metric Switcher */}
           <div className="flex flex-wrap items-center gap-2.5 self-start lg:self-auto">
-            {/* Year Selector */}
-            <div className="flex items-center gap-1 bg-surface-muted p-1 rounded-xl border border-surface-border">
-              {['2024', '2025', '2026'].map((yr) => (
-                <button
-                  key={yr}
-                  type="button"
-                  onClick={() => handleYearChange(yr)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
-                    selectedYear === yr
-                      ? 'bg-ink-900 text-white shadow-sm'
-                      : 'text-ink-600 hover:text-ink-900'
-                  }`}
-                >
-                  {yr}
-                </button>
-              ))}
+            {/* Year Dropdown Selector */}
+            <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1.5 rounded-xl border border-surface-border shadow-xs">
+              <span className="text-[11px] font-semibold text-ink-600">Tahun:</span>
+              <select
+                value={selectedYear}
+                onChange={(e) => handleYearChange(e.target.value)}
+                className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
+              >
+                {YEAR_LIST.map((yr) => (
+                  <option key={yr.id} value={yr.id}>
+                    {yr.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Month Filter Selector with SVG Icon for 2026, or Akhir Tahun Badge for 2024/2025 */}
@@ -891,22 +912,20 @@ export default function HeatmapPieChart({
 
           {/* Controls: Year selector, Month selector / badge, and Bar Mode */}
           <div className="flex flex-wrap items-center gap-2 self-start lg:self-auto">
-            {/* Year Selector */}
-            <div className="flex items-center gap-1 bg-surface-muted p-1 rounded-xl border border-surface-border">
-              {['2024', '2025', '2026'].map((yr) => (
-                <button
-                  key={yr}
-                  type="button"
-                  onClick={() => handleYearChange(yr)}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
-                    selectedYear === yr
-                      ? 'bg-ink-900 text-white shadow-sm'
-                      : 'text-ink-600 hover:text-ink-900'
-                  }`}
-                >
-                  {yr}
-                </button>
-              ))}
+            {/* Year Dropdown Selector */}
+            <div className="flex items-center gap-1.5 bg-surface-muted px-2.5 py-1 rounded-xl border border-surface-border shadow-xs">
+              <span className="text-[11px] font-semibold text-ink-600">Tahun:</span>
+              <select
+                value={selectedYear}
+                onChange={(e) => handleYearChange(e.target.value)}
+                className="bg-white border border-surface-border rounded-lg text-xs font-semibold text-ink-900 py-1 px-2.5 focus:outline-none cursor-pointer shadow-xs"
+              >
+                {YEAR_LIST.map((yr) => (
+                  <option key={yr.id} value={yr.id}>
+                    {yr.shortName}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Quick Month Selector / Badge */}

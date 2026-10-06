@@ -95,5 +95,12 @@ export const metricOptions = [
 export const timeRangeOptions = [
   { key: '2026', label: 'Tahun 2026' },
   { key: '2025', label: 'Tahun 2025' },
-  { key: '2024', label: 'Tahun 2024' }
+  { key: '2024', label: 'Tahun 2024' },
+  { key: '2023', label: 'Tahun 2023' },
+  { key: '2022', label: 'Tahun 2022' },
+  { key: '2021', label: 'Tahun 2021' },
+  { key: '2020', label: 'Tahun 2020' },
+  { key: '2019', label: 'Tahun 2019' },
+  { key: '2018', label: 'Tahun 2018' },
+  { key: '2017', label: 'Tahun 2017' }
 ]

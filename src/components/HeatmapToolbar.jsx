@@ -53,20 +53,18 @@ export default function HeatmapToolbar({
             ))}
           </div>
 
-          {/* Time range selector (Tahun) */}
-          <div className="flex flex-row items-center bg-surface-muted border border-surface-border rounded-xl p-1 gap-1 overflow-x-auto no-scrollbar">
+          {/* Time range selector (Tahun) as Dropdown */}
+          <select
+            value={range}
+            onChange={(e) => onRangeChange(e.target.value)}
+            className="py-2 px-3 bg-white border border-surface-border rounded-xl text-xs font-semibold text-ink-700 focus:outline-none shadow-sm cursor-pointer"
+          >
             {activeRanges.map((opt) => (
-              <button
-                key={opt.key}
-                onClick={() => onRangeChange(opt.key)}
-                className={`px-4 py-1.5 rounded-lg text-xs font-semibold text-center transition-all whitespace-nowrap ${
-                  range === opt.key ? 'bg-ink-900 text-white shadow-sm' : 'text-ink-700 hover:bg-white'
-                }`}
-              >
+              <option key={opt.key} value={opt.key}>
                 {opt.label}
-              </button>
+              </option>
             ))}
-          </div>
+          </select>
 
           {/* Month Selector Dropdown (Active for 2026, or Akhir Tahun for historical) */}
           {onMonthChange && (
