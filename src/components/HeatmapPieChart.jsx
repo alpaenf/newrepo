@@ -21,7 +21,7 @@ const CATEGORY_META = {
     key: 'UMI',
     label: 'Usaha Mikro',
     shortLabel: 'UMI',
-    color: '#2563EB', // Vibrant Blue
+    color: '#2563EB', // Blue
     bgLight: 'bg-blue-50/70',
     borderLight: 'border-blue-200',
     textMain: 'text-blue-700',
@@ -135,18 +135,45 @@ function CustomTooltip({ active, payload, viewType }) {
   )
 }
 
+const RADIAN = Math.PI / 180
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, payload }) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5
+  const x = cx + radius * Math.cos(-midAngle * RADIAN)
+  const y = cy + radius * Math.sin(-midAngle * RADIAN)
+
+  const pct = parseFloat(payload?.percentage || 0)
+  if (pct < 3) return null
+
+  return (
+    <g className="pointer-events-none select-none">
+      <text
+        x={x}
+        y={y}
+        fill="#ffffff"
+        textAnchor="middle"
+        dominantBaseline="central"
+        style={{
+          filter: 'drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.8))',
+          fontFamily: 'inherit'
+        }}
+      >
+        <tspan x={x} dy="-0.4em" fontSize="11" fontWeight="800" fill="#ffffff">
+          {payload.shortLabel}
+        </tspan>
+        <tspan x={x} dy="1.2em" fontSize="12" fontWeight="900" fill="#ffffff">
+          {payload.percentage}%
+        </tspan>
+      </text>
+    </g>
+  )
+}
+
 export default function HeatmapPieChart({ range = '2026', selectedId = null, data = [] }) {
   const [selectedWilayah, setSelectedWilayah] = useState('ALL')
   const [viewType, setViewType] = useState('nominal') // 'nominal' | 'volume'
   const [activeIndex, setActiveIndex] = useState(null)
 
-  // Auto-sync wilayah if user selects kecamatan in map
-  const activeKecamatan = useMemo(() => {
-    if (!selectedId || !data || data.length === 0) return null
-    return data.find((k) => k.id === selectedId) || null
-  }, [selectedId, data])
-
-  // Effective wilayah: prioritize manual tab unless kecamatan selected
+  // Effective wilayah
   const currentWilayah = selectedWilayah
 
   // Categories to include
@@ -306,19 +333,21 @@ export default function HeatmapPieChart({ range = '2026', selectedId = null, dat
 
       {/* Main Content: Chart & Breakdown */}
       <div className="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-        {/* Left: Donut Chart with External Legend */}
+        {/* Left: Donut Chart with Direct Slice Labels */}
         <div className="lg:col-span-5 flex flex-col items-center justify-center">
-          <div className="w-full h-[260px] sm:h-[280px]">
+          <div className="w-full h-[270px] sm:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={chartData}
                   cx="50%"
                   cy="50%"
-                  innerRadius={70}
-                  outerRadius={105}
-                  paddingAngle={4}
+                  innerRadius={60}
+                  outerRadius={115}
+                  paddingAngle={3}
                   dataKey="value"
+                  label={renderCustomizedLabel}
+                  labelLine={false}
                   onMouseEnter={(_, index) => setActiveIndex(index)}
                   onMouseLeave={() => setActiveIndex(null)}
                   animationDuration={600}
