@@ -440,6 +440,32 @@ export default function Heatmap({ isAdmin = true }) {
     window.alert(`Membuka Skor Kecamatan untuk ${kecamatanId} (halaman terpisah).`)
   }
 
+  const periodLabel = useMemo(() => {
+    const { startYear: s, endYear: e, isRange: r } = parseYearRange(range)
+    if (r) return `Rentang ${s} - ${e}`
+    if (s !== '2026') return `Akhir Tahun ${s}`
+    if (!month || month === 'ALL') return 'Tahunan 2026'
+    const monthNames = {
+      '01': 'Januari', '02': 'Februari', '03': 'Maret', '04': 'April',
+      '05': 'Mei', '06': 'Juni', '07': 'Juli', '08': 'Agustus',
+      '09': 'September', '10': 'Oktober', '11': 'November', '12': 'Desember'
+    }
+    return `Bulan ${monthNames[month] || month} 2026`
+  }, [range, month])
+
+  const categoryLabel = useMemo(() => {
+    const catMap = {
+      TOTAL: 'Semua Skala (6 Kategori)',
+      UMI: 'Usaha Mikro (UMI)',
+      UKE: 'Usaha Kecil (UKE)',
+      UME: 'Usaha Menengah (UME)',
+      UBE: 'Usaha Besar (UBE)',
+      'BLU/PSO': 'BLU / PSO',
+      Lainnya: 'Lainnya'
+    }
+    return catMap[category] || category
+  }, [category])
+
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -453,52 +479,7 @@ export default function Heatmap({ isAdmin = true }) {
         </div>
       </div>
 
-      {/* KPI Cards for Real QRIS Data */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-        <div className="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-surface-border shadow-card flex items-center justify-between">
-          <div>
-            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-ink-500">
-              Total Merchant QRIS {kpiTotals.regencyName ? `· ${kpiTotals.regencyName}` : ''}
-            </span>
-            <div className="text-lg sm:text-2xl font-semibold text-ink-900 mt-1 tabular-nums">
-              {kpiTotals.merchants.toLocaleString('id-ID')}
-            </div>
-            <span className="text-[10px] text-ink-400 font-medium">Merchant terdaftar</span>
-          </div>
-          <div className="p-2.5 sm:p-3 rounded-xl bg-blue-50 text-blue-600">
-            <Store size={20} />
-          </div>
-        </div>
-        <div className="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-surface-border shadow-card flex items-center justify-between">
-          <div>
-            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-ink-500">
-              Volume Transaksi {kpiTotals.regencyName ? `· ${kpiTotals.regencyName}` : ''}
-            </span>
-            <div className="text-lg sm:text-2xl font-semibold text-ink-900 mt-1 tabular-nums">
-              {kpiTotals.volume.toLocaleString('id-ID')}
-            </div>
-            <span className="text-[10px] text-ink-400 font-medium">Transaksi terproses</span>
-          </div>
-          <div className="p-2.5 sm:p-3 rounded-xl bg-brand-soft text-brand">
-            <ArrowLeftRight size={20} />
-          </div>
-        </div>
-        <div className="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-surface-border shadow-card flex items-center justify-between">
-          <div>
-            <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-ink-500">
-              Nominal Transaksi {kpiTotals.regencyName ? `· ${kpiTotals.regencyName}` : ''}
-            </span>
-            <div className="text-lg sm:text-2xl font-semibold text-ink-900 mt-1 tabular-nums">
-              {formatRp(kpiTotals.nominal)}
-            </div>
-            <span className="text-[10px] text-ink-400 font-medium">Nilai transaksi bruto</span>
-          </div>
-          <div className="p-2.5 sm:p-3 rounded-xl bg-emerald-50 text-emerald-600">
-            <Banknote size={20} />
-          </div>
-        </div>
-      </div>
-
+      {/* Toolbar Filter (Rentang, Bulan, Kategori Usaha, Metrik) */}
       {isAdmin && (
         <HeatmapToolbar
           metric={metric}
@@ -515,6 +496,84 @@ export default function Heatmap({ isAdmin = true }) {
           onImportExcel={handleImportExcel}
         />
       )}
+
+      {/* KPI Cards for Real QRIS Data (Context-Aware with Period & Category Badges) */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+        {/* Card 1: Total Merchant QRIS */}
+        <div className="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-surface-border shadow-card flex items-center justify-between">
+          <div className="space-y-1">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-ink-500">
+                Total Merchant QRIS
+              </span>
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200/60">
+                {kpiTotals.regencyName ? `Kab. ${kpiTotals.regencyName}` : 'Se-Banyumas Raya'}
+              </span>
+            </div>
+            <div className="text-lg sm:text-2xl font-bold text-ink-900 tabular-nums">
+              {kpiTotals.merchants.toLocaleString('id-ID')}
+            </div>
+            <div className="flex items-center gap-1.5 text-[10px] text-ink-400 font-medium">
+              <span>Merchant terdaftar</span>
+              <span>·</span>
+              <span className="text-ink-600 font-semibold">{range === '2026' ? 'Tahun 2026' : `Tahun ${range}`}</span>
+            </div>
+          </div>
+          <div className="p-2.5 sm:p-3 rounded-xl bg-blue-50 text-blue-600 shrink-0">
+            <Store size={22} />
+          </div>
+        </div>
+
+        {/* Card 2: Volume Transaksi */}
+        <div className="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-surface-border shadow-card flex items-center justify-between">
+          <div className="space-y-1">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-ink-500">
+                Volume Transaksi
+              </span>
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-brand-soft text-brand border border-brand/20">
+                {periodLabel}
+              </span>
+            </div>
+            <div className="text-lg sm:text-2xl font-bold text-ink-900 tabular-nums">
+              {kpiTotals.volume.toLocaleString('id-ID')}
+            </div>
+            <div className="flex items-center gap-1.5 text-[10px] text-ink-400 font-medium">
+              <span>Transaksi terproses</span>
+              <span>·</span>
+              <span className="text-brand font-semibold">{categoryLabel}</span>
+            </div>
+          </div>
+          <div className="p-2.5 sm:p-3 rounded-xl bg-brand-soft text-brand shrink-0">
+            <ArrowLeftRight size={22} />
+          </div>
+        </div>
+
+        {/* Card 3: Nominal Transaksi */}
+        <div className="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-surface-border shadow-card flex items-center justify-between">
+          <div className="space-y-1">
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-ink-500">
+                Nominal Transaksi
+              </span>
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+                {periodLabel}
+              </span>
+            </div>
+            <div className="text-lg sm:text-2xl font-bold text-ink-900 tabular-nums">
+              {formatRp(kpiTotals.nominal)}
+            </div>
+            <div className="flex items-center gap-1.5 text-[10px] text-ink-400 font-medium">
+              <span>Nilai transaksi bruto</span>
+              <span>·</span>
+              <span className="text-emerald-700 font-semibold">{categoryLabel}</span>
+            </div>
+          </div>
+          <div className="p-2.5 sm:p-3 rounded-xl bg-emerald-50 text-emerald-600 shrink-0">
+            <Banknote size={22} />
+          </div>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_300px] gap-4 sm:gap-6 items-stretch">
         <div ref={captureRef} className="relative h-[420px] xs:h-[480px] sm:h-[540px] lg:h-[600px] rounded-xl sm:rounded-2xl overflow-hidden border border-surface-border shadow-card">

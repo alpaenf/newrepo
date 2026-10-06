@@ -71,18 +71,17 @@ export default function LandingPage({ onOpenMap, onOpenLogin, onLoginSuccess }) 
         <header className="cover-header">
           {/* Left Side: Bank Indonesia Logo */}
           <div className="navbar-left-logos">
-            <img src={logoBI} alt="Bank Indonesia Logo" className="navbar-logo-img" />
+            <img src={logoBI} alt="Bank Indonesia Logo" className="navbar-logo-img" loading="eager" fetchpriority="high" decoding="async" />
             <div className="brand-divider" />
-            <img src={logo4Kab} alt="Logo 4 Kabupaten" className="navbar-logo-4kab-img" />
+            <img src={logo4Kab} alt="Logo 4 Kabupaten" className="navbar-logo-4kab-img" loading="eager" fetchpriority="high" decoding="async" />
           </div>
 
           {/* Right Side: logokiri 1, 2, 3, 4 + 4 Regency Logos */}
           <div className="navbar-right-logos">
-            <img src={logoKiri1} alt="Logo Kiri 1" className="navbar-logo-kiri" />
-            <img src={logoKiri2} alt="Logo Kiri 2" className="navbar-logo-kiri" />
-            <img src={logoKiri3} alt="Logo Kiri 3" className="navbar-logo-kiri" />
-            <img src={logoKiri4} alt="Logo Kiri 4" className="navbar-logo-kiri" />
-            
+            <img src={logoKiri1} alt="Logo Kiri 1" className="navbar-logo-kiri" loading="eager" fetchpriority="high" decoding="async" />
+            <img src={logoKiri2} alt="Logo Kiri 2" className="navbar-logo-kiri" loading="eager" fetchpriority="high" decoding="async" />
+            <img src={logoKiri3} alt="Logo Kiri 3" className="navbar-logo-kiri" loading="eager" fetchpriority="high" decoding="async" />
+            <img src={logoKiri4} alt="Logo Kiri 4" className="navbar-logo-kiri" loading="eager" fetchpriority="high" decoding="async" />
           </div>
         </header>
       </div>
@@ -97,10 +96,18 @@ export default function LandingPage({ onOpenMap, onOpenLogin, onLoginSuccess }) 
             <span className="serif-italic-accent">Dari KPw Bank Indonesia Purwokerto untuk Banyumas Raya dan Indonesia</span>
           </h1>
 
-          <p className="cover-subtitle">
-            <span className="typewriter-text">{typedText}</span>
-            {showCursor && <span className="typewriter-cursor">|</span>}
-          </p>
+          <div className="cover-subtitle-container">
+            {/* Invisible ghost text reserving the exact full height on all devices */}
+            <p className="cover-subtitle invisible-ghost" aria-hidden="true">
+              {fullText}
+            </p>
+
+            {/* Visible animated typewriter text occupying the exact same space */}
+            <p className="cover-subtitle">
+              <span className="typewriter-text">{typedText}</span>
+              {showCursor && <span className="typewriter-cursor">|</span>}
+            </p>
+          </div>
 
           {/* ACTION BUTTON TO ROUTE TO LOGIN */}
           <div className="cover-action-wrapper">
@@ -128,7 +135,7 @@ export default function LandingPage({ onOpenMap, onOpenLogin, onLoginSuccess }) 
 
       <footer className="cover-footer">
         <div className="container flex justify-center items-center">
-          <img src={logoP2dd} alt="Logo P2DD" className="cover-footer-logo" />
+          <img src={logoP2dd} alt="Logo P2DD" className="cover-footer-logo" loading="eager" decoding="async" />
         </div>
       </footer>
     </div>

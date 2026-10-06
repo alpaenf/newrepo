@@ -39,6 +39,8 @@ export default function LoginPage({ onBack, onLoginSuccess }) {
                 src="/logo2.png"
                 alt="Zona QRIS Emblem"
                 className="max-h-36 sm:max-h-44 w-auto object-contain drop-shadow-sm transition-transform hover:scale-105"
+                loading="eager"
+                decoding="async"
               />
             </div>
 
@@ -65,10 +67,10 @@ export default function LoginPage({ onBack, onLoginSuccess }) {
             {/* Header Title */}
             <div>
               <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-100">
-                <img src={logoBI} alt="Bank Indonesia Logo" className="h-6 sm:h-7 w-auto object-contain" />
+                <img src={logoBI} alt="Bank Indonesia Logo" className="h-6 sm:h-7 w-auto object-contain" loading="eager" decoding="async" />
                 <div className="flex items-center gap-2">
                   <div className="h-4 w-px bg-slate-200" />
-                  <img src={logoKpw} alt="Logo KPw Bank Indonesia" className="h-6 sm:h-7 w-auto object-contain" />
+                  <img src={logoKpw} alt="Logo KPw Bank Indonesia" className="h-6 sm:h-7 w-auto object-contain" loading="eager" decoding="async" />
                 </div>
               </div>
               <h2 className="text-xl sm:text-2xl font-bold text-ink-900 tracking-tight">

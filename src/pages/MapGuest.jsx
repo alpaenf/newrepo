@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import logoBI from '../../logo1.png'
 import logo4Kab from '../../logo 4 kab.png'
 import logoKiri1 from '../../logokiri1.png'
@@ -13,7 +13,7 @@ import PajakDaerah from './PajakDaerah.jsx'
 import PajakNegara from './PajakNegara.jsx'
 import TransaksiPemerintah from './transaksi/TransaksiPemerintah.jsx'
 import TransaksiUMKM from './transaksi/TransaksiUMKM.jsx'
-import { Lock, X, KeyRound, User, ShieldCheck } from '../components/icons.jsx'
+import { Lock, X, KeyRound, User, ShieldCheck, ChevronDown, ChevronUp } from '../components/icons.jsx'
 
 // Beautiful SVG Logo for Bank Indonesia
 export function BankIndonesiaLogo({ className = "w-12 h-12" }) {
@@ -115,36 +115,36 @@ export default function MapGuest({ onLoginSuccess, onBackToLanding, onOpenLogin 
 
   return (
     <div className="min-h-screen flex flex-col bg-surface-muted">
-      {/* Top Navigation Header */}
-      <header className="bg-white border-b border-surface-border sticky top-0 z-[10000] shadow-sm">
+      {/* Top Header: Logos & Action (Natural Scroll) */}
+      <header className="bg-white border-b border-surface-border shrink-0 font-sans">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-20 flex items-center justify-between gap-3">
           {/* Left Container: Back button + logoBI + logokiri 1-4 (desktop) */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
               onClick={handleBack}
-              className="p-1.5 sm:p-2 rounded-xl hover:bg-surface-muted text-ink-700 transition-colors shrink-0 border border-surface-border"
+              className="p-1.5 sm:p-2 rounded-xl hover:bg-slate-50 text-ink-700 transition-colors shrink-0 border border-surface-border cursor-pointer"
               title="Kembali ke Halaman Awal"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" className="sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
             </button>
 
             {/* Bank Indonesia logo right next to back button */}
-            <img src={logoBI} alt="Bank Indonesia Logo" className="h-6 sm:h-9 w-auto object-contain shrink-0" />
+            <img src={logoBI} alt="Bank Indonesia Logo" className="h-6 sm:h-9 w-auto object-contain shrink-0" loading="eager" fetchpriority="high" decoding="async" />
 
             {/* logokiri 1-4 only shown on desktop (md:flex) */}
             <div className="hidden md:flex items-center gap-2 sm:gap-2.5 shrink-0 ml-1">
-              <img src={logoKiri1} alt="Logo Kiri 1" className="h-7 sm:h-8 w-auto object-contain" />
-              <img src={logoKiri2} alt="Logo Kiri 2" className="h-7 sm:h-8 w-auto object-contain" />
-              <img src={logoKiri3} alt="Logo Kiri 3" className="h-7 sm:h-8 w-auto object-contain" />
-              <img src={logoKiri4} alt="Logo Kiri 4" className="h-7 sm:h-8 w-auto object-contain" />
+              <img src={logoKiri1} alt="Logo Kiri 1" className="h-7 sm:h-8 w-auto object-contain" loading="eager" decoding="async" />
+              <img src={logoKiri2} alt="Logo Kiri 2" className="h-7 sm:h-8 w-auto object-contain" loading="eager" decoding="async" />
+              <img src={logoKiri3} alt="Logo Kiri 3" className="h-7 sm:h-8 w-auto object-contain" loading="eager" decoding="async" />
+              <img src={logoKiri4} alt="Logo Kiri 4" className="h-7 sm:h-8 w-auto object-contain" loading="eager" decoding="async" />
             </div>
           </div>
 
           {/* Right Container: logo4Kab (desktop) + Login Admin button */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <img src={logo4Kab} alt="Logo 4 Kabupaten" className="h-5 sm:h-8 w-auto object-contain hidden sm:block" />
+            <img src={logo4Kab} alt="Logo 4 Kabupaten" className="h-5 sm:h-8 w-auto object-contain hidden sm:block" loading="eager" fetchpriority="high" decoding="async" />
 
-            <button onClick={onOpenLogin} className="cover-nav-link btn-nav-glass text-xs sm:text-sm px-2.5 py-1.5 sm:px-3.5 sm:py-2 whitespace-nowrap shrink-0 ml-1">
+            <button onClick={onOpenLogin} className="cover-nav-link btn-nav-glass text-xs sm:text-sm px-2.5 py-1.5 sm:px-3.5 sm:py-2 whitespace-nowrap shrink-0 ml-1 cursor-pointer">
               <span>Login Admin</span>
               <svg width="12" height="12" className="sm:w-3.5 sm:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12" />
@@ -155,19 +155,19 @@ export default function MapGuest({ onLoginSuccess, onBackToLanding, onOpenLogin 
         </div>
       </header>
 
-      {/* Sub-Header: Horizontal Navigation Tabs for Guest */}
-      <div className="bg-white border-b border-surface-border sticky top-16 sm:top-20 z-[990] overflow-x-auto no-scrollbar shadow-xs shrink-0 font-sans">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-2 sm:gap-2.5">
+      {/* Sticky Navigation Tabs for Guest (Matches Canvas Background) */}
+      <nav className="sticky top-0 z-[1000] bg-surface-muted/95 backdrop-blur-md shrink-0 font-sans py-2 sm:py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar">
           {guestTabs.map((tab) => {
             const isActive = active === tab.id
             return (
               <button
                 key={tab.id}
                 onClick={() => setActive(tab.id)}
-                className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-150 whitespace-nowrap active:scale-95 ${
+                className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-150 whitespace-nowrap active:scale-95 cursor-pointer ${
                   isActive
-                    ? 'bg-brand text-white shadow-sm'
-                    : 'bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900 border border-slate-200'
+                    ? 'bg-brand text-white shadow-md shadow-brand/25 ring-1 ring-brand'
+                    : 'bg-white text-ink-700 hover:bg-slate-50 hover:text-ink-900 border border-surface-border shadow-xs'
                 }`}
               >
                 {tab.label}
@@ -175,7 +175,7 @@ export default function MapGuest({ onLoginSuccess, onBackToLanding, onOpenLogin 
             )
           })}
         </div>
-      </div>
+      </nav>
 
       {/* Main Map Content - Horizontal layout deleted, full width maps */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8">

@@ -539,6 +539,30 @@ a {
   text-shadow: 0 4px 15px rgba(0, 123, 255, 0.25);
 }
 
+.cover-subtitle-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: start;
+  justify-items: center;
+  max-width: 960px;
+  width: 100%;
+  margin-bottom: 36px;
+}
+
+.cover-subtitle-container > .cover-subtitle {
+  grid-area: 1 / 1;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.cover-subtitle.invisible-ghost {
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+}
+
 .cover-subtitle {
   font-size: 15px;
   line-height: 26px;
@@ -1111,10 +1135,13 @@ a {
     font-size: 40px;
     margin-top: 4px;
   }
+  .cover-subtitle-container {
+    margin-bottom: 32px;
+  }
   .cover-subtitle {
     font-size: 15px;
     line-height: 24px;
-    margin-bottom: 32px;
+    margin-bottom: 0;
     font-weight: 600;
   }
   .cover-arrow-btn {

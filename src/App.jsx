@@ -8,7 +8,7 @@ import PajakDaerah from './pages/PajakDaerah.jsx'
 import PajakNegara from './pages/PajakNegara.jsx'
 import TransaksiPemerintah from './pages/transaksi/TransaksiPemerintah.jsx'
 import TransaksiUMKM from './pages/transaksi/TransaksiUMKM.jsx'
-import { Power, ShieldCheck, User } from './components/icons.jsx'
+import { Power, ShieldCheck, User, ChevronDown, ChevronUp } from './components/icons.jsx'
 
 import logoBI from '../logo1.png'
 import logo4Kab from '../logo 4 kab.png'
@@ -132,9 +132,9 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-surface-muted font-sans">
       {/* ==========================================
-          TOP NAVIGATION BAR (REPLACES SIDEBAR)
+          TOP HEADER: LOGOS & LOGOUT (NATURAL SCROLL)
           ========================================== */}
-      <header className="bg-white border-b border-surface-border sticky top-0 z-[10000] shadow-sm">
+      <header className="bg-white border-b border-surface-border shrink-0 font-sans">
         <div className="max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
           {/* Left Container: Bank Indonesia Logo + Partner Logos */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
@@ -186,28 +186,30 @@ export default function App() {
       </header>
 
       {/* ==========================================
-          SUB-HEADER: HORIZONTAL PILL TABS (IMAGE 2 MODEL)
+          STICKY NAVIGATION TABS (MATCHES CANVAS BACKGROUND)
           ========================================== */}
-      <div className="bg-white border-b border-surface-border sticky top-16 sm:top-20 z-[990] overflow-x-auto no-scrollbar shadow-xs shrink-0 font-sans">
-        <div className="max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 py-3 flex items-center gap-2 sm:gap-3">
-          {NAV_TABS.map((tab) => {
-            const isActive = active === tab.id
-            return (
-              <button
-                key={tab.id}
-                onClick={() => handleTabChange(tab.id)}
-                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-150 whitespace-nowrap active:scale-95 ${
-                  isActive
-                    ? 'bg-brand text-white shadow-md ring-1 ring-brand'
-                    : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200 shadow-xs'
-                }`}
-              >
-                {tab.label}
-              </button>
-            )
-          })}
+      <nav className="sticky top-0 z-[1000] bg-surface-muted/95 backdrop-blur-md shrink-0 font-sans py-2 sm:py-3">
+        <div className="max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto no-scrollbar flex-1">
+            {NAV_TABS.map((tab) => {
+              const isActive = active === tab.id
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabChange(tab.id)}
+                  className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold transition-all duration-150 whitespace-nowrap active:scale-95 cursor-pointer ${
+                    isActive
+                      ? 'bg-brand text-white shadow-md shadow-brand/25 ring-1 ring-brand'
+                      : 'bg-white text-ink-700 hover:bg-slate-50 hover:text-ink-900 border border-surface-border shadow-xs'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              )
+            })}
+          </div>
         </div>
-      </div>
+      </nav>
 
       {/* ==========================================
           MAIN CONTENT AREA (FULL WIDTH RESPONSIVE)

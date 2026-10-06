@@ -454,11 +454,20 @@ export default function HeatmapPieChart({
   const [selectedMonth, setSelectedMonth] = useState(month || '08') // Default: '08' (Agustus 2026 data riil)
   const [selectedYear, setSelectedYear] = useState(range || '2026')
   const [viewType, setViewType] = useState('nominal') // 'nominal' | 'volume'
-  const [trendMode, setTrendMode] = useState('all') // 'all' | 'monthly2026'
+  const [trendStartYear, setTrendStartYear] = useState('2024')
+  const [trendEndYear, setTrendEndYear] = useState('2026')
   const [barChartMode, setBarChartMode] = useState('grouped') // 'grouped' | 'stacked'
   const [categoryFilter, setCategoryFilter] = useState('ALL') // 'ALL' | 'UMI' | 'UKE' | 'UME' | 'UBE' | 'BLU/PSO' | 'Lainnya'
   const [trendCategoryFilter, setTrendCategoryFilter] = useState('ALL')
   const [activeIndex, setActiveIndex] = useState(null)
+
+  const handleTrendRangeChange = (newStart, newEnd) => {
+    let s = parseInt(newStart, 10) || 2024
+    let e = parseInt(newEnd, 10) || 2026
+    if (s > e) e = s
+    setTrendStartYear(String(s))
+    setTrendEndYear(String(e))
+  }
 
   // Update selected year if toolbar range changes
   React.useEffect(() => {
@@ -729,74 +738,62 @@ export default function HeatmapPieChart({
     }
   }, [chartData])
 
-  // Trend Data Generation (2024 Akhir Tahun, 2025 Akhir Tahun, dan 2026 per Bulan)
+  // Trend Data Generation based on selected trendStartYear and trendEndYear
   const trendData = useMemo(() => {
     const activeKabList = currentWilayah === 'ALL' ? fourKab : [currentWilayah]
     const points = []
 
-    if (trendMode === 'all') {
-      // 2024 Akhir Tahun
-      const y2024 = {}
-      categories.forEach((c) => { y2024[c] = 0 })
-      activeKabList.forEach((kab) => {
-        categories.forEach((cat) => {
-          const raw = getCatData(kab, '2024', 'ALL', cat)
-          y2024[cat] += viewType === 'nominal' ? raw.nominal : raw.volume
-        })
-      })
-      const tot2024 = categories.reduce((s, c) => s + y2024[c], 0)
-      points.push({
-        period: '2024 (Akhir Thn)',
-        shortPeriod: "'24 Akhir",
-        isAnnual: true,
-        ...y2024,
-        total: tot2024
-      })
+    const sNum = parseInt(trendStartYear, 10) || 2024
+    const eNum = parseInt(trendEndYear, 10) || 2026
 
-      // 2025 Akhir Tahun
-      const y2025 = {}
-      categories.forEach((c) => { y2025[c] = 0 })
+    // Historical annual points for years < 2026 in the range
+    for (let y = sNum; y <= Math.min(eNum, 2025); y++) {
+      const yTotals = {}
+      categories.forEach((c) => { yTotals[c] = 0 })
       activeKabList.forEach((kab) => {
         categories.forEach((cat) => {
-          const raw = getCatData(kab, '2025', 'ALL', cat)
-          y2025[cat] += viewType === 'nominal' ? raw.nominal : raw.volume
+          const raw = getCatData(kab, String(y), 'ALL', cat)
+          yTotals[cat] += viewType === 'nominal' ? raw.nominal : raw.volume
         })
       })
-      const tot2025 = categories.reduce((s, c) => s + y2025[c], 0)
+      const totY = categories.reduce((s, c) => s + yTotals[c], 0)
       points.push({
-        period: '2025 (Akhir Thn)',
-        shortPeriod: "'25 Akhir",
+        period: `Akhir Tahun ${y}`,
+        shortPeriod: `'${String(y).slice(2)}`,
         isAnnual: true,
-        ...y2025,
-        total: tot2025
+        ...yTotals,
+        total: totY
       })
     }
 
-    // 2026 Bulanan (Januari s.d. Desember)
-    const monthlyItems = MONTH_LIST.filter((m) => m.id !== 'ALL')
-    monthlyItems.forEach((m) => {
-      const mTotals = {}
-      categories.forEach((c) => { mTotals[c] = 0 })
-      activeKabList.forEach((kab) => {
-        const mData = qrisMonthlyByCategory['2026']?.[m.id]?.[kab] || {}
-        categories.forEach((cat) => {
-          const raw = viewType === 'nominal' ? (mData[cat]?.nominal || 0) : (mData[cat]?.volume || 0)
-          mTotals[cat] += raw
+    // If 2026 is included in the range:
+    if (eNum >= 2026) {
+      // 2026 Bulanan (Januari s.d. Desember)
+      const monthlyItems = MONTH_LIST.filter((m) => m.id !== 'ALL')
+      monthlyItems.forEach((m) => {
+        const mTotals = {}
+        categories.forEach((c) => { mTotals[c] = 0 })
+        activeKabList.forEach((kab) => {
+          const mData = qrisMonthlyByCategory['2026']?.[m.id]?.[kab] || {}
+          categories.forEach((cat) => {
+            const raw = viewType === 'nominal' ? (mData[cat]?.nominal || 0) : (mData[cat]?.volume || 0)
+            mTotals[cat] += raw
+          })
+        })
+        const totM = categories.reduce((s, c) => s + mTotals[c], 0)
+
+        points.push({
+          period: `${m.name} 2026`,
+          shortPeriod: `${m.shortName} '26`,
+          isAnnual: false,
+          ...mTotals,
+          total: totM
         })
       })
-      const totM = categories.reduce((s, c) => s + mTotals[c], 0)
-
-      points.push({
-        period: `${m.name} 2026`,
-        shortPeriod: `${m.shortName} '26`,
-        isAnnual: false,
-        ...mTotals,
-        total: totM
-      })
-    })
+    }
 
     return points
-  }, [currentWilayah, viewType, trendMode])
+  }, [currentWilayah, viewType, trendStartYear, trendEndYear])
 
   // Comparison data for all 4 kabupaten in official sequence: Banjarnegara, Banyumas, Cilacap, Purbalingga
   const kabComparison = useMemo(() => {
@@ -941,12 +938,13 @@ export default function HeatmapPieChart({
                 <button
                   key={kab.id}
                   type="button"
-                  onClick={() => setSelectedWilayah(kab.id)}
+                  onClick={() => setSelectedWilayah(currentWilayah === kab.id && kab.id !== 'ALL' ? 'ALL' : kab.id)}
                   className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all border ${
                     isActive
                       ? 'bg-ink-900 text-white border-ink-900 shadow-sm'
                       : 'bg-surface-muted/50 text-ink-600 border-surface-border hover:bg-surface-muted hover:text-ink-900'
                   }`}
+                  title={isActive && kab.id !== 'ALL' ? 'Klik lagi untuk kembali ke Semua Wilayah' : undefined}
                 >
                   {kab.name}
                 </button>
@@ -1586,12 +1584,12 @@ export default function HeatmapPieChart({
             </div>
             <p className="text-xs text-ink-500 mt-0.5">
               {trendCategoryFilter === 'ALL'
-                ? `Grafik historis akhir tahun (2024, 2025) dilanjutkan dengan rincian data per bulan di tahun 2026 (${currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`})`
-                : `Fokus grafik perkembangan bulanan khusus kategori ${CATEGORY_META[trendCategoryFilter]?.label} (${CATEGORY_META[trendCategoryFilter]?.criteria}) · ${currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}`}
+                ? `Grafik tren rentang ${trendStartYear} s.d. ${trendEndYear}${trendEndYear === '2026' ? ' dilanjutkan data bulanan 2026' : ''} (${currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`})`
+                : `Fokus grafik perkembangan rentang ${trendStartYear} s.d. ${trendEndYear} khusus kategori ${CATEGORY_META[trendCategoryFilter]?.label} (${CATEGORY_META[trendCategoryFilter]?.criteria}) · ${currentWilayah === 'ALL' ? 'Banyumas Raya' : `Kab. ${currentWilayah}`}`}
             </p>
           </div>
 
-          {/* Trend Controls: Skala Dropdown & Trend Mode Switcher */}
+          {/* Trend Controls: Skala Dropdown & Year Range Selector */}
           <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
             {/* Skala Usaha Dropdown */}
             <div className="flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-xl border border-surface-border shadow-xs">
@@ -1610,30 +1608,32 @@ export default function HeatmapPieChart({
               </select>
             </div>
 
-            {/* Trend Mode Switcher */}
-            <div className="inline-flex p-1 bg-white rounded-xl border border-surface-border shadow-xs">
-              <button
-                type="button"
-                onClick={() => setTrendMode('all')}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                  trendMode === 'all'
-                    ? 'bg-ink-900 text-white shadow-sm'
-                    : 'text-ink-600 hover:text-ink-900'
-                }`}
+            {/* Year Range Selector: Dari [Tahun] s.d. [Tahun] */}
+            <div className="flex items-center gap-1.5 bg-white px-2.5 py-1 rounded-xl border border-surface-border shadow-xs whitespace-nowrap">
+              <span className="text-[11px] font-semibold text-ink-600">Rentang:</span>
+              <select
+                value={trendStartYear}
+                onChange={(e) => handleTrendRangeChange(e.target.value, trendEndYear)}
+                className="py-1 px-2 bg-slate-50 border border-surface-border rounded-lg text-xs font-semibold text-ink-900 focus:outline-none shadow-xs cursor-pointer"
               >
-                Historis + 2026
-              </button>
-              <button
-                type="button"
-                onClick={() => setTrendMode('monthly2026')}
-                className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all ${
-                  trendMode === 'monthly2026'
-                    ? 'bg-ink-900 text-white shadow-sm'
-                    : 'text-ink-600 hover:text-ink-900'
-                }`}
+                {YEAR_OPTIONS.map((yr) => (
+                  <option key={yr} value={yr}>
+                    {yr}
+                  </option>
+                ))}
+              </select>
+              <span className="text-xs font-medium text-ink-400">s.d.</span>
+              <select
+                value={trendEndYear}
+                onChange={(e) => handleTrendRangeChange(trendStartYear, e.target.value)}
+                className="py-1 px-2 bg-slate-50 border border-surface-border rounded-lg text-xs font-semibold text-ink-900 focus:outline-none shadow-xs cursor-pointer"
               >
-                Khusus Bulanan 2026
-              </button>
+                {YEAR_OPTIONS.map((yr) => (
+                  <option key={yr} value={yr}>
+                    {yr}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
@@ -1727,17 +1727,25 @@ export default function HeatmapPieChart({
             return (
               <div
                 key={item.kab}
-                onClick={() => setSelectedWilayah(item.kab)}
+                onClick={() => setSelectedWilayah(currentWilayah === item.kab ? 'ALL' : item.kab)}
                 className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-white border-ink-900 shadow-md ring-1 ring-ink-900'
-                    : 'bg-white border-surface-border hover:border-slate-300 shadow-sm'
+                    ? 'bg-white border-blue-600 shadow-md ring-2 ring-blue-500/40 scale-[1.01]'
+                    : 'bg-white border-surface-border hover:border-slate-300 shadow-sm hover:scale-[1.005]'
                 }`}
+                title={isSelected ? 'Klik lagi untuk kembali ke Semua Wilayah (Reset)' : `Klik untuk fokus ke Kab. ${item.kab}`}
               >
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-xs font-semibold text-ink-900">
-                    Kab. {item.kab}
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-bold text-ink-900">
+                      Kab. {item.kab}
+                    </span>
+                    {isSelected && (
+                      <span className="px-1.5 py-0.2 bg-blue-600 text-white text-[9px] rounded font-semibold uppercase">
+                        Aktif
+                      </span>
+                    )}
+                  </div>
                   <span className="text-[10px] text-ink-400 font-medium">
                     {item.merchants.toLocaleString('id-ID')} merchant
                   </span>
