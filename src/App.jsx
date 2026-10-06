@@ -32,8 +32,8 @@ const NAV_TABS = [
 function WelcomeSplash({ onComplete }) {
   const [fade, setFade] = useState(false)
   useEffect(() => {
-    const fadeTimer = setTimeout(() => setFade(true), 2800)
-    const removeTimer = setTimeout(() => onComplete(), 3200)
+    const fadeTimer = setTimeout(() => setFade(true), 2400)
+    const removeTimer = setTimeout(() => onComplete(), 2900)
     return () => {
       clearTimeout(fadeTimer)
       clearTimeout(removeTimer)
@@ -41,24 +41,16 @@ function WelcomeSplash({ onComplete }) {
   }, [onComplete])
 
   return (
-    <div
-      className={`splash-screen-overlay ${fade ? 'fade-out' : ''}`}
-      style={{
-        backgroundColor: '#021429',
-        position: 'fixed',
-        inset: 0,
-        zIndex: 99999,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-      <picture style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div className={`splash-screen-overlay ${fade ? 'fade-out' : ''}`}>
+      <picture style={{ width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <source media="(max-width: 767px)" srcSet="/assets/splash/potrait.PNG" />
         <img
           src="/assets/splash/loading.PNG"
           alt="Zonation Command Center Welcome"
           className="splash-image-welcome"
+          loading="eager"
+          decoding="sync"
+          fetchpriority="high"
         />
       </picture>
       <div className="splash-loading-indicator-wrap">
@@ -75,11 +67,7 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return localStorage.getItem('zonasi_is_logged_in') === 'true'
   })
-  const [showSplash, setShowSplash] = useState(() => {
-    const alreadyLoggedIn = localStorage.getItem('zonasi_is_logged_in') === 'true'
-    const splashShown = sessionStorage.getItem('zonasi_splash_shown') === 'true'
-    return !alreadyLoggedIn && !splashShown
-  })
+  const [showSplash, setShowSplash] = useState(true)
   const [guestView, setGuestView] = useState('landing') // 'landing' or 'login'
   const [active, setActive] = useState(() => {
     return localStorage.getItem('zonasi_active_tab') || 'heatmap'
@@ -103,7 +91,6 @@ export default function App() {
   }
 
   const handleSplashComplete = () => {
-    sessionStorage.setItem('zonasi_splash_shown', 'true')
     setShowSplash(false)
   }
 

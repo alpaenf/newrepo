@@ -481,6 +481,32 @@ a {
   text-transform: uppercase;
 }
 
+/* ==========================================
+   WELCOME POSTER SPLASH IMAGE ZOOM-OUT
+   ========================================== */
+.splash-image-welcome {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  transform: scale(1);
+  opacity: 1;
+  animation: splashZoomOut 2.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes splashZoomOut {
+  0% {
+    transform: scale(1.08);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.0);
+    opacity: 1;
+  }
+}
+
 
 .page-cover-body {
   display: flex;
