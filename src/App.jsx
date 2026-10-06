@@ -176,11 +176,10 @@ export default function App() {
             {/* Logout Button */}
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-all duration-150 active:scale-95 shadow-xs"
+              className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-all duration-150 active:scale-95 shadow-xs cursor-pointer"
               title="Keluar dari sesi administrator"
             >
-              <Power size={14} className="shrink-0" />
-              <span>Logout</span>
+              Logout
             </button>
           </div>
         </div>

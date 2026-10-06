@@ -44,7 +44,7 @@ export default function LoginPage({ onBack, onLoginSuccess }) {
 
             {/* Tagline */}
             <div className="space-y-1 max-w-xs">
-              <h3 className="font-extrabold text-ink-900 text-base tracking-wide">ZONA QRIS</h3>
+              <h3 className="font-bold text-ink-900 text-base tracking-tight">ZONA QRIS</h3>
               <p className="text-xs text-ink-500 leading-relaxed">
                 Satu QR Code untuk Semua Pembayaran Digital Nusantara. Hubungkan pedagang pasar & UMKM.
               </p>
@@ -71,7 +71,7 @@ export default function LoginPage({ onBack, onLoginSuccess }) {
                   <img src={logoKpw} alt="Logo KPw Bank Indonesia" className="h-6 sm:h-7 w-auto object-contain" />
                 </div>
               </div>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-ink-900 tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold text-ink-900 tracking-tight">
                 Selamat Datang Kembali!
               </h2>
               <p className="text-xs text-ink-500 mt-1">
@@ -92,7 +92,7 @@ export default function LoginPage({ onBack, onLoginSuccess }) {
               
               {/* Username Field */}
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-ink-500 uppercase tracking-wider block">
+                <label className="text-[10px] font-semibold text-ink-500 uppercase tracking-wider block">
                   USERNAME ATAU EMAIL
                 </label>
                 <div className="relative">
@@ -112,7 +112,7 @@ export default function LoginPage({ onBack, onLoginSuccess }) {
 
               {/* Password Field */}
               <div className="space-y-1">
-                <label className="text-[10px] font-bold text-ink-500 uppercase tracking-wider block">
+                <label className="text-[10px] font-semibold text-ink-500 uppercase tracking-wider block">
                   KATA SANDI
                 </label>
                 <div className="relative">
@@ -153,18 +153,16 @@ export default function LoginPage({ onBack, onLoginSuccess }) {
                 <button
                   type="button"
                   onClick={() => window.alert('Silakan hubungi tim Administrator Bank Indonesia KPw Purwokerto untuk reset password.')}
-                  className="text-xs font-bold text-[#045498] hover:text-[#033f73] hover:underline"
+                  className="text-xs font-semibold text-[#045498] hover:text-[#033f73] hover:underline"
                 >
                   LUPA KATA SANDI?
                 </button>
               </div>
 
-
-
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full py-2.5 sm:py-3 px-5 bg-[#045498] hover:bg-[#033f73] active:scale-[0.99] text-white font-bold text-xs sm:text-sm rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 group cursor-pointer"
+                className="w-full py-2.5 sm:py-3 px-5 bg-[#045498] hover:bg-[#033f73] active:scale-[0.99] text-white font-semibold text-xs sm:text-sm rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 group cursor-pointer"
               >
                 <span>Masuk ke Panel Admin</span>
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
