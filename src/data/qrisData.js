@@ -22,12 +22,12 @@ export const qrisMonthlyByCategory = {
           "volume": 27004
         },
         "BLU/PSO": {
-          "nominal": 371072394,
-          "volume": 5043
+          "nominal": 1616268841,
+          "volume": 21550
         },
         "Lainnya": {
-          "nominal": 617862168,
-          "volume": 8380
+          "nominal": 1036511725,
+          "volume": 12194
         }
       },
       "Banyumas": {
@@ -48,12 +48,12 @@ export const qrisMonthlyByCategory = {
           "volume": 263619
         },
         "BLU/PSO": {
-          "nominal": 3025394064,
-          "volume": 34196
+          "nominal": 109617271,
+          "volume": 1096
         },
         "Lainnya": {
-          "nominal": 5035221576,
-          "volume": 56957
+          "nominal": 3984855890,
+          "volume": 39848
         }
       },
       "Cilacap": {
@@ -74,12 +74,12 @@ export const qrisMonthlyByCategory = {
           "volume": 147229
         },
         "BLU/PSO": {
-          "nominal": 1352905092,
-          "volume": 15837
+          "nominal": 72545541,
+          "volume": 725
         },
         "Lainnya": {
-          "nominal": 2254841820,
-          "volume": 26384
+          "nominal": 2967837007,
+          "volume": 31240
         }
       },
       "Purbalingga": {
@@ -100,12 +100,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1755513
         },
         "BLU/PSO": {
-          "nominal": 1551757284,
-          "volume": 8132
+          "nominal": 605327378,
+          "volume": 6053
         },
         "Lainnya": {
-          "nominal": 2585078496,
-          "volume": 13564
+          "nominal": 2602566836,
+          "volume": 27395
         }
       }
     },
@@ -128,12 +128,12 @@ export const qrisMonthlyByCategory = {
           "volume": 26453
         },
         "BLU/PSO": {
-          "nominal": 363499488,
-          "volume": 4940
+          "nominal": 1583283763,
+          "volume": 21110
         },
         "Lainnya": {
-          "nominal": 605252736,
-          "volume": 8209
+          "nominal": 1015358424,
+          "volume": 11945
         }
       },
       "Banyumas": {
@@ -154,12 +154,12 @@ export const qrisMonthlyByCategory = {
           "volume": 258239
         },
         "BLU/PSO": {
-          "nominal": 2963651328,
-          "volume": 33498
+          "nominal": 107380184,
+          "volume": 1074
         },
         "Lainnya": {
-          "nominal": 4932461952,
-          "volume": 55794
+          "nominal": 3903532301,
+          "volume": 39035
         }
       },
       "Cilacap": {
@@ -180,12 +180,12 @@ export const qrisMonthlyByCategory = {
           "volume": 144224
         },
         "BLU/PSO": {
-          "nominal": 1325294784,
-          "volume": 15514
+          "nominal": 71065020,
+          "volume": 710
         },
         "Lainnya": {
-          "nominal": 2208824640,
-          "volume": 25845
+          "nominal": 2907268905,
+          "volume": 30603
         }
       },
       "Purbalingga": {
@@ -206,12 +206,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1719686
         },
         "BLU/PSO": {
-          "nominal": 1520088768,
-          "volume": 7966
+          "nominal": 592973758,
+          "volume": 5930
         },
         "Lainnya": {
-          "nominal": 2532321792,
-          "volume": 13288
+          "nominal": 2549453227,
+          "volume": 26836
         }
       }
     },
@@ -234,12 +234,12 @@ export const qrisMonthlyByCategory = {
           "volume": 28932
         },
         "BLU/PSO": {
-          "nominal": 397577565,
-          "volume": 5402
+          "nominal": 1731716615,
+          "volume": 23089
         },
         "Lainnya": {
-          "nominal": 661995180,
-          "volume": 8979
+          "nominal": 1110548276,
+          "volume": 13065
         }
       },
       "Banyumas": {
@@ -260,12 +260,12 @@ export const qrisMonthlyByCategory = {
           "volume": 282449
         },
         "BLU/PSO": {
-          "nominal": 3241493640,
-          "volume": 36638
+          "nominal": 117447076,
+          "volume": 1174
         },
         "Lainnya": {
-          "nominal": 5394880260,
-          "volume": 61025
+          "nominal": 4269488454,
+          "volume": 42695
         }
       },
       "Cilacap": {
@@ -286,12 +286,12 @@ export const qrisMonthlyByCategory = {
           "volume": 157746
         },
         "BLU/PSO": {
-          "nominal": 1449541170,
-          "volume": 16969
+          "nominal": 77727365,
+          "volume": 777
         },
         "Lainnya": {
-          "nominal": 2415901950,
-          "volume": 28268
+          "nominal": 3179825365,
+          "volume": 33472
         }
       },
       "Purbalingga": {
@@ -312,12 +312,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1880906
         },
         "BLU/PSO": {
-          "nominal": 1662597090,
-          "volume": 8712
+          "nominal": 648565048,
+          "volume": 6485
         },
         "Lainnya": {
-          "nominal": 2769726960,
-          "volume": 14534
+          "nominal": 2788464467,
+          "volume": 29353
         }
       }
     },
@@ -340,12 +340,12 @@ export const qrisMonthlyByCategory = {
           "volume": 19840
         },
         "BLU/PSO": {
-          "nominal": 272624616,
-          "volume": 3705
+          "nominal": 1187462822,
+          "volume": 15833
         },
         "Lainnya": {
-          "nominal": 453939552,
-          "volume": 6157
+          "nominal": 761518818,
+          "volume": 8959
         }
       },
       "Banyumas": {
@@ -366,12 +366,12 @@ export const qrisMonthlyByCategory = {
           "volume": 193679
         },
         "BLU/PSO": {
-          "nominal": 2222738496,
-          "volume": 25123
+          "nominal": 80535138,
+          "volume": 805
         },
         "Lainnya": {
-          "nominal": 3699346464,
-          "volume": 41846
+          "nominal": 2927649226,
+          "volume": 29276
         }
       },
       "Cilacap": {
@@ -392,12 +392,12 @@ export const qrisMonthlyByCategory = {
           "volume": 108168
         },
         "BLU/PSO": {
-          "nominal": 993971088,
-          "volume": 11635
+          "nominal": 53298765,
+          "volume": 533
         },
         "Lainnya": {
-          "nominal": 1656618480,
-          "volume": 19384
+          "nominal": 2180451679,
+          "volume": 22952
         }
       },
       "Purbalingga": {
@@ -418,12 +418,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1289765
         },
         "BLU/PSO": {
-          "nominal": 1140066576,
-          "volume": 5974
+          "nominal": 444730319,
+          "volume": 4448
         },
         "Lainnya": {
-          "nominal": 1899241344,
-          "volume": 9966
+          "nominal": 1912089920,
+          "volume": 20127
         }
       }
     },
@@ -446,12 +446,12 @@ export const qrisMonthlyByCategory = {
           "volume": 20666
         },
         "BLU/PSO": {
-          "nominal": 283983975,
-          "volume": 3859
+          "nominal": 1236940440,
+          "volume": 16492
         },
         "Lainnya": {
-          "nominal": 472853700,
-          "volume": 6413
+          "nominal": 793248769,
+          "volume": 9332
         }
       },
       "Banyumas": {
@@ -472,12 +472,12 @@ export const qrisMonthlyByCategory = {
           "volume": 201749
         },
         "BLU/PSO": {
-          "nominal": 2315352600,
-          "volume": 26170
+          "nominal": 83890769,
+          "volume": 839
         },
         "Lainnya": {
-          "nominal": 3853485900,
-          "volume": 43590
+          "nominal": 3049634610,
+          "volume": 30496
         }
       },
       "Cilacap": {
@@ -498,12 +498,12 @@ export const qrisMonthlyByCategory = {
           "volume": 112675
         },
         "BLU/PSO": {
-          "nominal": 1035386550,
-          "volume": 12120
+          "nominal": 55519547,
+          "volume": 555
         },
         "Lainnya": {
-          "nominal": 1725644250,
-          "volume": 20192
+          "nominal": 2271303832,
+          "volume": 23909
         }
       },
       "Purbalingga": {
@@ -524,12 +524,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1343505
         },
         "BLU/PSO": {
-          "nominal": 1187569350,
-          "volume": 6223
+          "nominal": 463260749,
+          "volume": 4633
         },
         "Lainnya": {
-          "nominal": 1978376400,
-          "volume": 10381
+          "nominal": 1991760334,
+          "volume": 20966
         }
       }
     },
@@ -552,12 +552,12 @@ export const qrisMonthlyByCategory = {
           "volume": 22595
         },
         "BLU/PSO": {
-          "nominal": 310489146,
-          "volume": 4219
+          "nominal": 1352388214,
+          "volume": 18032
         },
         "Lainnya": {
-          "nominal": 516986712,
-          "volume": 7012
+          "nominal": 867285320,
+          "volume": 10203
         }
       },
       "Banyumas": {
@@ -578,12 +578,12 @@ export const qrisMonthlyByCategory = {
           "volume": 220579
         },
         "BLU/PSO": {
-          "nominal": 2531452176,
-          "volume": 28612
+          "nominal": 91720574,
+          "volume": 917
         },
         "Lainnya": {
-          "nominal": 4213144584,
-          "volume": 47658
+          "nominal": 3334267174,
+          "volume": 33343
         }
       },
       "Cilacap": {
@@ -604,12 +604,12 @@ export const qrisMonthlyByCategory = {
           "volume": 123192
         },
         "BLU/PSO": {
-          "nominal": 1132022628,
-          "volume": 13252
+          "nominal": 60701371,
+          "volume": 607
         },
         "Lainnya": {
-          "nominal": 1886704380,
-          "volume": 22076
+          "nominal": 2483292190,
+          "volume": 26140
         }
       },
       "Purbalingga": {
@@ -630,12 +630,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1468899
         },
         "BLU/PSO": {
-          "nominal": 1298409156,
-          "volume": 6804
+          "nominal": 506498418,
+          "volume": 5065
         },
         "Lainnya": {
-          "nominal": 2163024864,
-          "volume": 11350
+          "nominal": 2177657965,
+          "volume": 22923
         }
       }
     },
@@ -658,12 +658,12 @@ export const qrisMonthlyByCategory = {
           "volume": 26177
         },
         "BLU/PSO": {
-          "nominal": 359713035,
-          "volume": 4888
+          "nominal": 1566791224,
+          "volume": 20890
         },
         "Lainnya": {
-          "nominal": 598948020,
-          "volume": 8123
+          "nominal": 1004781774,
+          "volume": 11821
         }
       },
       "Banyumas": {
@@ -684,12 +684,12 @@ export const qrisMonthlyByCategory = {
           "volume": 255549
         },
         "BLU/PSO": {
-          "nominal": 2932779960,
-          "volume": 33149
+          "nominal": 106261640,
+          "volume": 1063
         },
         "Lainnya": {
-          "nominal": 4881082140,
-          "volume": 55213
+          "nominal": 3862870506,
+          "volume": 38629
         }
       },
       "Cilacap": {
@@ -710,12 +710,12 @@ export const qrisMonthlyByCategory = {
           "volume": 142722
         },
         "BLU/PSO": {
-          "nominal": 1311489630,
-          "volume": 15352
+          "nominal": 70324759,
+          "volume": 703
         },
         "Lainnya": {
-          "nominal": 2185816050,
-          "volume": 25576
+          "nominal": 2876984854,
+          "volume": 30284
         }
       },
       "Purbalingga": {
@@ -736,12 +736,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1701772
         },
         "BLU/PSO": {
-          "nominal": 1504254510,
-          "volume": 7883
+          "nominal": 586796948,
+          "volume": 5868
         },
         "Lainnya": {
-          "nominal": 2505943440,
-          "volume": 13149
+          "nominal": 2522896423,
+          "volume": 26557
         }
       }
     },
@@ -764,12 +764,12 @@ export const qrisMonthlyByCategory = {
           "volume": 24248
         },
         "BLU/PSO": {
-          "nominal": 333207864,
-          "volume": 4528
+          "nominal": 1451343449,
+          "volume": 19351
         },
         "Lainnya": {
-          "nominal": 554815008,
-          "volume": 7525
+          "nominal": 930745222,
+          "volume": 10950
         }
       },
       "Banyumas": {
@@ -790,12 +790,12 @@ export const qrisMonthlyByCategory = {
           "volume": 236719
         },
         "BLU/PSO": {
-          "nominal": 2716680384,
-          "volume": 30706
+          "nominal": 98431835,
+          "volume": 985
         },
         "Lainnya": {
-          "nominal": 4521423456,
-          "volume": 51145
+          "nominal": 3578237942,
+          "volume": 35783
         }
       },
       "Cilacap": {
@@ -816,12 +816,12 @@ export const qrisMonthlyByCategory = {
           "volume": 132206
         },
         "BLU/PSO": {
-          "nominal": 1214853552,
-          "volume": 14221
+          "nominal": 65142935,
+          "volume": 651
         },
         "Lainnya": {
-          "nominal": 2024755920,
-          "volume": 23691
+          "nominal": 2664996496,
+          "volume": 28053
         }
       },
       "Purbalingga": {
@@ -842,12 +842,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1576378
         },
         "BLU/PSO": {
-          "nominal": 1393414704,
-          "volume": 7302
+          "nominal": 543559278,
+          "volume": 5436
         },
         "Lainnya": {
-          "nominal": 2321294976,
-          "volume": 12180
+          "nominal": 2336998792,
+          "volume": 24600
         }
       }
     },
@@ -870,12 +870,12 @@ export const qrisMonthlyByCategory = {
           "volume": 25350
         },
         "BLU/PSO": {
-          "nominal": 348353676,
-          "volume": 4734
+          "nominal": 1517313606,
+          "volume": 20231
         },
         "Lainnya": {
-          "nominal": 580033872,
-          "volume": 7867
+          "nominal": 973051823,
+          "volume": 11448
         }
       },
       "Banyumas": {
@@ -896,12 +896,12 @@ export const qrisMonthlyByCategory = {
           "volume": 247479
         },
         "BLU/PSO": {
-          "nominal": 2840165856,
-          "volume": 32102
+          "nominal": 102906009,
+          "volume": 1029
         },
         "Lainnya": {
-          "nominal": 4726942704,
-          "volume": 53470
+          "nominal": 3740885122,
+          "volume": 37409
         }
       },
       "Cilacap": {
@@ -922,12 +922,12 @@ export const qrisMonthlyByCategory = {
           "volume": 138215
         },
         "BLU/PSO": {
-          "nominal": 1270074168,
-          "volume": 14867
+          "nominal": 68103977,
+          "volume": 681
         },
         "Lainnya": {
-          "nominal": 2116790280,
-          "volume": 24768
+          "nominal": 2786132700,
+          "volume": 29328
         }
       },
       "Purbalingga": {
@@ -948,12 +948,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1648032
         },
         "BLU/PSO": {
-          "nominal": 1456751736,
-          "volume": 7634
+          "nominal": 568266518,
+          "volume": 5683
         },
         "Lainnya": {
-          "nominal": 2426808384,
-          "volume": 12734
+          "nominal": 2443226009,
+          "volume": 25718
         }
       }
     },
@@ -976,12 +976,12 @@ export const qrisMonthlyByCategory = {
           "volume": 26453
         },
         "BLU/PSO": {
-          "nominal": 363499488,
-          "volume": 4940
+          "nominal": 1583283763,
+          "volume": 21110
         },
         "Lainnya": {
-          "nominal": 605252736,
-          "volume": 8209
+          "nominal": 1015358424,
+          "volume": 11945
         }
       },
       "Banyumas": {
@@ -1002,12 +1002,12 @@ export const qrisMonthlyByCategory = {
           "volume": 258239
         },
         "BLU/PSO": {
-          "nominal": 2963651328,
-          "volume": 33498
+          "nominal": 107380184,
+          "volume": 1074
         },
         "Lainnya": {
-          "nominal": 4932461952,
-          "volume": 55794
+          "nominal": 3903532301,
+          "volume": 39035
         }
       },
       "Cilacap": {
@@ -1028,12 +1028,12 @@ export const qrisMonthlyByCategory = {
           "volume": 144224
         },
         "BLU/PSO": {
-          "nominal": 1325294784,
-          "volume": 15514
+          "nominal": 71065020,
+          "volume": 710
         },
         "Lainnya": {
-          "nominal": 2208824640,
-          "volume": 25845
+          "nominal": 2907268905,
+          "volume": 30603
         }
       },
       "Purbalingga": {
@@ -1054,12 +1054,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1719686
         },
         "BLU/PSO": {
-          "nominal": 1520088768,
-          "volume": 7966
+          "nominal": 592973758,
+          "volume": 5930
         },
         "Lainnya": {
-          "nominal": 2532321792,
-          "volume": 13288
+          "nominal": 2549453227,
+          "volume": 26836
         }
       }
     },
@@ -1082,12 +1082,12 @@ export const qrisMonthlyByCategory = {
           "volume": 27555
         },
         "BLU/PSO": {
-          "nominal": 378645300,
-          "volume": 5145
+          "nominal": 1649253920,
+          "volume": 21990
         },
         "Lainnya": {
-          "nominal": 630471600,
-          "volume": 8551
+          "nominal": 1057665025,
+          "volume": 12443
         }
       },
       "Banyumas": {
@@ -1108,12 +1108,12 @@ export const qrisMonthlyByCategory = {
           "volume": 268999
         },
         "BLU/PSO": {
-          "nominal": 3087136800,
-          "volume": 34894
+          "nominal": 111854358,
+          "volume": 1119
         },
         "Lainnya": {
-          "nominal": 5137981200,
-          "volume": 58119
+          "nominal": 4066179480,
+          "volume": 40662
         }
       },
       "Cilacap": {
@@ -1134,12 +1134,12 @@ export const qrisMonthlyByCategory = {
           "volume": 150234
         },
         "BLU/PSO": {
-          "nominal": 1380515400,
-          "volume": 16160
+          "nominal": 74026062,
+          "volume": 740
         },
         "Lainnya": {
-          "nominal": 2300859000,
-          "volume": 26922
+          "nominal": 3028405109,
+          "volume": 31878
         }
       },
       "Purbalingga": {
@@ -1160,12 +1160,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1791339
         },
         "BLU/PSO": {
-          "nominal": 1583425800,
-          "volume": 8298
+          "nominal": 617680998,
+          "volume": 6177
         },
         "Lainnya": {
-          "nominal": 2637835200,
-          "volume": 13841
+          "nominal": 2655680445,
+          "volume": 27955
         }
       }
     },
@@ -1188,12 +1188,12 @@ export const qrisMonthlyByCategory = {
           "volume": 26177
         },
         "BLU/PSO": {
-          "nominal": 359713035,
-          "volume": 4888
+          "nominal": 1566791224,
+          "volume": 20890
         },
         "Lainnya": {
-          "nominal": 598948020,
-          "volume": 8123
+          "nominal": 1004781774,
+          "volume": 11821
         }
       },
       "Banyumas": {
@@ -1214,12 +1214,12 @@ export const qrisMonthlyByCategory = {
           "volume": 255549
         },
         "BLU/PSO": {
-          "nominal": 2932779960,
-          "volume": 33149
+          "nominal": 106261640,
+          "volume": 1063
         },
         "Lainnya": {
-          "nominal": 4881082140,
-          "volume": 55213
+          "nominal": 3862870506,
+          "volume": 38629
         }
       },
       "Cilacap": {
@@ -1240,12 +1240,12 @@ export const qrisMonthlyByCategory = {
           "volume": 142722
         },
         "BLU/PSO": {
-          "nominal": 1311489630,
-          "volume": 15352
+          "nominal": 70324759,
+          "volume": 703
         },
         "Lainnya": {
-          "nominal": 2185816050,
-          "volume": 25576
+          "nominal": 2876984854,
+          "volume": 30284
         }
       },
       "Purbalingga": {
@@ -1266,12 +1266,12 @@ export const qrisMonthlyByCategory = {
           "volume": 1701772
         },
         "BLU/PSO": {
-          "nominal": 1504254510,
-          "volume": 7883
+          "nominal": 586796948,
+          "volume": 5868
         },
         "Lainnya": {
-          "nominal": 2505943440,
-          "volume": 13149
+          "nominal": 2522896423,
+          "volume": 26557
         }
       }
     }
@@ -1296,12 +1296,12 @@ export const qrisMonthlyByCategory = {
           "volume": 54553
         },
         "BLU/PSO": {
-          "nominal": 749641200,
-          "volume": 10187
+          "nominal": 3265189578,
+          "volume": 43536
         },
         "Lainnya": {
-          "nominal": 1248206400,
-          "volume": 16930
+          "nominal": 2093963080,
+          "volume": 24635
         }
       },
       "Banyumas": {
@@ -1322,12 +1322,12 @@ export const qrisMonthlyByCategory = {
           "volume": 532563
         },
         "BLU/PSO": {
-          "nominal": 6111907200,
-          "volume": 69082
+          "nominal": 221449032,
+          "volume": 2214
         },
         "Lainnya": {
-          "nominal": 10172164800,
-          "volume": 115065
+          "nominal": 8050213920,
+          "volume": 80502
         }
       },
       "Cilacap": {
@@ -1348,12 +1348,12 @@ export const qrisMonthlyByCategory = {
           "volume": 297433
         },
         "BLU/PSO": {
-          "nominal": 2733141600,
-          "volume": 31994
+          "nominal": 146556648,
+          "volume": 1465
         },
         "Lainnya": {
-          "nominal": 4555236000,
-          "volume": 53300
+          "nominal": 5995630318,
+          "volume": 63112
         }
       },
       "Purbalingga": {
@@ -1374,12 +1374,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3546490
         },
         "BLU/PSO": {
-          "nominal": 3134863200,
-          "volume": 16428
+          "nominal": 1222883592,
+          "volume": 12229
         },
         "Lainnya": {
-          "nominal": 5222380800,
-          "volume": 27403
+          "nominal": 5257710780,
+          "volume": 55344
         }
       }
     },
@@ -1402,12 +1402,12 @@ export const qrisMonthlyByCategory = {
           "volume": 53440
         },
         "BLU/PSO": {
-          "nominal": 734342400,
-          "volume": 9979
+          "nominal": 3198553056,
+          "volume": 42647
         },
         "Lainnya": {
-          "nominal": 1222732800,
-          "volume": 16584
+          "nominal": 2051229139,
+          "volume": 24132
         }
       },
       "Banyumas": {
@@ -1428,12 +1428,12 @@ export const qrisMonthlyByCategory = {
           "volume": 521694
         },
         "BLU/PSO": {
-          "nominal": 5987174400,
-          "volume": 67672
+          "nominal": 216929664,
+          "volume": 2170
         },
         "Lainnya": {
-          "nominal": 9964569600,
-          "volume": 112716
+          "nominal": 7885923840,
+          "volume": 78859
         }
       },
       "Cilacap": {
@@ -1454,12 +1454,12 @@ export const qrisMonthlyByCategory = {
           "volume": 291362
         },
         "BLU/PSO": {
-          "nominal": 2677363200,
-          "volume": 31341
+          "nominal": 143565696,
+          "volume": 1435
         },
         "Lainnya": {
-          "nominal": 4462272000,
-          "volume": 52212
+          "nominal": 5873270515,
+          "volume": 61824
         }
       },
       "Purbalingga": {
@@ -1480,12 +1480,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3474113
         },
         "BLU/PSO": {
-          "nominal": 3070886400,
-          "volume": 16092
+          "nominal": 1197926784,
+          "volume": 11979
         },
         "Lainnya": {
-          "nominal": 5115801600,
-          "volume": 26844
+          "nominal": 5150410560,
+          "volume": 54215
         }
       }
     },
@@ -1508,12 +1508,12 @@ export const qrisMonthlyByCategory = {
           "volume": 58449
         },
         "BLU/PSO": {
-          "nominal": 803187000,
-          "volume": 10914
+          "nominal": 3498417405,
+          "volume": 46645
         },
         "Lainnya": {
-          "nominal": 1337364000,
-          "volume": 18139
+          "nominal": 2243531871,
+          "volume": 26394
         }
       },
       "Banyumas": {
@@ -1534,12 +1534,12 @@ export const qrisMonthlyByCategory = {
           "volume": 570604
         },
         "BLU/PSO": {
-          "nominal": 6548472000,
-          "volume": 74016
+          "nominal": 237266820,
+          "volume": 2372
         },
         "Lainnya": {
-          "nominal": 10898748000,
-          "volume": 123283
+          "nominal": 8625229200,
+          "volume": 86252
         }
       },
       "Cilacap": {
@@ -1560,12 +1560,12 @@ export const qrisMonthlyByCategory = {
           "volume": 318678
         },
         "BLU/PSO": {
-          "nominal": 2928366000,
-          "volume": 34280
+          "nominal": 157024980,
+          "volume": 1570
         },
         "Lainnya": {
-          "nominal": 4880610000,
-          "volume": 57107
+          "nominal": 6423889626,
+          "volume": 67620
         }
       },
       "Purbalingga": {
@@ -1586,12 +1586,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3799811
         },
         "BLU/PSO": {
-          "nominal": 3358782000,
-          "volume": 17601
+          "nominal": 1310232420,
+          "volume": 13102
         },
         "Lainnya": {
-          "nominal": 5595408000,
-          "volume": 29361
+          "nominal": 5633261550,
+          "volume": 59298
         }
       }
     },
@@ -1614,12 +1614,12 @@ export const qrisMonthlyByCategory = {
           "volume": 40080
         },
         "BLU/PSO": {
-          "nominal": 550756800,
-          "volume": 7484
+          "nominal": 2398914792,
+          "volume": 31985
         },
         "Lainnya": {
-          "nominal": 917049600,
-          "volume": 12438
+          "nominal": 1538421854,
+          "volume": 18099
         }
       },
       "Banyumas": {
@@ -1640,12 +1640,12 @@ export const qrisMonthlyByCategory = {
           "volume": 391271
         },
         "BLU/PSO": {
-          "nominal": 4490380800,
-          "volume": 50754
+          "nominal": 162697248,
+          "volume": 1627
         },
         "Lainnya": {
-          "nominal": 7473427200,
-          "volume": 84537
+          "nominal": 5914442880,
+          "volume": 59144
         }
       },
       "Cilacap": {
@@ -1666,12 +1666,12 @@ export const qrisMonthlyByCategory = {
           "volume": 218522
         },
         "BLU/PSO": {
-          "nominal": 2008022400,
-          "volume": 23506
+          "nominal": 107674272,
+          "volume": 1077
         },
         "Lainnya": {
-          "nominal": 3346704000,
-          "volume": 39159
+          "nominal": 4404952886,
+          "volume": 46368
         }
       },
       "Purbalingga": {
@@ -1692,12 +1692,12 @@ export const qrisMonthlyByCategory = {
           "volume": 2605585
         },
         "BLU/PSO": {
-          "nominal": 2303164800,
-          "volume": 12069
+          "nominal": 898445088,
+          "volume": 8985
         },
         "Lainnya": {
-          "nominal": 3836851200,
-          "volume": 20133
+          "nominal": 3862807920,
+          "volume": 40661
         }
       }
     },
@@ -1720,12 +1720,12 @@ export const qrisMonthlyByCategory = {
           "volume": 41750
         },
         "BLU/PSO": {
-          "nominal": 573705000,
-          "volume": 7796
+          "nominal": 2498869575,
+          "volume": 33318
         },
         "Lainnya": {
-          "nominal": 955260000,
-          "volume": 12956
+          "nominal": 1602522765,
+          "volume": 18853
         }
       },
       "Banyumas": {
@@ -1746,12 +1746,12 @@ export const qrisMonthlyByCategory = {
           "volume": 407574
         },
         "BLU/PSO": {
-          "nominal": 4677480000,
-          "volume": 52869
+          "nominal": 169476300,
+          "volume": 1695
         },
         "Lainnya": {
-          "nominal": 7784820000,
-          "volume": 88060
+          "nominal": 6160878000,
+          "volume": 61609
         }
       },
       "Cilacap": {
@@ -1772,12 +1772,12 @@ export const qrisMonthlyByCategory = {
           "volume": 227627
         },
         "BLU/PSO": {
-          "nominal": 2091690000,
-          "volume": 24485
+          "nominal": 112160700,
+          "volume": 1121
         },
         "Lainnya": {
-          "nominal": 3486150000,
-          "volume": 40791
+          "nominal": 4588492590,
+          "volume": 48300
         }
       },
       "Purbalingga": {
@@ -1798,12 +1798,12 @@ export const qrisMonthlyByCategory = {
           "volume": 2714151
         },
         "BLU/PSO": {
-          "nominal": 2399130000,
-          "volume": 12572
+          "nominal": 935880300,
+          "volume": 9359
         },
         "Lainnya": {
-          "nominal": 3996720000,
-          "volume": 20972
+          "nominal": 4023758250,
+          "volume": 42356
         }
       }
     },
@@ -1826,12 +1826,12 @@ export const qrisMonthlyByCategory = {
           "volume": 45647
         },
         "BLU/PSO": {
-          "nominal": 627250800,
-          "volume": 8523
+          "nominal": 2732097402,
+          "volume": 36428
         },
         "Lainnya": {
-          "nominal": 1044417600,
-          "volume": 14166
+          "nominal": 1752091556,
+          "volume": 20613
         }
       },
       "Banyumas": {
@@ -1852,12 +1852,12 @@ export const qrisMonthlyByCategory = {
           "volume": 445614
         },
         "BLU/PSO": {
-          "nominal": 5114044800,
-          "volume": 57803
+          "nominal": 185294088,
+          "volume": 1853
         },
         "Lainnya": {
-          "nominal": 8511403200,
-          "volume": 96278
+          "nominal": 6735893280,
+          "volume": 67359
         }
       },
       "Cilacap": {
@@ -1878,12 +1878,12 @@ export const qrisMonthlyByCategory = {
           "volume": 248872
         },
         "BLU/PSO": {
-          "nominal": 2286914400,
-          "volume": 26771
+          "nominal": 122629032,
+          "volume": 1226
         },
         "Lainnya": {
-          "nominal": 3811524000,
-          "volume": 44598
+          "nominal": 5016751898,
+          "volume": 52808
         }
       },
       "Purbalingga": {
@@ -1904,12 +1904,12 @@ export const qrisMonthlyByCategory = {
           "volume": 2967472
         },
         "BLU/PSO": {
-          "nominal": 2623048800,
-          "volume": 13745
+          "nominal": 1023229128,
+          "volume": 10233
         },
         "Lainnya": {
-          "nominal": 4369747200,
-          "volume": 22929
+          "nominal": 4399309020,
+          "volume": 46309
         }
       }
     },
@@ -1932,12 +1932,12 @@ export const qrisMonthlyByCategory = {
           "volume": 52883
         },
         "BLU/PSO": {
-          "nominal": 726693000,
-          "volume": 9875
+          "nominal": 3165234795,
+          "volume": 42203
         },
         "Lainnya": {
-          "nominal": 1209996000,
-          "volume": 16411
+          "nominal": 2029862169,
+          "volume": 23881
         }
       },
       "Banyumas": {
@@ -1958,12 +1958,12 @@ export const qrisMonthlyByCategory = {
           "volume": 516260
         },
         "BLU/PSO": {
-          "nominal": 5924808000,
-          "volume": 66967
+          "nominal": 214669980,
+          "volume": 2147
         },
         "Lainnya": {
-          "nominal": 9860772000,
-          "volume": 111542
+          "nominal": 7803778800,
+          "volume": 78038
         }
       },
       "Cilacap": {
@@ -1984,12 +1984,12 @@ export const qrisMonthlyByCategory = {
           "volume": 288327
         },
         "BLU/PSO": {
-          "nominal": 2649474000,
-          "volume": 31015
+          "nominal": 142070220,
+          "volume": 1421
         },
         "Lainnya": {
-          "nominal": 4415790000,
-          "volume": 51668
+          "nominal": 5812090614,
+          "volume": 61180
         }
       },
       "Purbalingga": {
@@ -2010,12 +2010,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3437924
         },
         "BLU/PSO": {
-          "nominal": 3038898000,
-          "volume": 15925
+          "nominal": 1185448380,
+          "volume": 11855
         },
         "Lainnya": {
-          "nominal": 5062512000,
-          "volume": 26564
+          "nominal": 5096760450,
+          "volume": 53650
         }
       }
     },
@@ -2038,12 +2038,12 @@ export const qrisMonthlyByCategory = {
           "volume": 48986
         },
         "BLU/PSO": {
-          "nominal": 673147200,
-          "volume": 9147
+          "nominal": 2932006968,
+          "volume": 39093
         },
         "Lainnya": {
-          "nominal": 1120838400,
-          "volume": 15202
+          "nominal": 1880293378,
+          "volume": 22121
         }
       },
       "Banyumas": {
@@ -2064,12 +2064,12 @@ export const qrisMonthlyByCategory = {
           "volume": 478220
         },
         "BLU/PSO": {
-          "nominal": 5488243200,
-          "volume": 62033
+          "nominal": 198852192,
+          "volume": 1989
         },
         "Lainnya": {
-          "nominal": 9134188800,
-          "volume": 103323
+          "nominal": 7228763520,
+          "volume": 72288
         }
       },
       "Cilacap": {
@@ -2090,12 +2090,12 @@ export const qrisMonthlyByCategory = {
           "volume": 267082
         },
         "BLU/PSO": {
-          "nominal": 2454249600,
-          "volume": 28730
+          "nominal": 131601888,
+          "volume": 1316
         },
         "Lainnya": {
-          "nominal": 4090416000,
-          "volume": 47861
+          "nominal": 5383831306,
+          "volume": 56672
         }
       },
       "Purbalingga": {
@@ -2116,12 +2116,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3184603
         },
         "BLU/PSO": {
-          "nominal": 2814979200,
-          "volume": 14751
+          "nominal": 1098099552,
+          "volume": 10981
         },
         "Lainnya": {
-          "nominal": 4689484800,
-          "volume": 24607
+          "nominal": 4721209680,
+          "volume": 49697
         }
       }
     },
@@ -2144,12 +2144,12 @@ export const qrisMonthlyByCategory = {
           "volume": 51213
         },
         "BLU/PSO": {
-          "nominal": 703744800,
-          "volume": 9563
+          "nominal": 3065280012,
+          "volume": 40870
         },
         "Lainnya": {
-          "nominal": 1171785600,
-          "volume": 15893
+          "nominal": 1965761258,
+          "volume": 23127
         }
       },
       "Banyumas": {
@@ -2170,12 +2170,12 @@ export const qrisMonthlyByCategory = {
           "volume": 499957
         },
         "BLU/PSO": {
-          "nominal": 5737708800,
-          "volume": 64852
+          "nominal": 207890928,
+          "volume": 2079
         },
         "Lainnya": {
-          "nominal": 9549379200,
-          "volume": 108020
+          "nominal": 7557343680,
+          "volume": 75573
         }
       },
       "Cilacap": {
@@ -2196,12 +2196,12 @@ export const qrisMonthlyByCategory = {
           "volume": 279222
         },
         "BLU/PSO": {
-          "nominal": 2565806400,
-          "volume": 30035
+          "nominal": 137583792,
+          "volume": 1376
         },
         "Lainnya": {
-          "nominal": 4276344000,
-          "volume": 50037
+          "nominal": 5628550910,
+          "volume": 59248
         }
       },
       "Purbalingga": {
@@ -2222,12 +2222,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3329358
         },
         "BLU/PSO": {
-          "nominal": 2942932800,
-          "volume": 15422
+          "nominal": 1148013168,
+          "volume": 11480
         },
         "Lainnya": {
-          "nominal": 4902643200,
-          "volume": 25725
+          "nominal": 4935810120,
+          "volume": 51956
         }
       }
     },
@@ -2250,12 +2250,12 @@ export const qrisMonthlyByCategory = {
           "volume": 53440
         },
         "BLU/PSO": {
-          "nominal": 734342400,
-          "volume": 9979
+          "nominal": 3198553056,
+          "volume": 42647
         },
         "Lainnya": {
-          "nominal": 1222732800,
-          "volume": 16584
+          "nominal": 2051229139,
+          "volume": 24132
         }
       },
       "Banyumas": {
@@ -2276,12 +2276,12 @@ export const qrisMonthlyByCategory = {
           "volume": 521694
         },
         "BLU/PSO": {
-          "nominal": 5987174400,
-          "volume": 67672
+          "nominal": 216929664,
+          "volume": 2170
         },
         "Lainnya": {
-          "nominal": 9964569600,
-          "volume": 112716
+          "nominal": 7885923840,
+          "volume": 78859
         }
       },
       "Cilacap": {
@@ -2302,12 +2302,12 @@ export const qrisMonthlyByCategory = {
           "volume": 291362
         },
         "BLU/PSO": {
-          "nominal": 2677363200,
-          "volume": 31341
+          "nominal": 143565696,
+          "volume": 1435
         },
         "Lainnya": {
-          "nominal": 4462272000,
-          "volume": 52212
+          "nominal": 5873270515,
+          "volume": 61824
         }
       },
       "Purbalingga": {
@@ -2328,12 +2328,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3474113
         },
         "BLU/PSO": {
-          "nominal": 3070886400,
-          "volume": 16092
+          "nominal": 1197926784,
+          "volume": 11979
         },
         "Lainnya": {
-          "nominal": 5115801600,
-          "volume": 26844
+          "nominal": 5150410560,
+          "volume": 54215
         }
       }
     },
@@ -2356,12 +2356,12 @@ export const qrisMonthlyByCategory = {
           "volume": 55666
         },
         "BLU/PSO": {
-          "nominal": 764940000,
-          "volume": 10394
+          "nominal": 3331826100,
+          "volume": 44424
         },
         "Lainnya": {
-          "nominal": 1273680000,
-          "volume": 17275
+          "nominal": 2136697020,
+          "volume": 25138
         }
       },
       "Banyumas": {
@@ -2382,12 +2382,12 @@ export const qrisMonthlyByCategory = {
           "volume": 543432
         },
         "BLU/PSO": {
-          "nominal": 6236640000,
-          "volume": 70492
+          "nominal": 225968400,
+          "volume": 2260
         },
         "Lainnya": {
-          "nominal": 10379760000,
-          "volume": 117413
+          "nominal": 8214504000,
+          "volume": 82145
         }
       },
       "Cilacap": {
@@ -2408,12 +2408,12 @@ export const qrisMonthlyByCategory = {
           "volume": 303503
         },
         "BLU/PSO": {
-          "nominal": 2788920000,
-          "volume": 32647
+          "nominal": 149547600,
+          "volume": 1495
         },
         "Lainnya": {
-          "nominal": 4648200000,
-          "volume": 54388
+          "nominal": 6117990120,
+          "volume": 64400
         }
       },
       "Purbalingga": {
@@ -2434,12 +2434,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3618867
         },
         "BLU/PSO": {
-          "nominal": 3198840000,
-          "volume": 16763
+          "nominal": 1247840400,
+          "volume": 12478
         },
         "Lainnya": {
-          "nominal": 5328960000,
-          "volume": 27962
+          "nominal": 5365011000,
+          "volume": 56474
         }
       }
     },
@@ -2462,12 +2462,12 @@ export const qrisMonthlyByCategory = {
           "volume": 52883
         },
         "BLU/PSO": {
-          "nominal": 726693000,
-          "volume": 9875
+          "nominal": 3165234795,
+          "volume": 42203
         },
         "Lainnya": {
-          "nominal": 1209996000,
-          "volume": 16411
+          "nominal": 2029862169,
+          "volume": 23881
         }
       },
       "Banyumas": {
@@ -2488,12 +2488,12 @@ export const qrisMonthlyByCategory = {
           "volume": 516260
         },
         "BLU/PSO": {
-          "nominal": 5924808000,
-          "volume": 66967
+          "nominal": 214669980,
+          "volume": 2147
         },
         "Lainnya": {
-          "nominal": 9860772000,
-          "volume": 111542
+          "nominal": 7803778800,
+          "volume": 78038
         }
       },
       "Cilacap": {
@@ -2514,12 +2514,12 @@ export const qrisMonthlyByCategory = {
           "volume": 288327
         },
         "BLU/PSO": {
-          "nominal": 2649474000,
-          "volume": 31015
+          "nominal": 142070220,
+          "volume": 1421
         },
         "Lainnya": {
-          "nominal": 4415790000,
-          "volume": 51668
+          "nominal": 5812090614,
+          "volume": 61180
         }
       },
       "Purbalingga": {
@@ -2540,12 +2540,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3437924
         },
         "BLU/PSO": {
-          "nominal": 3038898000,
-          "volume": 15925
+          "nominal": 1185448380,
+          "volume": 11855
         },
         "Lainnya": {
-          "nominal": 5062512000,
-          "volume": 26564
+          "nominal": 5096760450,
+          "volume": 53650
         }
       }
     }
@@ -2570,12 +2570,12 @@ export const qrisMonthlyByCategory = {
           "volume": 74526
         },
         "BLU/PSO": {
-          "nominal": 1024100000,
-          "volume": 13916
+          "nominal": 4460641500,
+          "volume": 59475
         },
         "Lainnya": {
-          "nominal": 1705200000,
-          "volume": 23128
+          "nominal": 2860605300,
+          "volume": 33654
         }
       },
       "Banyumas": {
@@ -2596,12 +2596,12 @@ export const qrisMonthlyByCategory = {
           "volume": 727545
         },
         "BLU/PSO": {
-          "nominal": 8349600000,
-          "volume": 94374
+          "nominal": 302526000,
+          "volume": 3025
         },
         "Lainnya": {
-          "nominal": 13896400000,
-          "volume": 157192
+          "nominal": 10997560000,
+          "volume": 109976
         }
       },
       "Cilacap": {
@@ -2622,12 +2622,12 @@ export const qrisMonthlyByCategory = {
           "volume": 406329
         },
         "BLU/PSO": {
-          "nominal": 3733800000,
-          "volume": 43708
+          "nominal": 200214000,
+          "volume": 2002
         },
         "Lainnya": {
-          "nominal": 6223000000,
-          "volume": 72814
+          "nominal": 8190751800,
+          "volume": 86218
         }
       },
       "Purbalingga": {
@@ -2648,12 +2648,12 @@ export const qrisMonthlyByCategory = {
           "volume": 4844932
         },
         "BLU/PSO": {
-          "nominal": 4282600000,
-          "volume": 22442
+          "nominal": 1670606000,
+          "volume": 16706
         },
         "Lainnya": {
-          "nominal": 7134400000,
-          "volume": 37436
+          "nominal": 7182665000,
+          "volume": 75607
         }
       }
     },
@@ -2676,12 +2676,12 @@ export const qrisMonthlyByCategory = {
           "volume": 73005
         },
         "BLU/PSO": {
-          "nominal": 1003200000,
-          "volume": 13632
+          "nominal": 4369608000,
+          "volume": 58261
         },
         "Lainnya": {
-          "nominal": 1670400000,
-          "volume": 22656
+          "nominal": 2802225600,
+          "volume": 32967
         }
       },
       "Banyumas": {
@@ -2702,12 +2702,12 @@ export const qrisMonthlyByCategory = {
           "volume": 712697
         },
         "BLU/PSO": {
-          "nominal": 8179200000,
-          "volume": 92448
+          "nominal": 296352000,
+          "volume": 2964
         },
         "Lainnya": {
-          "nominal": 13612800000,
-          "volume": 153984
+          "nominal": 10773120000,
+          "volume": 107731
         }
       },
       "Cilacap": {
@@ -2728,12 +2728,12 @@ export const qrisMonthlyByCategory = {
           "volume": 398036
         },
         "BLU/PSO": {
-          "nominal": 3657600000,
-          "volume": 42816
+          "nominal": 196128000,
+          "volume": 1961
         },
         "Lainnya": {
-          "nominal": 6096000000,
-          "volume": 71328
+          "nominal": 8023593600,
+          "volume": 84459
         }
       },
       "Purbalingga": {
@@ -2754,12 +2754,12 @@ export const qrisMonthlyByCategory = {
           "volume": 4746056
         },
         "BLU/PSO": {
-          "nominal": 4195200000,
-          "volume": 21984
+          "nominal": 1636512000,
+          "volume": 16365
         },
         "Lainnya": {
-          "nominal": 6988800000,
-          "volume": 36672
+          "nominal": 7036080000,
+          "volume": 74064
         }
       }
     },
@@ -2782,12 +2782,12 @@ export const qrisMonthlyByCategory = {
           "volume": 79849
         },
         "BLU/PSO": {
-          "nominal": 1097250000,
-          "volume": 14910
+          "nominal": 4779258750,
+          "volume": 63723
         },
         "Lainnya": {
-          "nominal": 1827000000,
-          "volume": 24780
+          "nominal": 3064934250,
+          "volume": 36058
         }
       },
       "Banyumas": {
@@ -2808,12 +2808,12 @@ export const qrisMonthlyByCategory = {
           "volume": 779513
         },
         "BLU/PSO": {
-          "nominal": 8946000000,
-          "volume": 101115
+          "nominal": 324135000,
+          "volume": 3241
         },
         "Lainnya": {
-          "nominal": 14889000000,
-          "volume": 168420
+          "nominal": 11783100000,
+          "volume": 117831
         }
       },
       "Cilacap": {
@@ -2834,12 +2834,12 @@ export const qrisMonthlyByCategory = {
           "volume": 435352
         },
         "BLU/PSO": {
-          "nominal": 4000500000,
-          "volume": 46830
+          "nominal": 214515000,
+          "volume": 2145
         },
         "Lainnya": {
-          "nominal": 6667500000,
-          "volume": 78015
+          "nominal": 8775805500,
+          "volume": 92377
         }
       },
       "Purbalingga": {
@@ -2860,12 +2860,12 @@ export const qrisMonthlyByCategory = {
           "volume": 5190998
         },
         "BLU/PSO": {
-          "nominal": 4588500000,
-          "volume": 24045
+          "nominal": 1789935000,
+          "volume": 17899
         },
         "Lainnya": {
-          "nominal": 7644000000,
-          "volume": 40110
+          "nominal": 7695712500,
+          "volume": 81008
         }
       }
     },
@@ -2888,12 +2888,12 @@ export const qrisMonthlyByCategory = {
           "volume": 54754
         },
         "BLU/PSO": {
-          "nominal": 752400000,
-          "volume": 10224
+          "nominal": 3277206000,
+          "volume": 43696
         },
         "Lainnya": {
-          "nominal": 1252800000,
-          "volume": 16992
+          "nominal": 2101669200,
+          "volume": 24726
         }
       },
       "Banyumas": {
@@ -2914,12 +2914,12 @@ export const qrisMonthlyByCategory = {
           "volume": 534523
         },
         "BLU/PSO": {
-          "nominal": 6134400000,
-          "volume": 69336
+          "nominal": 222264000,
+          "volume": 2223
         },
         "Lainnya": {
-          "nominal": 10209600000,
-          "volume": 115488
+          "nominal": 8079840000,
+          "volume": 80798
         }
       },
       "Cilacap": {
@@ -2940,12 +2940,12 @@ export const qrisMonthlyByCategory = {
           "volume": 298527
         },
         "BLU/PSO": {
-          "nominal": 2743200000,
-          "volume": 32112
+          "nominal": 147096000,
+          "volume": 1471
         },
         "Lainnya": {
-          "nominal": 4572000000,
-          "volume": 53496
+          "nominal": 6017695200,
+          "volume": 63344
         }
       },
       "Purbalingga": {
@@ -2966,12 +2966,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3559542
         },
         "BLU/PSO": {
-          "nominal": 3146400000,
-          "volume": 16488
+          "nominal": 1227384000,
+          "volume": 12274
         },
         "Lainnya": {
-          "nominal": 5241600000,
-          "volume": 27504
+          "nominal": 5277060000,
+          "volume": 55548
         }
       }
     },
@@ -2994,12 +2994,12 @@ export const qrisMonthlyByCategory = {
           "volume": 57035
         },
         "BLU/PSO": {
-          "nominal": 783750000,
-          "volume": 10650
+          "nominal": 3413756250,
+          "volume": 45517
         },
         "Lainnya": {
-          "nominal": 1305000000,
-          "volume": 17700
+          "nominal": 2189238750,
+          "volume": 25756
         }
       },
       "Banyumas": {
@@ -3020,12 +3020,12 @@ export const qrisMonthlyByCategory = {
           "volume": 556795
         },
         "BLU/PSO": {
-          "nominal": 6390000000,
-          "volume": 72225
+          "nominal": 231525000,
+          "volume": 2315
         },
         "Lainnya": {
-          "nominal": 10635000000,
-          "volume": 120300
+          "nominal": 8416500000,
+          "volume": 84165
         }
       },
       "Cilacap": {
@@ -3046,12 +3046,12 @@ export const qrisMonthlyByCategory = {
           "volume": 310966
         },
         "BLU/PSO": {
-          "nominal": 2857500000,
-          "volume": 33450
+          "nominal": 153225000,
+          "volume": 1532
         },
         "Lainnya": {
-          "nominal": 4762500000,
-          "volume": 55725
+          "nominal": 6268432500,
+          "volume": 65984
         }
       },
       "Purbalingga": {
@@ -3072,12 +3072,12 @@ export const qrisMonthlyByCategory = {
           "volume": 3707856
         },
         "BLU/PSO": {
-          "nominal": 3277500000,
-          "volume": 17175
+          "nominal": 1278525000,
+          "volume": 12785
         },
         "Lainnya": {
-          "nominal": 5460000000,
-          "volume": 28650
+          "nominal": 5496937500,
+          "volume": 57863
         }
       }
     },
@@ -3100,12 +3100,12 @@ export const qrisMonthlyByCategory = {
           "volume": 62359
         },
         "BLU/PSO": {
-          "nominal": 856900000,
-          "volume": 11644
+          "nominal": 3732373500,
+          "volume": 49765
         },
         "Lainnya": {
-          "nominal": 1426800000,
-          "volume": 19352
+          "nominal": 2393567700,
+          "volume": 28160
         }
       },
       "Banyumas": {
@@ -3126,12 +3126,12 @@ export const qrisMonthlyByCategory = {
           "volume": 608762
         },
         "BLU/PSO": {
-          "nominal": 6986400000,
-          "volume": 78966
+          "nominal": 253134000,
+          "volume": 2531
         },
         "Lainnya": {
-          "nominal": 11627600000,
-          "volume": 131528
+          "nominal": 9202040000,
+          "volume": 92020
         }
       },
       "Cilacap": {
@@ -3152,12 +3152,12 @@ export const qrisMonthlyByCategory = {
           "volume": 339989
         },
         "BLU/PSO": {
-          "nominal": 3124200000,
-          "volume": 36572
+          "nominal": 167526000,
+          "volume": 1675
         },
         "Lainnya": {
-          "nominal": 5207000000,
-          "volume": 60926
+          "nominal": 6853486200,
+          "volume": 72142
         }
       },
       "Purbalingga": {
@@ -3178,12 +3178,12 @@ export const qrisMonthlyByCategory = {
           "volume": 4053923
         },
         "BLU/PSO": {
-          "nominal": 3583400000,
-          "volume": 18778
+          "nominal": 1397854000,
+          "volume": 13979
         },
         "Lainnya": {
-          "nominal": 5969600000,
-          "volume": 31324
+          "nominal": 6009985000,
+          "volume": 63263
         }
       }
     },
@@ -3206,12 +3206,12 @@ export const qrisMonthlyByCategory = {
           "volume": 72245
         },
         "BLU/PSO": {
-          "nominal": 992750000,
-          "volume": 13490
+          "nominal": 4324091250,
+          "volume": 57655
         },
         "Lainnya": {
-          "nominal": 1653000000,
-          "volume": 22420
+          "nominal": 2773035750,
+          "volume": 32624
         }
       },
       "Banyumas": {
@@ -3232,12 +3232,12 @@ export const qrisMonthlyByCategory = {
           "volume": 705273
         },
         "BLU/PSO": {
-          "nominal": 8094000000,
-          "volume": 91485
+          "nominal": 293265000,
+          "volume": 2933
         },
         "Lainnya": {
-          "nominal": 13471000000,
-          "volume": 152380
+          "nominal": 10660900000,
+          "volume": 106609
         }
       },
       "Cilacap": {
@@ -3258,12 +3258,12 @@ export const qrisMonthlyByCategory = {
           "volume": 393890
         },
         "BLU/PSO": {
-          "nominal": 3619500000,
-          "volume": 42370
+          "nominal": 194085000,
+          "volume": 1941
         },
         "Lainnya": {
-          "nominal": 6032500000,
-          "volume": 70585
+          "nominal": 7940014500,
+          "volume": 83579
         }
       },
       "Purbalingga": {
@@ -3284,12 +3284,12 @@ export const qrisMonthlyByCategory = {
           "volume": 4696618
         },
         "BLU/PSO": {
-          "nominal": 4151500000,
-          "volume": 21755
+          "nominal": 1619465000,
+          "volume": 16195
         },
         "Lainnya": {
-          "nominal": 6916000000,
-          "volume": 36290
+          "nominal": 6962787500,
+          "volume": 73293
         }
       }
     },
@@ -3312,12 +3312,12 @@ export const qrisMonthlyByCategory = {
           "volume": 66921
         },
         "BLU/PSO": {
-          "nominal": 919600000,
-          "volume": 12496
+          "nominal": 4005474000,
+          "volume": 53406
         },
         "Lainnya": {
-          "nominal": 1531200000,
-          "volume": 20768
+          "nominal": 2568706800,
+          "volume": 30220
         }
       },
       "Banyumas": {
@@ -3338,12 +3338,12 @@ export const qrisMonthlyByCategory = {
           "volume": 653306
         },
         "BLU/PSO": {
-          "nominal": 7497600000,
-          "volume": 84744
+          "nominal": 271656000,
+          "volume": 2717
         },
         "Lainnya": {
-          "nominal": 12478400000,
-          "volume": 141152
+          "nominal": 9875360000,
+          "volume": 98754
         }
       },
       "Cilacap": {
@@ -3364,12 +3364,12 @@ export const qrisMonthlyByCategory = {
           "volume": 364866
         },
         "BLU/PSO": {
-          "nominal": 3352800000,
-          "volume": 39248
+          "nominal": 179784000,
+          "volume": 1798
         },
         "Lainnya": {
-          "nominal": 5588000000,
-          "volume": 65384
+          "nominal": 7354960800,
+          "volume": 77421
         }
       },
       "Purbalingga": {
@@ -3390,12 +3390,12 @@ export const qrisMonthlyByCategory = {
           "volume": 4350551
         },
         "BLU/PSO": {
-          "nominal": 3845600000,
-          "volume": 20152
+          "nominal": 1500136000,
+          "volume": 15001
         },
         "Lainnya": {
-          "nominal": 6406400000,
-          "volume": 33616
+          "nominal": 6449740000,
+          "volume": 67892
         }
       }
     },
@@ -3418,12 +3418,12 @@ export const qrisMonthlyByCategory = {
           "volume": 69963
         },
         "BLU/PSO": {
-          "nominal": 961400000,
-          "volume": 13064
+          "nominal": 4187541000,
+          "volume": 55834
         },
         "Lainnya": {
-          "nominal": 1600800000,
-          "volume": 21712
+          "nominal": 2685466200,
+          "volume": 31594
         }
       },
       "Banyumas": {
@@ -3444,12 +3444,12 @@ export const qrisMonthlyByCategory = {
           "volume": 683002
         },
         "BLU/PSO": {
-          "nominal": 7838400000,
-          "volume": 88596
+          "nominal": 284004000,
+          "volume": 2840
         },
         "Lainnya": {
-          "nominal": 13045600000,
-          "volume": 147568
+          "nominal": 10324240000,
+          "volume": 103242
         }
       },
       "Cilacap": {
@@ -3470,12 +3470,12 @@ export const qrisMonthlyByCategory = {
           "volume": 381451
         },
         "BLU/PSO": {
-          "nominal": 3505200000,
-          "volume": 41032
+          "nominal": 187956000,
+          "volume": 1880
         },
         "Lainnya": {
-          "nominal": 5842000000,
-          "volume": 68356
+          "nominal": 7689277200,
+          "volume": 80940
         }
       },
       "Purbalingga": {
@@ -3496,12 +3496,12 @@ export const qrisMonthlyByCategory = {
           "volume": 4548303
         },
         "BLU/PSO": {
-          "nominal": 4020400000,
-          "volume": 21068
+          "nominal": 1568324000,
+          "volume": 15683
         },
         "Lainnya": {
-          "nominal": 6697600000,
-          "volume": 35144
+          "nominal": 6742910000,
+          "volume": 70978
         }
       }
     },
@@ -3524,12 +3524,12 @@ export const qrisMonthlyByCategory = {
           "volume": 73005
         },
         "BLU/PSO": {
-          "nominal": 1003200000,
-          "volume": 13632
+          "nominal": 4369608000,
+          "volume": 58261
         },
         "Lainnya": {
-          "nominal": 1670400000,
-          "volume": 22656
+          "nominal": 2802225600,
+          "volume": 32967
         }
       },
       "Banyumas": {
@@ -3550,12 +3550,12 @@ export const qrisMonthlyByCategory = {
           "volume": 712697
         },
         "BLU/PSO": {
-          "nominal": 8179200000,
-          "volume": 92448
+          "nominal": 296352000,
+          "volume": 2964
         },
         "Lainnya": {
-          "nominal": 13612800000,
-          "volume": 153984
+          "nominal": 10773120000,
+          "volume": 107731
         }
       },
       "Cilacap": {
@@ -3576,12 +3576,12 @@ export const qrisMonthlyByCategory = {
           "volume": 398036
         },
         "BLU/PSO": {
-          "nominal": 3657600000,
-          "volume": 42816
+          "nominal": 196128000,
+          "volume": 1961
         },
         "Lainnya": {
-          "nominal": 6096000000,
-          "volume": 71328
+          "nominal": 8023593600,
+          "volume": 84459
         }
       },
       "Purbalingga": {
@@ -3602,12 +3602,12 @@ export const qrisMonthlyByCategory = {
           "volume": 4746056
         },
         "BLU/PSO": {
-          "nominal": 4195200000,
-          "volume": 21984
+          "nominal": 1636512000,
+          "volume": 16365
         },
         "Lainnya": {
-          "nominal": 6988800000,
-          "volume": 36672
+          "nominal": 7036080000,
+          "volume": 74064
         }
       }
     },
@@ -3630,12 +3630,12 @@ export const qrisMonthlyByCategory = {
           "volume": 76047
         },
         "BLU/PSO": {
-          "nominal": 1045000000,
-          "volume": 14200
+          "nominal": 4551675000,
+          "volume": 60689
         },
         "Lainnya": {
-          "nominal": 1740000000,
-          "volume": 23600
+          "nominal": 2918985000,
+          "volume": 34341
         }
       },
       "Banyumas": {
@@ -3656,12 +3656,12 @@ export const qrisMonthlyByCategory = {
           "volume": 742393
         },
         "BLU/PSO": {
-          "nominal": 8520000000,
-          "volume": 96300
+          "nominal": 308700000,
+          "volume": 3087
         },
         "Lainnya": {
-          "nominal": 14180000000,
-          "volume": 160400
+          "nominal": 11222000000,
+          "volume": 112220
         }
       },
       "Cilacap": {
@@ -3682,12 +3682,12 @@ export const qrisMonthlyByCategory = {
           "volume": 414621
         },
         "BLU/PSO": {
-          "nominal": 3810000000,
-          "volume": 44600
+          "nominal": 204300000,
+          "volume": 2043
         },
         "Lainnya": {
-          "nominal": 6350000000,
-          "volume": 74300
+          "nominal": 8357910000,
+          "volume": 87978
         }
       },
       "Purbalingga": {
@@ -3708,12 +3708,12 @@ export const qrisMonthlyByCategory = {
           "volume": 4943808
         },
         "BLU/PSO": {
-          "nominal": 4370000000,
-          "volume": 22900
+          "nominal": 1704700000,
+          "volume": 17047
         },
         "Lainnya": {
-          "nominal": 7280000000,
-          "volume": 38200
+          "nominal": 7329250000,
+          "volume": 77150
         }
       }
     },
@@ -3736,12 +3736,12 @@ export const qrisMonthlyByCategory = {
           "volume": 72245
         },
         "BLU/PSO": {
-          "nominal": 992750000,
-          "volume": 13490
+          "nominal": 4324091250,
+          "volume": 57655
         },
         "Lainnya": {
-          "nominal": 1653000000,
-          "volume": 22420
+          "nominal": 2773035750,
+          "volume": 32624
         }
       },
       "Banyumas": {
@@ -3762,12 +3762,12 @@ export const qrisMonthlyByCategory = {
           "volume": 705273
         },
         "BLU/PSO": {
-          "nominal": 8094000000,
-          "volume": 91485
+          "nominal": 293265000,
+          "volume": 2933
         },
         "Lainnya": {
-          "nominal": 13471000000,
-          "volume": 152380
+          "nominal": 10660900000,
+          "volume": 106609
         }
       },
       "Cilacap": {
@@ -3788,12 +3788,12 @@ export const qrisMonthlyByCategory = {
           "volume": 393890
         },
         "BLU/PSO": {
-          "nominal": 3619500000,
-          "volume": 42370
+          "nominal": 194085000,
+          "volume": 1941
         },
         "Lainnya": {
-          "nominal": 6032500000,
-          "volume": 70585
+          "nominal": 7940014500,
+          "volume": 83579
         }
       },
       "Purbalingga": {
@@ -3814,12 +3814,12 @@ export const qrisMonthlyByCategory = {
           "volume": 4696618
         },
         "BLU/PSO": {
-          "nominal": 4151500000,
-          "volume": 21755
+          "nominal": 1619465000,
+          "volume": 16195
         },
         "Lainnya": {
-          "nominal": 6916000000,
-          "volume": 36290
+          "nominal": 6962787500,
+          "volume": 73293
         }
       }
     }
@@ -3847,16 +3847,16 @@ export const qrisRealData = {
         "volume": 301450
       },
       "BLU/PSO": {
-        "nominal": 4142379582,
-        "volume": 56291
+        "nominal": 18042837881,
+        "volume": 240568
       },
       "Lainnya": {
-        "nominal": 6897359304,
-        "volume": 93548
+        "nominal": 11570855374,
+        "volume": 136126
       },
       "TOTAL": {
-        "nominal": 292940351393,
-        "volume": 3892779
+        "nominal": 311514305762,
+        "volume": 4119634
       }
     },
     "2025": {
@@ -3878,16 +3878,16 @@ export const qrisRealData = {
         "volume": 608990
       },
       "BLU/PSO": {
-        "nominal": 8368443600,
-        "volume": 113716
+        "nominal": 36450177534,
+        "volume": 485999
       },
       "Lainnya": {
-        "nominal": 13934059200,
-        "volume": 188989
+        "nominal": 23375465398,
+        "volume": 275006
       },
       "TOTAL": {
-        "nominal": 591798689679,
-        "volume": 7864197
+        "nominal": 629321829811,
+        "volume": 8322497
       }
     },
     "2026": {
@@ -3909,16 +3909,16 @@ export const qrisRealData = {
         "volume": 831954
       },
       "BLU/PSO": {
-        "nominal": 11432300000,
-        "volume": 155348
+        "nominal": 49795324500,
+        "volume": 663937
       },
       "Lainnya": {
-        "nominal": 19035600000,
-        "volume": 258184
+        "nominal": 31933695900,
+        "volume": 375691
       },
       "TOTAL": {
-        "nominal": 808468155302,
-        "volume": 10743440
+        "nominal": 859729275702,
+        "volume": 11369536
       }
     }
   },
@@ -3942,16 +3942,16 @@ export const qrisRealData = {
         "volume": 2942848
       },
       "BLU/PSO": {
-        "nominal": 33773276592,
-        "volume": 381735
+        "nominal": 1223686678,
+        "volume": 12238
       },
       "Lainnya": {
-        "nominal": 56209514328,
-        "volume": 635824
+        "nominal": 44484003512,
+        "volume": 444840
       },
       "TOTAL": {
-        "nominal": 2382205241555,
-        "volume": 28904508
+        "nominal": 2337930140825,
+        "volume": 28344027
       }
     },
     "2025": {
@@ -3973,16 +3973,16 @@ export const qrisRealData = {
         "volume": 5945143
       },
       "BLU/PSO": {
-        "nominal": 68228841600,
-        "volume": 771179
+        "nominal": 2472094296,
+        "volume": 24723
       },
       "Lainnya": {
-        "nominal": 113554574400,
-        "volume": 1284495
+        "nominal": 89866673760,
+        "volume": 898666
       },
       "TOTAL": {
-        "nominal": 4812535841512,
-        "volume": 58392944
+        "nominal": 4723091193568,
+        "volume": 57260659
       }
     },
     "2026": {
@@ -4004,16 +4004,16 @@ export const qrisRealData = {
         "volume": 8121779
       },
       "BLU/PSO": {
-        "nominal": 93208800000,
-        "volume": 1053522
+        "nominal": 3377178000,
+        "volume": 33773
       },
       "Lainnya": {
-        "nominal": 155129200000,
-        "volume": 1754776
+        "nominal": 122768680000,
+        "volume": 1227686
       },
       "TOTAL": {
-        "nominal": 6574502515727,
-        "volume": 79771780
+        "nominal": 6452310373727,
+        "volume": 78224941
       }
     }
   },
@@ -4037,16 +4037,16 @@ export const qrisRealData = {
         "volume": 1643557
       },
       "BLU/PSO": {
-        "nominal": 15102838476,
-        "volume": 176793
+        "nominal": 809845121,
+        "volume": 8095
       },
       "Lainnya": {
-        "nominal": 25171397460,
-        "volume": 294527
+        "nominal": 33130751896,
+        "volume": 348746
       },
       "TOTAL": {
-        "nominal": 1065923239270,
-        "volume": 13903369
+        "nominal": 1059589600351,
+        "volume": 13788890
       }
     },
     "2025": {
@@ -4068,16 +4068,16 @@ export const qrisRealData = {
         "volume": 3320317
       },
       "BLU/PSO": {
-        "nominal": 30510784800,
-        "volume": 357160
+        "nominal": 1636050744,
+        "volume": 16358
       },
       "Lainnya": {
-        "nominal": 50851308000,
-        "volume": 595001
+        "nominal": 66930811912,
+        "volume": 704536
       },
       "TOTAL": {
-        "nominal": 2153380281355,
-        "volume": 28087609
+        "nominal": 2140585051211,
+        "volume": 27856342
       }
     },
     "2026": {
@@ -4099,16 +4099,16 @@ export const qrisRealData = {
         "volume": 4535953
       },
       "BLU/PSO": {
-        "nominal": 41681400000,
-        "volume": 487924
+        "nominal": 2235042000,
+        "volume": 22350
       },
       "Lainnya": {
-        "nominal": 69469000000,
-        "volume": 812842
+        "nominal": 91435535400,
+        "volume": 962480
       },
       "TOTAL": {
-        "nominal": 2941776340651,
-        "volume": 38371052
+        "nominal": 2924296518051,
+        "volume": 38055116
       }
     }
   },
@@ -4132,16 +4132,16 @@ export const qrisRealData = {
         "volume": 19597253
       },
       "BLU/PSO": {
-        "nominal": 17322678252,
-        "volume": 90777
+        "nominal": 6757430118,
+        "volume": 67576
       },
       "Lainnya": {
-        "nominal": 28857917088,
-        "volume": 151424
+        "nominal": 29053144068,
+        "volume": 305823
       },
       "TOTAL": {
-        "nominal": 1223933282832,
-        "volume": 25217435
+        "nominal": 1213563261678,
+        "volume": 25348633
       }
     },
     "2025": {
@@ -4163,16 +4163,16 @@ export const qrisRealData = {
         "volume": 39590411
       },
       "BLU/PSO": {
-        "nominal": 34995309600,
-        "volume": 183385
+        "nominal": 13651373976,
+        "volume": 136515
       },
       "Lainnya": {
-        "nominal": 58298822400,
-        "volume": 305908
+        "nominal": 58693220340,
+        "volume": 617825
       },
       "TOTAL": {
-        "nominal": 2472592490569,
-        "volume": 50944314
+        "nominal": 2451642952885,
+        "volume": 51209361
       }
     },
     "2026": {
@@ -4194,16 +4194,16 @@ export const qrisRealData = {
         "volume": 54085261
       },
       "BLU/PSO": {
-        "nominal": 47807800000,
-        "volume": 250526
+        "nominal": 18649418000,
+        "volume": 186494
       },
       "Lainnya": {
-        "nominal": 79643200000,
-        "volume": 417908
+        "nominal": 80181995000,
+        "volume": 844023
       },
       "TOTAL": {
-        "nominal": 3377858593678,
-        "volume": 69596058
+        "nominal": 3349239006678,
+        "volume": 69958141
       }
     }
   }
