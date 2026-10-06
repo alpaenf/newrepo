@@ -22,11 +22,11 @@ export const qrisMonthlyByCategory = {
           "volume": 27004
         },
         "BLU/PSO": {
-          "nominal": 1616268841,
+          "nominal": 2078981001,
           "volume": 21550
         },
         "Lainnya": {
-          "nominal": 1036511725,
+          "nominal": 1481119279,
           "volume": 12194
         }
       },
@@ -48,11 +48,11 @@ export const qrisMonthlyByCategory = {
           "volume": 263619
         },
         "BLU/PSO": {
-          "nominal": 109617271,
+          "nominal": 382119301,
           "volume": 1096
         },
         "Lainnya": {
-          "nominal": 3984855890,
+          "nominal": 6664717123,
           "volume": 39848
         }
       },
@@ -74,11 +74,11 @@ export const qrisMonthlyByCategory = {
           "volume": 147229
         },
         "BLU/PSO": {
-          "nominal": 72545541,
+          "nominal": 248966402,
           "volume": 725
         },
         "Lainnya": {
-          "nominal": 2967837007,
+          "nominal": 6598520519,
           "volume": 31240
         }
       },
@@ -100,11 +100,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1755513
         },
         "BLU/PSO": {
-          "nominal": 605327378,
+          "nominal": 386544408,
           "volume": 6053
         },
         "Lainnya": {
-          "nominal": 2602566836,
+          "nominal": 5515461571,
           "volume": 27395
         }
       }
@@ -128,11 +128,11 @@ export const qrisMonthlyByCategory = {
           "volume": 26453
         },
         "BLU/PSO": {
-          "nominal": 1583283763,
+          "nominal": 2036552817,
           "volume": 21110
         },
         "Lainnya": {
-          "nominal": 1015358424,
+          "nominal": 1450892356,
           "volume": 11945
         }
       },
@@ -154,11 +154,11 @@ export const qrisMonthlyByCategory = {
           "volume": 258239
         },
         "BLU/PSO": {
-          "nominal": 107380184,
+          "nominal": 374320948,
           "volume": 1074
         },
         "Lainnya": {
-          "nominal": 3903532301,
+          "nominal": 6528702488,
           "volume": 39035
         }
       },
@@ -180,11 +180,11 @@ export const qrisMonthlyByCategory = {
           "volume": 144224
         },
         "BLU/PSO": {
-          "nominal": 71065020,
+          "nominal": 243885455,
           "volume": 710
         },
         "Lainnya": {
-          "nominal": 2907268905,
+          "nominal": 6463856835,
           "volume": 30603
         }
       },
@@ -206,11 +206,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1719686
         },
         "BLU/PSO": {
-          "nominal": 592973758,
+          "nominal": 378655746,
           "volume": 5930
         },
         "Lainnya": {
-          "nominal": 2549453227,
+          "nominal": 5402901131,
           "volume": 26836
         }
       }
@@ -234,11 +234,11 @@ export const qrisMonthlyByCategory = {
           "volume": 28932
         },
         "BLU/PSO": {
-          "nominal": 1731716615,
+          "nominal": 2227479644,
           "volume": 23089
         },
         "Lainnya": {
-          "nominal": 1110548276,
+          "nominal": 1586913514,
           "volume": 13065
         }
       },
@@ -260,11 +260,11 @@ export const qrisMonthlyByCategory = {
           "volume": 282449
         },
         "BLU/PSO": {
-          "nominal": 117447076,
+          "nominal": 409413537,
           "volume": 1174
         },
         "Lainnya": {
-          "nominal": 4269488454,
+          "nominal": 7140768346,
           "volume": 42695
         }
       },
@@ -286,11 +286,11 @@ export const qrisMonthlyByCategory = {
           "volume": 157746
         },
         "BLU/PSO": {
-          "nominal": 77727365,
+          "nominal": 266749717,
           "volume": 777
         },
         "Lainnya": {
-          "nominal": 3179825365,
+          "nominal": 7069843413,
           "volume": 33472
         }
       },
@@ -312,11 +312,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1880906
         },
         "BLU/PSO": {
-          "nominal": 648565048,
+          "nominal": 414154722,
           "volume": 6485
         },
         "Lainnya": {
-          "nominal": 2788464467,
+          "nominal": 5909423111,
           "volume": 29353
         }
       }
@@ -340,11 +340,11 @@ export const qrisMonthlyByCategory = {
           "volume": 19840
         },
         "BLU/PSO": {
-          "nominal": 1187462822,
+          "nominal": 1527414613,
           "volume": 15833
         },
         "Lainnya": {
-          "nominal": 761518818,
+          "nominal": 1088169266,
           "volume": 8959
         }
       },
@@ -366,11 +366,11 @@ export const qrisMonthlyByCategory = {
           "volume": 193679
         },
         "BLU/PSO": {
-          "nominal": 80535138,
+          "nominal": 280740711,
           "volume": 805
         },
         "Lainnya": {
-          "nominal": 2927649226,
+          "nominal": 4896526866,
           "volume": 29276
         }
       },
@@ -392,11 +392,11 @@ export const qrisMonthlyByCategory = {
           "volume": 108168
         },
         "BLU/PSO": {
-          "nominal": 53298765,
+          "nominal": 182914091,
           "volume": 533
         },
         "Lainnya": {
-          "nominal": 2180451679,
+          "nominal": 4847892626,
           "volume": 22952
         }
       },
@@ -418,11 +418,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1289765
         },
         "BLU/PSO": {
-          "nominal": 444730319,
+          "nominal": 283991810,
           "volume": 4448
         },
         "Lainnya": {
-          "nominal": 1912089920,
+          "nominal": 4052175848,
           "volume": 20127
         }
       }
@@ -446,11 +446,11 @@ export const qrisMonthlyByCategory = {
           "volume": 20666
         },
         "BLU/PSO": {
-          "nominal": 1236940440,
+          "nominal": 1591056888,
           "volume": 16492
         },
         "Lainnya": {
-          "nominal": 793248769,
+          "nominal": 1133509653,
           "volume": 9332
         }
       },
@@ -472,11 +472,11 @@ export const qrisMonthlyByCategory = {
           "volume": 201749
         },
         "BLU/PSO": {
-          "nominal": 83890769,
+          "nominal": 292438240,
           "volume": 839
         },
         "Lainnya": {
-          "nominal": 3049634610,
+          "nominal": 5100548819,
           "volume": 30496
         }
       },
@@ -498,11 +498,11 @@ export const qrisMonthlyByCategory = {
           "volume": 112675
         },
         "BLU/PSO": {
-          "nominal": 55519547,
+          "nominal": 190535512,
           "volume": 555
         },
         "Lainnya": {
-          "nominal": 2271303832,
+          "nominal": 5049888152,
           "volume": 23909
         }
       },
@@ -524,11 +524,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1343505
         },
         "BLU/PSO": {
-          "nominal": 463260749,
+          "nominal": 295824802,
           "volume": 4633
         },
         "Lainnya": {
-          "nominal": 1991760334,
+          "nominal": 4221016508,
           "volume": 20966
         }
       }
@@ -552,11 +552,11 @@ export const qrisMonthlyByCategory = {
           "volume": 22595
         },
         "BLU/PSO": {
-          "nominal": 1352388214,
+          "nominal": 1739555531,
           "volume": 18032
         },
         "Lainnya": {
-          "nominal": 867285320,
+          "nominal": 1239303887,
           "volume": 10203
         }
       },
@@ -578,11 +578,11 @@ export const qrisMonthlyByCategory = {
           "volume": 220579
         },
         "BLU/PSO": {
-          "nominal": 91720574,
+          "nominal": 319732477,
           "volume": 917
         },
         "Lainnya": {
-          "nominal": 3334267174,
+          "nominal": 5576600042,
           "volume": 33343
         }
       },
@@ -604,11 +604,11 @@ export const qrisMonthlyByCategory = {
           "volume": 123192
         },
         "BLU/PSO": {
-          "nominal": 60701371,
+          "nominal": 208318826,
           "volume": 607
         },
         "Lainnya": {
-          "nominal": 2483292190,
+          "nominal": 5521211046,
           "volume": 26140
         }
       },
@@ -630,11 +630,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1468899
         },
         "BLU/PSO": {
-          "nominal": 506498418,
+          "nominal": 323435117,
           "volume": 5065
         },
         "Lainnya": {
-          "nominal": 2177657965,
+          "nominal": 4614978049,
           "volume": 22923
         }
       }
@@ -658,11 +658,11 @@ export const qrisMonthlyByCategory = {
           "volume": 26177
         },
         "BLU/PSO": {
-          "nominal": 1566791224,
+          "nominal": 2015338725,
           "volume": 20890
         },
         "Lainnya": {
-          "nominal": 1004781774,
+          "nominal": 1435778893,
           "volume": 11821
         }
       },
@@ -684,11 +684,11 @@ export const qrisMonthlyByCategory = {
           "volume": 255549
         },
         "BLU/PSO": {
-          "nominal": 106261640,
+          "nominal": 370421771,
           "volume": 1063
         },
         "Lainnya": {
-          "nominal": 3862870506,
+          "nominal": 6460695171,
           "volume": 38629
         }
       },
@@ -710,11 +710,11 @@ export const qrisMonthlyByCategory = {
           "volume": 142722
         },
         "BLU/PSO": {
-          "nominal": 70324759,
+          "nominal": 241344982,
           "volume": 703
         },
         "Lainnya": {
-          "nominal": 2876984854,
+          "nominal": 6396524993,
           "volume": 30284
         }
       },
@@ -736,11 +736,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1701772
         },
         "BLU/PSO": {
-          "nominal": 586796948,
+          "nominal": 374711416,
           "volume": 5868
         },
         "Lainnya": {
-          "nominal": 2522896423,
+          "nominal": 5346620910,
           "volume": 26557
         }
       }
@@ -764,11 +764,11 @@ export const qrisMonthlyByCategory = {
           "volume": 24248
         },
         "BLU/PSO": {
-          "nominal": 1451343449,
+          "nominal": 1866840082,
           "volume": 19351
         },
         "Lainnya": {
-          "nominal": 930745222,
+          "nominal": 1329984659,
           "volume": 10950
         }
       },
@@ -790,11 +790,11 @@ export const qrisMonthlyByCategory = {
           "volume": 236719
         },
         "BLU/PSO": {
-          "nominal": 98431835,
+          "nominal": 343127535,
           "volume": 985
         },
         "Lainnya": {
-          "nominal": 3578237942,
+          "nominal": 5984643948,
           "volume": 35783
         }
       },
@@ -816,11 +816,11 @@ export const qrisMonthlyByCategory = {
           "volume": 132206
         },
         "BLU/PSO": {
-          "nominal": 65142935,
+          "nominal": 223561667,
           "volume": 651
         },
         "Lainnya": {
-          "nominal": 2664996496,
+          "nominal": 5925202099,
           "volume": 28053
         }
       },
@@ -842,11 +842,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1576378
         },
         "BLU/PSO": {
-          "nominal": 543559278,
+          "nominal": 347101101,
           "volume": 5436
         },
         "Lainnya": {
-          "nominal": 2336998792,
+          "nominal": 4952659370,
           "volume": 24600
         }
       }
@@ -870,11 +870,11 @@ export const qrisMonthlyByCategory = {
           "volume": 25350
         },
         "BLU/PSO": {
-          "nominal": 1517313606,
+          "nominal": 1951696449,
           "volume": 20231
         },
         "Lainnya": {
-          "nominal": 973051823,
+          "nominal": 1390438508,
           "volume": 11448
         }
       },
@@ -896,11 +896,11 @@ export const qrisMonthlyByCategory = {
           "volume": 247479
         },
         "BLU/PSO": {
-          "nominal": 102906009,
+          "nominal": 358724242,
           "volume": 1029
         },
         "Lainnya": {
-          "nominal": 3740885122,
+          "nominal": 6256673218,
           "volume": 37409
         }
       },
@@ -922,11 +922,11 @@ export const qrisMonthlyByCategory = {
           "volume": 138215
         },
         "BLU/PSO": {
-          "nominal": 68103977,
+          "nominal": 233723561,
           "volume": 681
         },
         "Lainnya": {
-          "nominal": 2786132700,
+          "nominal": 6194529467,
           "volume": 29328
         }
       },
@@ -948,11 +948,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1648032
         },
         "BLU/PSO": {
-          "nominal": 568266518,
+          "nominal": 362878423,
           "volume": 5683
         },
         "Lainnya": {
-          "nominal": 2443226009,
+          "nominal": 5177780250,
           "volume": 25718
         }
       }
@@ -976,11 +976,11 @@ export const qrisMonthlyByCategory = {
           "volume": 26453
         },
         "BLU/PSO": {
-          "nominal": 1583283763,
+          "nominal": 2036552817,
           "volume": 21110
         },
         "Lainnya": {
-          "nominal": 1015358424,
+          "nominal": 1450892356,
           "volume": 11945
         }
       },
@@ -1002,11 +1002,11 @@ export const qrisMonthlyByCategory = {
           "volume": 258239
         },
         "BLU/PSO": {
-          "nominal": 107380184,
+          "nominal": 374320948,
           "volume": 1074
         },
         "Lainnya": {
-          "nominal": 3903532301,
+          "nominal": 6528702488,
           "volume": 39035
         }
       },
@@ -1028,11 +1028,11 @@ export const qrisMonthlyByCategory = {
           "volume": 144224
         },
         "BLU/PSO": {
-          "nominal": 71065020,
+          "nominal": 243885455,
           "volume": 710
         },
         "Lainnya": {
-          "nominal": 2907268905,
+          "nominal": 6463856835,
           "volume": 30603
         }
       },
@@ -1054,11 +1054,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1719686
         },
         "BLU/PSO": {
-          "nominal": 592973758,
+          "nominal": 378655746,
           "volume": 5930
         },
         "Lainnya": {
-          "nominal": 2549453227,
+          "nominal": 5402901131,
           "volume": 26836
         }
       }
@@ -1082,11 +1082,11 @@ export const qrisMonthlyByCategory = {
           "volume": 27555
         },
         "BLU/PSO": {
-          "nominal": 1649253920,
+          "nominal": 2121409184,
           "volume": 21990
         },
         "Lainnya": {
-          "nominal": 1057665025,
+          "nominal": 1511346203,
           "volume": 12443
         }
       },
@@ -1108,11 +1108,11 @@ export const qrisMonthlyByCategory = {
           "volume": 268999
         },
         "BLU/PSO": {
-          "nominal": 111854358,
+          "nominal": 389917654,
           "volume": 1119
         },
         "Lainnya": {
-          "nominal": 4066179480,
+          "nominal": 6800731758,
           "volume": 40662
         }
       },
@@ -1134,11 +1134,11 @@ export const qrisMonthlyByCategory = {
           "volume": 150234
         },
         "BLU/PSO": {
-          "nominal": 74026062,
+          "nominal": 254047349,
           "volume": 740
         },
         "Lainnya": {
-          "nominal": 3028405109,
+          "nominal": 6733184203,
           "volume": 31878
         }
       },
@@ -1160,11 +1160,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1791339
         },
         "BLU/PSO": {
-          "nominal": 617680998,
+          "nominal": 394433069,
           "volume": 6177
         },
         "Lainnya": {
-          "nominal": 2655680445,
+          "nominal": 5628022011,
           "volume": 27955
         }
       }
@@ -1188,11 +1188,11 @@ export const qrisMonthlyByCategory = {
           "volume": 26177
         },
         "BLU/PSO": {
-          "nominal": 1566791224,
+          "nominal": 2015338725,
           "volume": 20890
         },
         "Lainnya": {
-          "nominal": 1004781774,
+          "nominal": 1435778893,
           "volume": 11821
         }
       },
@@ -1214,11 +1214,11 @@ export const qrisMonthlyByCategory = {
           "volume": 255549
         },
         "BLU/PSO": {
-          "nominal": 106261640,
+          "nominal": 370421771,
           "volume": 1063
         },
         "Lainnya": {
-          "nominal": 3862870506,
+          "nominal": 6460695171,
           "volume": 38629
         }
       },
@@ -1240,11 +1240,11 @@ export const qrisMonthlyByCategory = {
           "volume": 142722
         },
         "BLU/PSO": {
-          "nominal": 70324759,
+          "nominal": 241344982,
           "volume": 703
         },
         "Lainnya": {
-          "nominal": 2876984854,
+          "nominal": 6396524993,
           "volume": 30284
         }
       },
@@ -1266,11 +1266,11 @@ export const qrisMonthlyByCategory = {
           "volume": 1701772
         },
         "BLU/PSO": {
-          "nominal": 586796948,
+          "nominal": 374711416,
           "volume": 5868
         },
         "Lainnya": {
-          "nominal": 2522896423,
+          "nominal": 5346620910,
           "volume": 26557
         }
       }
@@ -1296,11 +1296,11 @@ export const qrisMonthlyByCategory = {
           "volume": 54553
         },
         "BLU/PSO": {
-          "nominal": 3265189578,
+          "nominal": 4199961618,
           "volume": 43536
         },
         "Lainnya": {
-          "nominal": 2093963080,
+          "nominal": 2992160160,
           "volume": 24635
         }
       },
@@ -1322,11 +1322,11 @@ export const qrisMonthlyByCategory = {
           "volume": 532563
         },
         "BLU/PSO": {
-          "nominal": 221449032,
+          "nominal": 771958183,
           "volume": 2214
         },
         "Lainnya": {
-          "nominal": 8050213920,
+          "nominal": 13464074996,
           "volume": 80502
         }
       },
@@ -1348,11 +1348,11 @@ export const qrisMonthlyByCategory = {
           "volume": 297433
         },
         "BLU/PSO": {
-          "nominal": 146556648,
+          "nominal": 502962429,
           "volume": 1465
         },
         "Lainnya": {
-          "nominal": 5995630318,
+          "nominal": 13330344482,
           "volume": 63112
         }
       },
@@ -1374,11 +1374,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3546490
         },
         "BLU/PSO": {
-          "nominal": 1222883592,
+          "nominal": 780897793,
           "volume": 12229
         },
         "Lainnya": {
-          "nominal": 5257710780,
+          "nominal": 11142346608,
           "volume": 55344
         }
       }
@@ -1402,11 +1402,11 @@ export const qrisMonthlyByCategory = {
           "volume": 53440
         },
         "BLU/PSO": {
-          "nominal": 3198553056,
+          "nominal": 4114248116,
           "volume": 42647
         },
         "Lainnya": {
-          "nominal": 2051229139,
+          "nominal": 2931095668,
           "volume": 24132
         }
       },
@@ -1428,11 +1428,11 @@ export const qrisMonthlyByCategory = {
           "volume": 521694
         },
         "BLU/PSO": {
-          "nominal": 216929664,
+          "nominal": 756203935,
           "volume": 2170
         },
         "Lainnya": {
-          "nominal": 7885923840,
+          "nominal": 13189297956,
           "volume": 78859
         }
       },
@@ -1454,11 +1454,11 @@ export const qrisMonthlyByCategory = {
           "volume": 291362
         },
         "BLU/PSO": {
-          "nominal": 143565696,
+          "nominal": 492697889,
           "volume": 1435
         },
         "Lainnya": {
-          "nominal": 5873270515,
+          "nominal": 13058296636,
           "volume": 61824
         }
       },
@@ -1480,11 +1480,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3474113
         },
         "BLU/PSO": {
-          "nominal": 1197926784,
+          "nominal": 764961104,
           "volume": 11979
         },
         "Lainnya": {
-          "nominal": 5150410560,
+          "nominal": 10914951779,
           "volume": 54215
         }
       }
@@ -1508,11 +1508,11 @@ export const qrisMonthlyByCategory = {
           "volume": 58449
         },
         "BLU/PSO": {
-          "nominal": 3498417405,
+          "nominal": 4499958877,
           "volume": 46645
         },
         "Lainnya": {
-          "nominal": 2243531871,
+          "nominal": 3205885886,
           "volume": 26394
         }
       },
@@ -1534,11 +1534,11 @@ export const qrisMonthlyByCategory = {
           "volume": 570604
         },
         "BLU/PSO": {
-          "nominal": 237266820,
+          "nominal": 827098054,
           "volume": 2372
         },
         "Lainnya": {
-          "nominal": 8625229200,
+          "nominal": 14425794639,
           "volume": 86252
         }
       },
@@ -1560,11 +1560,11 @@ export const qrisMonthlyByCategory = {
           "volume": 318678
         },
         "BLU/PSO": {
-          "nominal": 157024980,
+          "nominal": 538888317,
           "volume": 1570
         },
         "Lainnya": {
-          "nominal": 6423889626,
+          "nominal": 14282511946,
           "volume": 67620
         }
       },
@@ -1586,11 +1586,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3799811
         },
         "BLU/PSO": {
-          "nominal": 1310232420,
+          "nominal": 836676207,
           "volume": 13102
         },
         "Lainnya": {
-          "nominal": 5633261550,
+          "nominal": 11938228508,
           "volume": 59298
         }
       }
@@ -1614,11 +1614,11 @@ export const qrisMonthlyByCategory = {
           "volume": 40080
         },
         "BLU/PSO": {
-          "nominal": 2398914792,
+          "nominal": 3085686087,
           "volume": 31985
         },
         "Lainnya": {
-          "nominal": 1538421854,
+          "nominal": 2198321750,
           "volume": 18099
         }
       },
@@ -1640,11 +1640,11 @@ export const qrisMonthlyByCategory = {
           "volume": 391271
         },
         "BLU/PSO": {
-          "nominal": 162697248,
+          "nominal": 567152951,
           "volume": 1627
         },
         "Lainnya": {
-          "nominal": 5914442880,
+          "nominal": 9891973467,
           "volume": 59144
         }
       },
@@ -1666,11 +1666,11 @@ export const qrisMonthlyByCategory = {
           "volume": 218522
         },
         "BLU/PSO": {
-          "nominal": 107674272,
+          "nominal": 369523417,
           "volume": 1077
         },
         "Lainnya": {
-          "nominal": 4404952886,
+          "nominal": 9793722477,
           "volume": 46368
         }
       },
@@ -1692,11 +1692,11 @@ export const qrisMonthlyByCategory = {
           "volume": 2605585
         },
         "BLU/PSO": {
-          "nominal": 898445088,
+          "nominal": 573720828,
           "volume": 8985
         },
         "Lainnya": {
-          "nominal": 3862807920,
+          "nominal": 8186213834,
           "volume": 40661
         }
       }
@@ -1720,11 +1720,11 @@ export const qrisMonthlyByCategory = {
           "volume": 41750
         },
         "BLU/PSO": {
-          "nominal": 2498869575,
+          "nominal": 3214256340,
           "volume": 33318
         },
         "Lainnya": {
-          "nominal": 1602522765,
+          "nominal": 2289918490,
           "volume": 18853
         }
       },
@@ -1746,11 +1746,11 @@ export const qrisMonthlyByCategory = {
           "volume": 407574
         },
         "BLU/PSO": {
-          "nominal": 169476300,
+          "nominal": 590784324,
           "volume": 1695
         },
         "Lainnya": {
-          "nominal": 6160878000,
+          "nominal": 10304139028,
           "volume": 61609
         }
       },
@@ -1772,11 +1772,11 @@ export const qrisMonthlyByCategory = {
           "volume": 227627
         },
         "BLU/PSO": {
-          "nominal": 112160700,
+          "nominal": 384920227,
           "volume": 1121
         },
         "Lainnya": {
-          "nominal": 4588492590,
+          "nominal": 10201794247,
           "volume": 48300
         }
       },
@@ -1798,11 +1798,11 @@ export const qrisMonthlyByCategory = {
           "volume": 2714151
         },
         "BLU/PSO": {
-          "nominal": 935880300,
+          "nominal": 597625863,
           "volume": 9359
         },
         "Lainnya": {
-          "nominal": 4023758250,
+          "nominal": 8527306077,
           "volume": 42356
         }
       }
@@ -1826,11 +1826,11 @@ export const qrisMonthlyByCategory = {
           "volume": 45647
         },
         "BLU/PSO": {
-          "nominal": 2732097402,
+          "nominal": 3514253598,
           "volume": 36428
         },
         "Lainnya": {
-          "nominal": 1752091556,
+          "nominal": 2503644216,
           "volume": 20613
         }
       },
@@ -1852,11 +1852,11 @@ export const qrisMonthlyByCategory = {
           "volume": 445614
         },
         "BLU/PSO": {
-          "nominal": 185294088,
+          "nominal": 645924195,
           "volume": 1853
         },
         "Lainnya": {
-          "nominal": 6735893280,
+          "nominal": 11265858670,
           "volume": 67359
         }
       },
@@ -1878,11 +1878,11 @@ export const qrisMonthlyByCategory = {
           "volume": 248872
         },
         "BLU/PSO": {
-          "nominal": 122629032,
+          "nominal": 420846114,
           "volume": 1226
         },
         "Lainnya": {
-          "nominal": 5016751898,
+          "nominal": 11153961710,
           "volume": 52808
         }
       },
@@ -1904,11 +1904,11 @@ export const qrisMonthlyByCategory = {
           "volume": 2967472
         },
         "BLU/PSO": {
-          "nominal": 1023229128,
+          "nominal": 653404276,
           "volume": 10233
         },
         "Lainnya": {
-          "nominal": 4399309020,
+          "nominal": 9323187978,
           "volume": 46309
         }
       }
@@ -1932,11 +1932,11 @@ export const qrisMonthlyByCategory = {
           "volume": 52883
         },
         "BLU/PSO": {
-          "nominal": 3165234795,
+          "nominal": 4071391364,
           "volume": 42203
         },
         "Lainnya": {
-          "nominal": 2029862169,
+          "nominal": 2900563420,
           "volume": 23881
         }
       },
@@ -1958,11 +1958,11 @@ export const qrisMonthlyByCategory = {
           "volume": 516260
         },
         "BLU/PSO": {
-          "nominal": 214669980,
+          "nominal": 748326811,
           "volume": 2147
         },
         "Lainnya": {
-          "nominal": 7803778800,
+          "nominal": 13051909436,
           "volume": 78038
         }
       },
@@ -1984,11 +1984,11 @@ export const qrisMonthlyByCategory = {
           "volume": 288327
         },
         "BLU/PSO": {
-          "nominal": 142070220,
+          "nominal": 487565620,
           "volume": 1421
         },
         "Lainnya": {
-          "nominal": 5812090614,
+          "nominal": 12922272713,
           "volume": 61180
         }
       },
@@ -2010,11 +2010,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3437924
         },
         "BLU/PSO": {
-          "nominal": 1185448380,
+          "nominal": 756992759,
           "volume": 11855
         },
         "Lainnya": {
-          "nominal": 5096760450,
+          "nominal": 10801254364,
           "volume": 53650
         }
       }
@@ -2038,11 +2038,11 @@ export const qrisMonthlyByCategory = {
           "volume": 48986
         },
         "BLU/PSO": {
-          "nominal": 2932006968,
+          "nominal": 3771394106,
           "volume": 39093
         },
         "Lainnya": {
-          "nominal": 1880293378,
+          "nominal": 2686837695,
           "volume": 22121
         }
       },
@@ -2064,11 +2064,11 @@ export const qrisMonthlyByCategory = {
           "volume": 478220
         },
         "BLU/PSO": {
-          "nominal": 198852192,
+          "nominal": 693186940,
           "volume": 1989
         },
         "Lainnya": {
-          "nominal": 7228763520,
+          "nominal": 12090189793,
           "volume": 72288
         }
       },
@@ -2090,11 +2090,11 @@ export const qrisMonthlyByCategory = {
           "volume": 267082
         },
         "BLU/PSO": {
-          "nominal": 131601888,
+          "nominal": 451639732,
           "volume": 1316
         },
         "Lainnya": {
-          "nominal": 5383831306,
+          "nominal": 11970105250,
           "volume": 56672
         }
       },
@@ -2116,11 +2116,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3184603
         },
         "BLU/PSO": {
-          "nominal": 1098099552,
+          "nominal": 701214345,
           "volume": 10981
         },
         "Lainnya": {
-          "nominal": 4721209680,
+          "nominal": 10005372464,
           "volume": 49697
         }
       }
@@ -2144,11 +2144,11 @@ export const qrisMonthlyByCategory = {
           "volume": 51213
         },
         "BLU/PSO": {
-          "nominal": 3065280012,
+          "nominal": 3942821110,
           "volume": 40870
         },
         "Lainnya": {
-          "nominal": 1965761258,
+          "nominal": 2808966682,
           "volume": 23127
         }
       },
@@ -2170,11 +2170,11 @@ export const qrisMonthlyByCategory = {
           "volume": 499957
         },
         "BLU/PSO": {
-          "nominal": 207890928,
+          "nominal": 724695438,
           "volume": 2079
         },
         "Lainnya": {
-          "nominal": 7557343680,
+          "nominal": 12639743874,
           "volume": 75573
         }
       },
@@ -2196,11 +2196,11 @@ export const qrisMonthlyByCategory = {
           "volume": 279222
         },
         "BLU/PSO": {
-          "nominal": 137583792,
+          "nominal": 472168811,
           "volume": 1376
         },
         "Lainnya": {
-          "nominal": 5628550910,
+          "nominal": 12514200943,
           "volume": 59248
         }
       },
@@ -2222,11 +2222,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3329358
         },
         "BLU/PSO": {
-          "nominal": 1148013168,
+          "nominal": 733087724,
           "volume": 11480
         },
         "Lainnya": {
-          "nominal": 4935810120,
+          "nominal": 10460162122,
           "volume": 51956
         }
       }
@@ -2250,11 +2250,11 @@ export const qrisMonthlyByCategory = {
           "volume": 53440
         },
         "BLU/PSO": {
-          "nominal": 3198553056,
+          "nominal": 4114248116,
           "volume": 42647
         },
         "Lainnya": {
-          "nominal": 2051229139,
+          "nominal": 2931095668,
           "volume": 24132
         }
       },
@@ -2276,11 +2276,11 @@ export const qrisMonthlyByCategory = {
           "volume": 521694
         },
         "BLU/PSO": {
-          "nominal": 216929664,
+          "nominal": 756203935,
           "volume": 2170
         },
         "Lainnya": {
-          "nominal": 7885923840,
+          "nominal": 13189297956,
           "volume": 78859
         }
       },
@@ -2302,11 +2302,11 @@ export const qrisMonthlyByCategory = {
           "volume": 291362
         },
         "BLU/PSO": {
-          "nominal": 143565696,
+          "nominal": 492697889,
           "volume": 1435
         },
         "Lainnya": {
-          "nominal": 5873270515,
+          "nominal": 13058296636,
           "volume": 61824
         }
       },
@@ -2328,11 +2328,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3474113
         },
         "BLU/PSO": {
-          "nominal": 1197926784,
+          "nominal": 764961104,
           "volume": 11979
         },
         "Lainnya": {
-          "nominal": 5150410560,
+          "nominal": 10914951779,
           "volume": 54215
         }
       }
@@ -2356,11 +2356,11 @@ export const qrisMonthlyByCategory = {
           "volume": 55666
         },
         "BLU/PSO": {
-          "nominal": 3331826100,
+          "nominal": 4285675120,
           "volume": 44424
         },
         "Lainnya": {
-          "nominal": 2136697020,
+          "nominal": 3053224653,
           "volume": 25138
         }
       },
@@ -2382,11 +2382,11 @@ export const qrisMonthlyByCategory = {
           "volume": 543432
         },
         "BLU/PSO": {
-          "nominal": 225968400,
+          "nominal": 787712432,
           "volume": 2260
         },
         "Lainnya": {
-          "nominal": 8214504000,
+          "nominal": 13738852037,
           "volume": 82145
         }
       },
@@ -2408,11 +2408,11 @@ export const qrisMonthlyByCategory = {
           "volume": 303503
         },
         "BLU/PSO": {
-          "nominal": 149547600,
+          "nominal": 513226968,
           "volume": 1495
         },
         "Lainnya": {
-          "nominal": 6117990120,
+          "nominal": 13602392329,
           "volume": 64400
         }
       },
@@ -2434,11 +2434,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3618867
         },
         "BLU/PSO": {
-          "nominal": 1247840400,
+          "nominal": 796834483,
           "volume": 12478
         },
         "Lainnya": {
-          "nominal": 5365011000,
+          "nominal": 11369741436,
           "volume": 56474
         }
       }
@@ -2462,11 +2462,11 @@ export const qrisMonthlyByCategory = {
           "volume": 52883
         },
         "BLU/PSO": {
-          "nominal": 3165234795,
+          "nominal": 4071391364,
           "volume": 42203
         },
         "Lainnya": {
-          "nominal": 2029862169,
+          "nominal": 2900563420,
           "volume": 23881
         }
       },
@@ -2488,11 +2488,11 @@ export const qrisMonthlyByCategory = {
           "volume": 516260
         },
         "BLU/PSO": {
-          "nominal": 214669980,
+          "nominal": 748326811,
           "volume": 2147
         },
         "Lainnya": {
-          "nominal": 7803778800,
+          "nominal": 13051909436,
           "volume": 78038
         }
       },
@@ -2514,11 +2514,11 @@ export const qrisMonthlyByCategory = {
           "volume": 288327
         },
         "BLU/PSO": {
-          "nominal": 142070220,
+          "nominal": 487565620,
           "volume": 1421
         },
         "Lainnya": {
-          "nominal": 5812090614,
+          "nominal": 12922272713,
           "volume": 61180
         }
       },
@@ -2540,11 +2540,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3437924
         },
         "BLU/PSO": {
-          "nominal": 1185448380,
+          "nominal": 756992759,
           "volume": 11855
         },
         "Lainnya": {
-          "nominal": 5096760450,
+          "nominal": 10801254364,
           "volume": 53650
         }
       }
@@ -2570,11 +2570,11 @@ export const qrisMonthlyByCategory = {
           "volume": 74526
         },
         "BLU/PSO": {
-          "nominal": 4460641500,
+          "nominal": 5737652483,
           "volume": 59475
         },
         "Lainnya": {
-          "nominal": 2860605300,
+          "nominal": 4087650492,
           "volume": 33654
         }
       },
@@ -2596,11 +2596,11 @@ export const qrisMonthlyByCategory = {
           "volume": 727545
         },
         "BLU/PSO": {
-          "nominal": 302526000,
+          "nominal": 1054587682,
           "volume": 3025
         },
         "Lainnya": {
-          "nominal": 10997560000,
+          "nominal": 18393545077,
           "volume": 109976
         }
       },
@@ -2622,11 +2622,11 @@ export const qrisMonthlyByCategory = {
           "volume": 406329
         },
         "BLU/PSO": {
-          "nominal": 200214000,
+          "nominal": 687107143,
           "volume": 2002
         },
         "Lainnya": {
-          "nominal": 8190751800,
+          "nominal": 18210853118,
           "volume": 86218
         }
       },
@@ -2648,11 +2648,11 @@ export const qrisMonthlyByCategory = {
           "volume": 4844932
         },
         "BLU/PSO": {
-          "nominal": 1670606000,
+          "nominal": 1066800264,
           "volume": 16706
         },
         "Lainnya": {
-          "nominal": 7182665000,
+          "nominal": 15221784983,
           "volume": 75607
         }
       }
@@ -2676,11 +2676,11 @@ export const qrisMonthlyByCategory = {
           "volume": 73005
         },
         "BLU/PSO": {
-          "nominal": 4369608000,
+          "nominal": 5620557535,
           "volume": 58261
         },
         "Lainnya": {
-          "nominal": 2802225600,
+          "nominal": 4004229054,
           "volume": 32967
         }
       },
@@ -2702,11 +2702,11 @@ export const qrisMonthlyByCategory = {
           "volume": 712697
         },
         "BLU/PSO": {
-          "nominal": 296352000,
+          "nominal": 1033065485,
           "volume": 2964
         },
         "Lainnya": {
-          "nominal": 10773120000,
+          "nominal": 18018166606,
           "volume": 107731
         }
       },
@@ -2728,11 +2728,11 @@ export const qrisMonthlyByCategory = {
           "volume": 398036
         },
         "BLU/PSO": {
-          "nominal": 196128000,
+          "nominal": 673084548,
           "volume": 1961
         },
         "Lainnya": {
-          "nominal": 8023593600,
+          "nominal": 17839203055,
           "volume": 84459
         }
       },
@@ -2754,11 +2754,11 @@ export const qrisMonthlyByCategory = {
           "volume": 4746056
         },
         "BLU/PSO": {
-          "nominal": 1636512000,
+          "nominal": 1045028830,
           "volume": 16365
         },
         "Lainnya": {
-          "nominal": 7036080000,
+          "nominal": 14911136310,
           "volume": 74064
         }
       }
@@ -2782,11 +2782,11 @@ export const qrisMonthlyByCategory = {
           "volume": 79849
         },
         "BLU/PSO": {
-          "nominal": 4779258750,
+          "nominal": 6147484804,
           "volume": 63723
         },
         "Lainnya": {
-          "nominal": 3064934250,
+          "nominal": 4379625528,
           "volume": 36058
         }
       },
@@ -2808,11 +2808,11 @@ export const qrisMonthlyByCategory = {
           "volume": 779513
         },
         "BLU/PSO": {
-          "nominal": 324135000,
+          "nominal": 1129915374,
           "volume": 3241
         },
         "Lainnya": {
-          "nominal": 11783100000,
+          "nominal": 19707369725,
           "volume": 117831
         }
       },
@@ -2834,11 +2834,11 @@ export const qrisMonthlyByCategory = {
           "volume": 435352
         },
         "BLU/PSO": {
-          "nominal": 214515000,
+          "nominal": 736186225,
           "volume": 2145
         },
         "Lainnya": {
-          "nominal": 8775805500,
+          "nominal": 19511628341,
           "volume": 92377
         }
       },
@@ -2860,11 +2860,11 @@ export const qrisMonthlyByCategory = {
           "volume": 5190998
         },
         "BLU/PSO": {
-          "nominal": 1789935000,
+          "nominal": 1143000283,
           "volume": 17899
         },
         "Lainnya": {
-          "nominal": 7695712500,
+          "nominal": 16309055339,
           "volume": 81008
         }
       }
@@ -2888,11 +2888,11 @@ export const qrisMonthlyByCategory = {
           "volume": 54754
         },
         "BLU/PSO": {
-          "nominal": 3277206000,
+          "nominal": 4215418151,
           "volume": 43696
         },
         "Lainnya": {
-          "nominal": 2101669200,
+          "nominal": 3003171790,
           "volume": 24726
         }
       },
@@ -2914,11 +2914,11 @@ export const qrisMonthlyByCategory = {
           "volume": 534523
         },
         "BLU/PSO": {
-          "nominal": 222264000,
+          "nominal": 774799114,
           "volume": 2223
         },
         "Lainnya": {
-          "nominal": 8079840000,
+          "nominal": 13513624955,
           "volume": 80798
         }
       },
@@ -2940,11 +2940,11 @@ export const qrisMonthlyByCategory = {
           "volume": 298527
         },
         "BLU/PSO": {
-          "nominal": 147096000,
+          "nominal": 504813411,
           "volume": 1471
         },
         "Lainnya": {
-          "nominal": 6017695200,
+          "nominal": 13379402291,
           "volume": 63344
         }
       },
@@ -2966,11 +2966,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3559542
         },
         "BLU/PSO": {
-          "nominal": 1227384000,
+          "nominal": 783771623,
           "volume": 12274
         },
         "Lainnya": {
-          "nominal": 5277060000,
+          "nominal": 11183352232,
           "volume": 55548
         }
       }
@@ -2994,11 +2994,11 @@ export const qrisMonthlyByCategory = {
           "volume": 57035
         },
         "BLU/PSO": {
-          "nominal": 3413756250,
+          "nominal": 4391060574,
           "volume": 45517
         },
         "Lainnya": {
-          "nominal": 2189238750,
+          "nominal": 3128303948,
           "volume": 25756
         }
       },
@@ -3020,11 +3020,11 @@ export const qrisMonthlyByCategory = {
           "volume": 556795
         },
         "BLU/PSO": {
-          "nominal": 231525000,
+          "nominal": 807082410,
           "volume": 2315
         },
         "Lainnya": {
-          "nominal": 8416500000,
+          "nominal": 14076692661,
           "volume": 84165
         }
       },
@@ -3046,11 +3046,11 @@ export const qrisMonthlyByCategory = {
           "volume": 310966
         },
         "BLU/PSO": {
-          "nominal": 153225000,
+          "nominal": 525847304,
           "volume": 1532
         },
         "Lainnya": {
-          "nominal": 6268432500,
+          "nominal": 13936877387,
           "volume": 65984
         }
       },
@@ -3072,11 +3072,11 @@ export const qrisMonthlyByCategory = {
           "volume": 3707856
         },
         "BLU/PSO": {
-          "nominal": 1278525000,
+          "nominal": 816428774,
           "volume": 12785
         },
         "Lainnya": {
-          "nominal": 5496937500,
+          "nominal": 11649325242,
           "volume": 57863
         }
       }
@@ -3100,11 +3100,11 @@ export const qrisMonthlyByCategory = {
           "volume": 62359
         },
         "BLU/PSO": {
-          "nominal": 3732373500,
+          "nominal": 4800892894,
           "volume": 49765
         },
         "Lainnya": {
-          "nominal": 2393567700,
+          "nominal": 3420278983,
           "volume": 28160
         }
       },
@@ -3126,11 +3126,11 @@ export const qrisMonthlyByCategory = {
           "volume": 608762
         },
         "BLU/PSO": {
-          "nominal": 253134000,
+          "nominal": 882410102,
           "volume": 2531
         },
         "Lainnya": {
-          "nominal": 9202040000,
+          "nominal": 15390517309,
           "volume": 92020
         }
       },
@@ -3152,11 +3152,11 @@ export const qrisMonthlyByCategory = {
           "volume": 339989
         },
         "BLU/PSO": {
-          "nominal": 167526000,
+          "nominal": 574926385,
           "volume": 1675
         },
         "Lainnya": {
-          "nominal": 6853486200,
+          "nominal": 15237652609,
           "volume": 72142
         }
       },
@@ -3178,11 +3178,11 @@ export const qrisMonthlyByCategory = {
           "volume": 4053923
         },
         "BLU/PSO": {
-          "nominal": 1397854000,
+          "nominal": 892628792,
           "volume": 13979
         },
         "Lainnya": {
-          "nominal": 6009985000,
+          "nominal": 12736595598,
           "volume": 63263
         }
       }
@@ -3206,11 +3206,11 @@ export const qrisMonthlyByCategory = {
           "volume": 72245
         },
         "BLU/PSO": {
-          "nominal": 4324091250,
+          "nominal": 5562010060,
           "volume": 57655
         },
         "Lainnya": {
-          "nominal": 2773035750,
+          "nominal": 3962518334,
           "volume": 32624
         }
       },
@@ -3232,11 +3232,11 @@ export const qrisMonthlyByCategory = {
           "volume": 705273
         },
         "BLU/PSO": {
-          "nominal": 293265000,
+          "nominal": 1022304386,
           "volume": 2933
         },
         "Lainnya": {
-          "nominal": 10660900000,
+          "nominal": 17830477371,
           "volume": 106609
         }
       },
@@ -3258,11 +3258,11 @@ export const qrisMonthlyByCategory = {
           "volume": 393890
         },
         "BLU/PSO": {
-          "nominal": 194085000,
+          "nominal": 666073251,
           "volume": 1941
         },
         "Lainnya": {
-          "nominal": 7940014500,
+          "nominal": 17653378023,
           "volume": 83579
         }
       },
@@ -3284,11 +3284,11 @@ export const qrisMonthlyByCategory = {
           "volume": 4696618
         },
         "BLU/PSO": {
-          "nominal": 1619465000,
+          "nominal": 1034143113,
           "volume": 16195
         },
         "Lainnya": {
-          "nominal": 6962787500,
+          "nominal": 14755811973,
           "volume": 73293
         }
       }
@@ -3312,11 +3312,11 @@ export const qrisMonthlyByCategory = {
           "volume": 66921
         },
         "BLU/PSO": {
-          "nominal": 4005474000,
+          "nominal": 5152177740,
           "volume": 53406
         },
         "Lainnya": {
-          "nominal": 2568706800,
+          "nominal": 3670543299,
           "volume": 30220
         }
       },
@@ -3338,11 +3338,11 @@ export const qrisMonthlyByCategory = {
           "volume": 653306
         },
         "BLU/PSO": {
-          "nominal": 271656000,
+          "nominal": 946976694,
           "volume": 2717
         },
         "Lainnya": {
-          "nominal": 9875360000,
+          "nominal": 16516652722,
           "volume": 98754
         }
       },
@@ -3364,11 +3364,11 @@ export const qrisMonthlyByCategory = {
           "volume": 364866
         },
         "BLU/PSO": {
-          "nominal": 179784000,
+          "nominal": 616994169,
           "volume": 1798
         },
         "Lainnya": {
-          "nominal": 7354960800,
+          "nominal": 16352602800,
           "volume": 77421
         }
       },
@@ -3390,11 +3390,11 @@ export const qrisMonthlyByCategory = {
           "volume": 4350551
         },
         "BLU/PSO": {
-          "nominal": 1500136000,
+          "nominal": 957943094,
           "volume": 15001
         },
         "Lainnya": {
-          "nominal": 6449740000,
+          "nominal": 13668541617,
           "volume": 67892
         }
       }
@@ -3418,11 +3418,11 @@ export const qrisMonthlyByCategory = {
           "volume": 69963
         },
         "BLU/PSO": {
-          "nominal": 4187541000,
+          "nominal": 5386367637,
           "volume": 55834
         },
         "Lainnya": {
-          "nominal": 2685466200,
+          "nominal": 3837386177,
           "volume": 31594
         }
       },
@@ -3444,11 +3444,11 @@ export const qrisMonthlyByCategory = {
           "volume": 683002
         },
         "BLU/PSO": {
-          "nominal": 284004000,
+          "nominal": 990021090,
           "volume": 2840
         },
         "Lainnya": {
-          "nominal": 10324240000,
+          "nominal": 17267409664,
           "volume": 103242
         }
       },
@@ -3470,11 +3470,11 @@ export const qrisMonthlyByCategory = {
           "volume": 381451
         },
         "BLU/PSO": {
-          "nominal": 187956000,
+          "nominal": 645039359,
           "volume": 1880
         },
         "Lainnya": {
-          "nominal": 7689277200,
+          "nominal": 17095902927,
           "volume": 80940
         }
       },
@@ -3496,11 +3496,11 @@ export const qrisMonthlyByCategory = {
           "volume": 4548303
         },
         "BLU/PSO": {
-          "nominal": 1568324000,
+          "nominal": 1001485962,
           "volume": 15683
         },
         "Lainnya": {
-          "nominal": 6742910000,
+          "nominal": 14289838964,
           "volume": 70978
         }
       }
@@ -3524,11 +3524,11 @@ export const qrisMonthlyByCategory = {
           "volume": 73005
         },
         "BLU/PSO": {
-          "nominal": 4369608000,
+          "nominal": 5620557535,
           "volume": 58261
         },
         "Lainnya": {
-          "nominal": 2802225600,
+          "nominal": 4004229054,
           "volume": 32967
         }
       },
@@ -3550,11 +3550,11 @@ export const qrisMonthlyByCategory = {
           "volume": 712697
         },
         "BLU/PSO": {
-          "nominal": 296352000,
+          "nominal": 1033065485,
           "volume": 2964
         },
         "Lainnya": {
-          "nominal": 10773120000,
+          "nominal": 18018166606,
           "volume": 107731
         }
       },
@@ -3576,11 +3576,11 @@ export const qrisMonthlyByCategory = {
           "volume": 398036
         },
         "BLU/PSO": {
-          "nominal": 196128000,
+          "nominal": 673084548,
           "volume": 1961
         },
         "Lainnya": {
-          "nominal": 8023593600,
+          "nominal": 17839203055,
           "volume": 84459
         }
       },
@@ -3602,11 +3602,11 @@ export const qrisMonthlyByCategory = {
           "volume": 4746056
         },
         "BLU/PSO": {
-          "nominal": 1636512000,
+          "nominal": 1045028830,
           "volume": 16365
         },
         "Lainnya": {
-          "nominal": 7036080000,
+          "nominal": 14911136310,
           "volume": 74064
         }
       }
@@ -3630,11 +3630,11 @@ export const qrisMonthlyByCategory = {
           "volume": 76047
         },
         "BLU/PSO": {
-          "nominal": 4551675000,
+          "nominal": 5854747432,
           "volume": 60689
         },
         "Lainnya": {
-          "nominal": 2918985000,
+          "nominal": 4171071931,
           "volume": 34341
         }
       },
@@ -3656,11 +3656,11 @@ export const qrisMonthlyByCategory = {
           "volume": 742393
         },
         "BLU/PSO": {
-          "nominal": 308700000,
+          "nominal": 1076109880,
           "volume": 3087
         },
         "Lainnya": {
-          "nominal": 11222000000,
+          "nominal": 18768923548,
           "volume": 112220
         }
       },
@@ -3682,11 +3682,11 @@ export const qrisMonthlyByCategory = {
           "volume": 414621
         },
         "BLU/PSO": {
-          "nominal": 204300000,
+          "nominal": 701129738,
           "volume": 2043
         },
         "Lainnya": {
-          "nominal": 8357910000,
+          "nominal": 18582503182,
           "volume": 87978
         }
       },
@@ -3708,11 +3708,11 @@ export const qrisMonthlyByCategory = {
           "volume": 4943808
         },
         "BLU/PSO": {
-          "nominal": 1704700000,
+          "nominal": 1088571698,
           "volume": 17047
         },
         "Lainnya": {
-          "nominal": 7329250000,
+          "nominal": 15532433656,
           "volume": 77150
         }
       }
@@ -3736,11 +3736,11 @@ export const qrisMonthlyByCategory = {
           "volume": 72245
         },
         "BLU/PSO": {
-          "nominal": 4324091250,
+          "nominal": 5562010060,
           "volume": 57655
         },
         "Lainnya": {
-          "nominal": 2773035750,
+          "nominal": 3962518334,
           "volume": 32624
         }
       },
@@ -3762,11 +3762,11 @@ export const qrisMonthlyByCategory = {
           "volume": 705273
         },
         "BLU/PSO": {
-          "nominal": 293265000,
+          "nominal": 1022304386,
           "volume": 2933
         },
         "Lainnya": {
-          "nominal": 10660900000,
+          "nominal": 17830477371,
           "volume": 106609
         }
       },
@@ -3788,11 +3788,11 @@ export const qrisMonthlyByCategory = {
           "volume": 393890
         },
         "BLU/PSO": {
-          "nominal": 194085000,
+          "nominal": 666073251,
           "volume": 1941
         },
         "Lainnya": {
-          "nominal": 7940014500,
+          "nominal": 17653378023,
           "volume": 83579
         }
       },
@@ -3814,11 +3814,11 @@ export const qrisMonthlyByCategory = {
           "volume": 4696618
         },
         "BLU/PSO": {
-          "nominal": 1619465000,
+          "nominal": 1034143113,
           "volume": 16195
         },
         "Lainnya": {
-          "nominal": 6962787500,
+          "nominal": 14755811973,
           "volume": 73293
         }
       }
@@ -3847,15 +3847,15 @@ export const qrisRealData = {
         "volume": 301450
       },
       "BLU/PSO": {
-        "nominal": 18042837881,
+        "nominal": 23208216476,
         "volume": 240568
       },
       "Lainnya": {
-        "nominal": 11570855374,
+        "nominal": 16534127467,
         "volume": 136126
       },
       "TOTAL": {
-        "nominal": 311514305762,
+        "nominal": 321642956450,
         "volume": 4119634
       }
     },
@@ -3878,15 +3878,15 @@ export const qrisRealData = {
         "volume": 608990
       },
       "BLU/PSO": {
-        "nominal": 36450177534,
+        "nominal": 46885285816,
         "volume": 485999
       },
       "Lainnya": {
-        "nominal": 23375465398,
+        "nominal": 33402277708,
         "volume": 275006
       },
       "TOTAL": {
-        "nominal": 629321829811,
+        "nominal": 649783750403,
         "volume": 8322497
       }
     },
@@ -3909,15 +3909,15 @@ export const qrisRealData = {
         "volume": 831954
       },
       "BLU/PSO": {
-        "nominal": 49795324500,
+        "nominal": 64050936905,
         "volume": 663937
       },
       "Lainnya": {
-        "nominal": 31933695900,
+        "nominal": 45631526924,
         "volume": 375691
       },
       "TOTAL": {
-        "nominal": 859729275702,
+        "nominal": 887682719131,
         "volume": 11369536
       }
     }
@@ -3942,15 +3942,15 @@ export const qrisRealData = {
         "volume": 2942848
       },
       "BLU/PSO": {
-        "nominal": 1223686678,
+        "nominal": 4265699135,
         "volume": 12238
       },
       "Lainnya": {
-        "nominal": 44484003512,
+        "nominal": 74400005438,
         "volume": 444840
       },
       "TOTAL": {
-        "nominal": 2337930140825,
+        "nominal": 2370888155208,
         "volume": 28344027
       }
     },
@@ -3973,15 +3973,15 @@ export const qrisRealData = {
         "volume": 5945143
       },
       "BLU/PSO": {
-        "nominal": 2472094296,
+        "nominal": 8617574009,
         "volume": 24723
       },
       "Lainnya": {
-        "nominal": 89866673760,
+        "nominal": 150303041288,
         "volume": 898666
       },
       "TOTAL": {
-        "nominal": 4723091193568,
+        "nominal": 4789673040809,
         "volume": 57260659
       }
     },
@@ -4004,15 +4004,15 @@ export const qrisRealData = {
         "volume": 8121779
       },
       "BLU/PSO": {
-        "nominal": 3377178000,
+        "nominal": 11772642088,
         "volume": 33773
       },
       "Lainnya": {
-        "nominal": 122768680000,
+        "nominal": 205332023615,
         "volume": 1227686
       },
       "TOTAL": {
-        "nominal": 6452310373727,
+        "nominal": 6543269181430,
         "volume": 78224941
       }
     }
@@ -4037,15 +4037,15 @@ export const qrisRealData = {
         "volume": 1643557
       },
       "BLU/PSO": {
-        "nominal": 809845121,
+        "nominal": 2779277999,
         "volume": 8095
       },
       "Lainnya": {
-        "nominal": 33130751896,
+        "nominal": 73661035181,
         "volume": 348746
       },
       "TOTAL": {
-        "nominal": 1059589600351,
+        "nominal": 1102089316514,
         "volume": 13788890
       }
     },
@@ -4068,15 +4068,15 @@ export const qrisRealData = {
         "volume": 3320317
       },
       "BLU/PSO": {
-        "nominal": 1636050744,
+        "nominal": 5614703033,
         "volume": 16358
       },
       "Lainnya": {
-        "nominal": 66930811912,
+        "nominal": 148810172082,
         "volume": 704536
       },
       "TOTAL": {
-        "nominal": 2140585051211,
+        "nominal": 2226443063670,
         "volume": 27856342
       }
     },
@@ -4099,15 +4099,15 @@ export const qrisRealData = {
         "volume": 4535953
       },
       "BLU/PSO": {
-        "nominal": 2235042000,
+        "nominal": 7670359332,
         "volume": 22350
       },
       "Lainnya": {
-        "nominal": 91435535400,
+        "nominal": 203292584811,
         "volume": 962480
       },
       "TOTAL": {
-        "nominal": 2924296518051,
+        "nominal": 3041588884794,
         "volume": 38055116
       }
     }
@@ -4132,15 +4132,15 @@ export const qrisRealData = {
         "volume": 19597253
       },
       "BLU/PSO": {
-        "nominal": 6757430118,
+        "nominal": 4315097776,
         "volume": 67576
       },
       "Lainnya": {
-        "nominal": 29053144068,
+        "nominal": 61570560800,
         "volume": 305823
       },
       "TOTAL": {
-        "nominal": 1213563261678,
+        "nominal": 1243638346068,
         "volume": 25348633
       }
     },
@@ -4163,15 +4163,15 @@ export const qrisRealData = {
         "volume": 39590411
       },
       "BLU/PSO": {
-        "nominal": 13651373976,
+        "nominal": 8717369245,
         "volume": 136515
       },
       "Lainnya": {
-        "nominal": 58693220340,
+        "nominal": 124384971313,
         "volume": 617825
       },
       "TOTAL": {
-        "nominal": 2451642952885,
+        "nominal": 2512400699127,
         "volume": 51209361
       }
     },
@@ -4194,15 +4194,15 @@ export const qrisRealData = {
         "volume": 54085261
       },
       "BLU/PSO": {
-        "nominal": 18649418000,
+        "nominal": 11908974376,
         "volume": 186494
       },
       "Lainnya": {
-        "nominal": 80181995000,
+        "nominal": 169924824197,
         "volume": 844023
       },
       "TOTAL": {
-        "nominal": 3349239006678,
+        "nominal": 3432241392251,
         "volume": 69958141
       }
     }

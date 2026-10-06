@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
+// Exact real data for August 2026 from user's official reports
 const realAug2026 = {
   Banjarnegara: {
     merchants: 69555,
@@ -8,8 +9,8 @@ const realAug2026 = {
     UKE: { nominal: 11556929905, volume: 123773 },
     UME: { nominal: 12490637946, volume: 120074 },
     UBE: { nominal: 5405406581, volume: 76047 },
-    "BLU/PSO": { nominal: 4551675000, volume: 60689 },
-    "Lainnya": { nominal: 2918985000, volume: 34341 }
+    "BLU/PSO": { nominal: 5854747432, volume: 60689 },
+    "Lainnya": { nominal: 4171071931, volume: 34341 }
   },
   Banyumas: {
     merchants: 374453,
@@ -17,8 +18,8 @@ const realAug2026 = {
     UKE: { nominal: 76011423587, volume: 878622 },
     UME: { nominal: 164808723884, volume: 1208936 },
     UBE: { nominal: 90693025337, volume: 742393 },
-    "BLU/PSO": { nominal: 308700000, volume: 3087 },
-    "Lainnya": { nominal: 11222000000, volume: 112220 }
+    "BLU/PSO": { nominal: 1076109880, volume: 3087 },
+    "Lainnya": { nominal: 18768923548, volume: 112220 }
   },
   Cilacap: {
     merchants: 188359,
@@ -26,8 +27,8 @@ const realAug2026 = {
     UKE: { nominal: 30156942131, volume: 314621 },
     UME: { nominal: 61311308567, volume: 680440 },
     UBE: { nominal: 32823035800, volume: 414621 },
-    "BLU/PSO": { nominal: 204300000, volume: 2043 },
-    "Lainnya": { nominal: 8357910000, volume: 87978 }
+    "BLU/PSO": { nominal: 701129738, volume: 2043 },
+    "Lainnya": { nominal: 18582503182, volume: 87978 }
   },
   Purbalingga: {
     merchants: 94748,
@@ -35,8 +36,8 @@ const realAug2026 = {
     UKE: { nominal: 10796694281, volume: 106417 },
     UME: { nominal: 39470761978, volume: 385088 },
     UBE: { nominal: 187990806864, volume: 4943808 },
-    "BLU/PSO": { nominal: 1704700000, volume: 17047 },
-    "Lainnya": { nominal: 7329250000, volume: 77150 }
+    "BLU/PSO": { nominal: 1088571698, volume: 17047 },
+    "Lainnya": { nominal: 15532433656, volume: 77150 }
   }
 }
 
@@ -55,6 +56,7 @@ const seasonalFactors = {
   "12": 1.05
 }
 
+// Sequence: 1. Banjarnegara, 2. Banyumas, 3. Cilacap, 4. Purbalingga
 const kabupatenList = ['Banjarnegara', 'Banyumas', 'Cilacap', 'Purbalingga']
 const categories = ['UMI', 'UKE', 'UME', 'UBE', 'BLU/PSO', 'Lainnya']
 
@@ -182,4 +184,4 @@ export const qrisMonthlyTrend = {}; // Kept for backwards compatibility
 
 const targetFile = path.resolve('c:/laragon/www/coba qris/src/data/qrisData.js')
 fs.writeFileSync(targetFile, code, 'utf-8')
-console.log('Successfully updated qrisData.js with exact BLU/PSO and Lainnya volumes!')
+console.log('Successfully updated qrisData.js with exact August 2026 Nominal and Volume for all 6 categories!')
