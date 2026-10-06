@@ -12,6 +12,7 @@ import { Power, ShieldCheck, User } from './components/icons.jsx'
 
 import logoBI from '../logo1.png'
 import logo4Kab from '../logo 4 kab.png'
+import logoKpw from '../logo kpw0.png'
 import logoKiri1 from '../logokiri1.png'
 import logoKiri2 from '../logokiri2.png'
 import logoKiri3 from '../logokiri3.png'
@@ -138,13 +139,14 @@ export default function App() {
             </div>
           </div>
 
-          {/* Right Container: Admin Badge & Logout Button */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Admin Profile Pill */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-50/70 border border-blue-200 text-blue-900 text-xs font-semibold">
-              <ShieldCheck size={15} className="text-brand shrink-0" />
-              <span className="truncate max-w-[200px]">KPw BI Purwokerto</span>
-            </div>
+          {/* Right Container: KPw BI Purwokerto Logo & Logout Button */}
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+            {/* KPw BI Purwokerto Logo Image */}
+            <img
+              src={logoKpw}
+              alt="Logo KPw Bank Indonesia Purwokerto"
+              className="h-8 sm:h-10 w-auto object-contain hidden sm:block shrink-0 drop-shadow-xs"
+            />
 
             {/* Logout Button */}
             <button
