@@ -6,6 +6,7 @@ import HeatmapMap from '../components/HeatmapMap.jsx'
 import HeatmapLegend from '../components/HeatmapLegend.jsx'
 import KecamatanDetailPanel from '../components/KecamatanDetailPanel.jsx'
 import KecamatanRankingList from '../components/KecamatanRankingList.jsx'
+import HeatmapPieChart from '../components/HeatmapPieChart.jsx'
 import { ShieldCheck, Store, ArrowLeftRight, Banknote } from '../components/icons.jsx'
 import { kecamatanZonation } from '../data/heatmapData.js'
 import { qrisRealData } from '../data/qrisData.js'
@@ -473,6 +474,9 @@ export default function Heatmap({ isAdmin = true }) {
           <KecamatanRankingList selectedId={selectedId} onSelect={setSelectedId} data={data} />
         </div>
       </div>
+
+      {/* Pie Chart: Distribusi 4 Kategori (UMI, UKE, UME, UBE) */}
+      <HeatmapPieChart range={range} selectedId={selectedId} data={data} />
 
       <div className="flex items-start gap-2.5 text-xs text-ink-300 bg-white border border-surface-border rounded-xl p-3 sm:p-3.5">
         <ShieldCheck size={15} className="text-ink-300 shrink-0 mt-0.5" />
