@@ -1,0 +1,26 @@
+ID Kecamatan,Kabupaten/Kota,Kecamatan,Latitude,Longitude,Skor Zonasi,Kategori Zona,Jumlah Merchant,Adopsi QRIS (%),Volume Transaksi (7 Hari),Risiko Fraud (%),Pertumbuhan (%),Industri Dominan
+KEC-01,Banyumas,Purwokerto Timur,-7.4247,109.2461,92,Prime Zone,812,92,29000,18,14.8,Kuliner & Kafe
+KEC-02,Banyumas,Purwokerto Barat,-7.4235,109.2287,86,Prime Zone,745,89,28500,22,13.3,Perdagangan Retail
+KEC-03,Banyumas,Purwokerto Utara,-7.4109,109.2417,80,Prime Zone,690,87,27200,15,12.9,Jasa & Pendidikan
+KEC-04,Banyumas,Purwokerto Selatan,-7.4370,109.2360,75,Prime Zone,655,85,25800,20,11.5,Industri Kreatif
+KEC-05,Banyumas,Sokaraja,-7.4370,109.2870,60,Growth Zone,410,79,18500,28,8.0,Batik & Makanan Khas
+KEC-06,Banyumas,Baturraden,-7.3138,109.2266,40,Basic Zone,210,71,11000,12,6.0,Pariwisata & Hotel
+KEC-07,Banyumas,Sumbang,-7.3612,109.2649,35,Basic Zone,188,69,9800,16,4.7,Pertanian & Peternakan
+KEC-08,Banyumas,Kembaran,-7.4276,109.2650,50,Growth Zone,265,75,14200,19,7.1,Perdagangan & Jasa
+KEC-09,Banyumas,Cilongok,-7.3480,109.1730,30,Basic Zone,145,67,8200,14,4.0,Pertanian & Gula Semut
+KEC-10,Banyumas,Ajibarang,-7.3900,109.0730,45,Basic Zone,240,73,12400,24,5.7,Transportasi & Jasa
+KEC-11,Banyumas,Banyumas,-7.5140,109.2900,40,Basic Zone,205,71,11200,21,5.1,Kerajinan & Kuliner
+KEC-12,Banyumas,Wangon,-7.4900,109.0450,35,Basic Zone,175,69,9400,17,4.6,Ritel & Logistik
+KEC-13,Cilacap,Cilacap Tengah,-7.7260,109.0140,50,Growth Zone,275,75,13800,26,6.4,Maritim & Perdagangan
+KEC-14,Cilacap,Cilacap Selatan,-7.7380,109.0250,65,Growth Zone,390,81,19200,22,9.5,Industri & Perikanan
+KEC-15,Cilacap,Kroya (Cilacap),-7.6330,109.2450,55,Growth Zone,320,77,16500,30,6.9,Perdagangan Grosir
+KEC-16,Cilacap,Majenang,-7.2980,108.7610,48,Basic Zone,215,74,12000,18,6.8,Ritel & Pertanian
+KEC-17,Cilacap,Sidareja,-7.4830,108.8030,42,Basic Zone,190,72,10800,15,6.1,Pertanian & Perdagangan
+KEC-18,Purbalingga,Purbalingga,-7.3890,109.3620,60,Growth Zone,385,79,19500,23,8.5,Industri Bulu Mata & Rambut
+KEC-19,Purbalingga,Padamara,-7.3750,109.3250,45,Basic Zone,220,73,11800,14,6.7,Kuliner & Kerajinan
+KEC-20,Purbalingga,Bobotsari,-7.2470,109.3560,52,Growth Zone,295,76,14900,20,7.4,Grosir & Transportasi
+KEC-21,Purbalingga,Bukateja,-7.4320,109.4210,38,Basic Zone,165,70,9600,12,5.6,Pertanian & Ritel
+KEC-22,Banjarnegara,Banjarnegara,-7.3960,109.6970,58,Growth Zone,340,78,17200,21,8.3,Kerajinan Keramik & Kuliner
+KEC-23,Banjarnegara,Klampok (Banjarnegara),-7.3660,109.4300,45,Basic Zone,210,73,11400,16,6.5,Industri Keramik & Genteng
+KEC-24,Banjarnegara,Mandiraja,-7.3710,109.5100,40,Basic Zone,185,71,9800,13,5.9,Pertanian & Ritel
+KEC-25,Banjarnegara,Kalibening,-7.2180,109.6430,32,Basic Zone,130,68,7400,10,4.8,Perkebunan Teh & Sayur
