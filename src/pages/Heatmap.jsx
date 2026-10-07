@@ -14,7 +14,7 @@ import {
   Banknote
 } from '@/components'
 import { kecamatanZonation, parseYearRange } from '@/data/heatmapData.js'
-import { qrisRealData, qrisMonthlyByCategory } from '@/data/qrisData.js'
+import { qrisRealData, qrisMonthlyByCategory, qrisMonthlyMerchants } from '@/data/qrisData.js'
 import { formatRupiah } from '@/utils/formatters.js'
 
 const formatRp = formatRupiah
@@ -60,7 +60,7 @@ export default function Heatmap({ isAdmin = true }) {
   const baseKecamatan = importedData || kecamatanZonation
 
   const data = useMemo(() => {
-    const { startYear, endYear } = parseYearRange(range)
+    const { startYear, endYear, isRange } = parseYearRange(range)
     const sNum = parseInt(startYear, 10) || 2026
     const eNum = parseInt(endYear, 10) || sNum
     const selectedCat = category
@@ -85,10 +85,33 @@ export default function Heatmap({ isAdmin = true }) {
         const yStr = String(y)
         const kabRealData = qrisRealData[reg]?.[yStr]
         if (kabRealData) {
-          if (y === eNum) realMerchants = kabRealData.merchants || realMerchants || 0
-          const catData = kabRealData[selectedCat] || { volume: 0, nominal: 0 }
-          catVolume += catData.volume || 0
-          catNominal += catData.nominal || 0
+          if (y === eNum) {
+            if (!isRange && month && month !== 'ALL' && qrisMonthlyMerchants?.[yStr]?.[month]?.[reg]) {
+              realMerchants = qrisMonthlyMerchants[yStr][month][reg]
+            } else {
+              realMerchants = kabRealData.merchants || realMerchants || 0
+            }
+          }
+          if (yStr === '2026' && !isRange && month && month !== 'ALL' && qrisMonthlyByCategory['2026']?.[month]?.[reg]) {
+            const mData = qrisMonthlyByCategory['2026'][month][reg]
+            if (selectedCat === 'TOTAL') {
+              ;['UMI', 'UKE', 'UME', 'UBE', 'BLU/PSO', 'Lainnya'].forEach(c => {
+                catVolume += mData[c]?.volume || 0
+                catNominal += mData[c]?.nominal || 0
+              })
+            } else if (mData[selectedCat]) {
+              catVolume += mData[selectedCat]?.volume || 0
+              catNominal += mData[selectedCat]?.nominal || 0
+            } else {
+              const catData = kabRealData[selectedCat] || { volume: 0, nominal: 0 }
+              catVolume += Math.round(catData.volume / 8)
+              catNominal += Math.round(catData.nominal / 8)
+            }
+          } else {
+            const catData = kabRealData[selectedCat] || { volume: 0, nominal: 0 }
+            catVolume += catData.volume || 0
+            catNominal += catData.nominal || 0
+          }
         } else {
           const base2024 = qrisRealData[reg]?.['2024'] || {}
           if (y === eNum && !realMerchants) realMerchants = base2024.merchants || 50000
@@ -139,7 +162,7 @@ export default function Heatmap({ isAdmin = true }) {
         transactionVolume: k.indicators.transactionVolume7d / maxVolume
       }
     }))
-  }, [baseKecamatan, range, category])
+  }, [baseKecamatan, range, category, month])
 
   const kpiTotals = useMemo(() => {
     const selectedKecamatan = data.find(k => k.id === selectedId)
@@ -160,7 +183,11 @@ export default function Heatmap({ isAdmin = true }) {
           const yStr = String(y)
           const kabData = qrisRealData[kab]?.[yStr]
           if (y === eNum && kabData) {
-            totalMerchants += kabData.merchants || 0
+            if (!isRange && month && month !== 'ALL' && qrisMonthlyMerchants?.[yStr]?.[month]?.[kab]) {
+              totalMerchants += qrisMonthlyMerchants[yStr][month][kab]
+            } else {
+              totalMerchants += kabData.merchants || 0
+            }
           }
 
           if (yStr === '2026' && !isRange && month && month !== 'ALL' && qrisMonthlyByCategory['2026']?.[month]?.[kab]) {

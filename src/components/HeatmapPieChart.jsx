@@ -15,7 +15,7 @@ import {
   Legend
 } from 'recharts'
 import { Calendar, TrendingUp, BarChart3, Layers } from './icons.jsx'
-import { qrisRealData, qrisMonthlyByCategory } from '../data/qrisData.js'
+import { qrisRealData, qrisMonthlyByCategory, qrisMonthlyMerchants } from '../data/qrisData.js'
 import { YEAR_OPTIONS, parseYearRange } from '../data/heatmapData.js'
 
 // Urutan resmi: Banjarnegara (1), Banyumas (2), Cilacap (3), Purbalingga (4)
@@ -720,6 +720,13 @@ export default function HeatmapPieChart({
 
       // Single Year 2026:
       if (mKey === 'ALL') {
+        const kabData = qrisRealData[kab]?.['2026']
+        if (kabData && kabData[catKey]) {
+          return {
+            nominal: kabData[catKey].nominal || 0,
+            volume: kabData[catKey].volume || 0
+          }
+        }
         let nom = 0, vol = 0
         for (let m = 1; m <= 12; m++) {
           const mStr = String(m).padStart(2, '0')
@@ -745,11 +752,17 @@ export default function HeatmapPieChart({
     for (let y = sNum; y <= eNum; y++) {
       const yStr = String(y)
       if (yStr === '2026') {
-        for (let m = 1; m <= 12; m++) {
-          const mStr = String(m).padStart(2, '0')
-          const mData = qrisMonthlyByCategory['2026']?.[mStr]?.[kab]?.[catKey]
-          totalNom += mData?.nominal || 0
-          totalVol += mData?.volume || 0
+        const kabData = qrisRealData[kab]?.['2026']
+        if (kabData && kabData[catKey]) {
+          totalNom += kabData[catKey].nominal || 0
+          totalVol += kabData[catKey].volume || 0
+        } else {
+          for (let m = 1; m <= 12; m++) {
+            const mStr = String(m).padStart(2, '0')
+            const mData = qrisMonthlyByCategory['2026']?.[mStr]?.[kab]?.[catKey]
+            totalNom += mData?.nominal || 0
+            totalVol += mData?.volume || 0
+          }
         }
       } else {
         const kabData = qrisRealData[kab]?.[yStr]
@@ -1001,12 +1014,16 @@ export default function HeatmapPieChart({
       })
 
       const kabReal = qrisRealData[kab]?.[selectedYear] || {}
+      let mMerchants = kabReal.merchants || 0
+      if (selectedMonth && selectedMonth !== 'ALL' && qrisMonthlyMerchants?.[selectedYear]?.[selectedMonth]?.[kab]) {
+        mMerchants = qrisMonthlyMerchants[selectedYear][selectedMonth][kab]
+      }
 
       return {
         kab,
         totalNominal: totalKabNominal,
         totalVolume: totalKabVolume,
-        merchants: kabReal.merchants || 0,
+        merchants: mMerchants,
         shares
       }
     })
